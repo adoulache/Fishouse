@@ -1,0 +1,11 @@
+.titleForum{
+    font-size: 3rem;
+    font-family: Verdana, Tahoma, sans-serif;
+    color: #000;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.card-group{
+    margin-top:15px;
+}

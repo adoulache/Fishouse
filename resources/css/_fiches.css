@@ -1,0 +1,56 @@
+#historique {
+    border:solid 10px white;
+    border-radius: 5%;
+    background-color: rgba(239, 235, 233, 0.5);
+}
+
+#barre-recherche-poisson{
+    width: 50%;
+}
+
+#barre-recherche-plante{
+    width: 50%;
+}
+
+/* Titre et trait sous le titre */
+
+#titleFiche{
+    font-size: 3rem;
+    font-family: 'Palatino Linotype';
+    color:#000;
+    text-align:center;
+    margin-top:10px;
+}
+#hrFiche{
+    background-color: rgb(7,7,7);
+    width:3%;
+    height:2px;
+}
+
+/* Onglets poissons et plantes */
+
+/* Couleur utilisée pour les liens */
+#myTab > li > a {
+    color: #148F77;
+}
+/* Couleur utilisée pour le lien actif (celui qui est affiché sur la page) */
+#myTab > li > .active,
+#myTab > li > a:hover,
+#myTab > li > a:focus {
+    color: rgb(0, 0, 0);
+    /*color:white;
+    background-color: #000;*/
+}
+
+.card{
+    border-color: white;
+}
+
+.barreModalPlante{
+    border:1px white;
+    border-bottom: 1px dashed black;
+    /*background-color: rgb(7,7,7);
+    width:3%;
+    height:2px;
+    border-bottom: 1px dashed black;*/
+}
