@@ -17,8 +17,8 @@
 <!--HEADER-->
 <header class="header">
     <div class="buttonHeader">
-        <a class="btn btn-dark" href="#home">Connexion</a>
-        <a class="btn btn-dark" href="#contact">Inscription</a>
+        <a class="btn btn-dark" href="{{ route('connexion') }}">Connexion</a>
+        <a class="btn btn-dark" href="{{ route('inscription') }}">Inscription</a>
     </div>
 </header>
 

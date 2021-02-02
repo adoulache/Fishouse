@@ -33,6 +33,17 @@ Route::get('/forum', function () {
     return view('forum');
 })->name('forum');
 
+// Route vers connexion:
+Route::get('/inscription', function () {
+    return view('auth.register');
+})->name('inscription');
+
+// Route vers connexion:
+Route::get('/connexion', function () {
+    return view('auth.login');
+})->name('connexion');
+
+// Route vers le dashboard si utilisateur est bien connecté:
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
