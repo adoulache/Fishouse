@@ -21,13 +21,11 @@
 
 .modelisationTextHome {
     position: absolute;
-    /* background-color: #0a0a0ac0;  */
     top: 20%;
     left: 20%;
     right: 20%;
     color: #fdfdfd;
     font-size: 3rem;
-
     margin-top: 10px;
 }
 
@@ -35,12 +33,6 @@
     font-family: 'aquarium';
 }
 
-/* a:link{
-  text-decoration:none;
-}
-a:hover{
-  color: white;
-} */
 
 .modelisation{
     font-size: 4rem;
@@ -48,11 +40,6 @@ a:hover{
     font-weight: bold;
     text-transform: uppercase;
     text-shadow: #0a0a0a 10px 0 10px;
-    /* transition: transform 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55), background-position 800ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    background-size: contain;
-    background-position: -200px center;
-    background-repeat: no-repeat; */
-    /* font-family: 'serif'; */
 }
 
 .modelisation:link{
@@ -61,55 +48,17 @@ a:hover{
 
 .modelisation:hover {
     color: white;
-    /* transform: scale(1.1);
-    background-position: -60px; */
 }
-
-/* .modelisation:active {
-  transform: scale(1);
-  background-position: 500px;
-}*
- */
-
-/* #modelisation {
-  width: 100%;
-} */
-
-/*Ancien bouton
-  .modelisationButton{
-    left : 20%;
-    right : 20%;
-    color: white;
-    font-weight: bold;
-    font-size: 2rem;
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: 2% 2%;
-    background-color: #242323;
-    transition: transform 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55), background-position 800ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    background-size: contain;
-    background-position: -200px center;
-    background-repeat: no-repeat;
-    border:1px solid #dee2e6;
-  }
-  .modelisationButton:hover {
-    transform: scale(1.1);
-    background-position: -60px;
-  }
-  .modelisationButton:active {
-    transform: scale(1);
-    background-position: 500px;
-  }*/
-
-/* Partie fonctionnalités de l'accueil */
 
 .hrModelisation {
-    background-color: white;
-    width: 4%;
-    height: 3px;
-    margin-bottom: 15px;
-    text-shadow: #0a0a0a 10px 0 10px;
+  background-color: white;
+  width: 4%;
+  height: 3px;
+  margin-bottom: 15px auto;
+  text-shadow: #0a0a0a 10px 0 10px;
 }
+
+/* Partie fonctionnalités de l'accueil */
 
 .fonctionnalite {
     border: 5px solid white;
@@ -119,7 +68,7 @@ a:hover{
 
 .fonctionnalitésText {
     position: relative;
-    font-size: 3rem;
+    font-size: 8rem;
     top: auto;
     text-align: center;
     font-family: 'Palatino Linotype';
