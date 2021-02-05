@@ -5,7 +5,7 @@ $(function(){
         var idProjet = "123"; // A MODIFIER quand on saura où il apparait
 
         /* Vérification si l'id du projet existe dans la base */
-        $.ajax({
+        var retour = $.ajax({
             url: 'modelisation',
             type: 'GET',
             data: 'idProjet=' + idProjet,
@@ -18,7 +18,7 @@ $(function(){
 
         /* Retour : le projet n'existe pas encore (nouveau projet) */
         // ajout if(){} : A AJOUTER
-        if (true){
+        if (!retour){
             console.log('le projet n existe pas encore');
 
             /* Affichage modal demande du nom du projet */
