@@ -33,5 +33,36 @@
                     exercitation ullamco.</p>
             </div>
         </div>
+        <!-- Bouton pour la sauvegarde du projet -->
+        <div>
+            <button type="button" class="btn btn-dark" id="boutonSauve">bouton test sauvegarde</button>
+        </div>
+        <!-- Modal de demande du nom du projet -->
+        <div class="modal fade" id="modalNomProjet" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <form id="formulaire" role='form'>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Sauvegarde d'un nouveau projet</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                            <div class="form-group">
+                                <label for="nom-projet" class="col-form-label">Quel nom veux-tu donner à ton projet ?</label>
+                                <input type="text" class="form-control" id="nom-projet">
+                            </div>
+                            <div id="sauveOk" class="hidden" style="color:green;">Sauvegarde effectuée !</div>
+                        <!--class="h3 text-center hidden"-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
     </div>
 @endsection

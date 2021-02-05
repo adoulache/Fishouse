@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ModelisationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,9 @@ Route::get('/fiches', function () {
 })->name('fiches');
 
 // Route vers la page modelisation:
+Route::get('/modelisation', [ModelisationController::class, 'getProjet']);
+Route::post('/modelisation', [ModelisationController::class, 'postNom']);
+Route::post('/modelisation', [ModelisationController::class, 'postSauveProjet']);
 Route::get('/modelisation', function () {
     return view('modelisation');
 })->name('modelisation');
@@ -36,3 +40,5 @@ Route::get('/forum', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+
