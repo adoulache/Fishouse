@@ -3803,6 +3803,7 @@ $(function () {
     console.log(id);
     $.ajax({
       url: 'modelisation',
+      method: 'POST',
       //url: '../ModelisationController.php',
       success: function success() {
         alert('OK');
