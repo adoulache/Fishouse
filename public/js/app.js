@@ -3802,7 +3802,7 @@ $(function () {
     var id = document.getElementById('idProjetTest').textContent;
     console.log(id);
     $.ajax({
-      url: '../../app/Http/Controllers/ModelisationController.php',
+      url: 'modelisation',
       //url: '../ModelisationController.php',
       success: function success() {
         alert('OK');

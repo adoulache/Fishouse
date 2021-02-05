@@ -24,6 +24,7 @@ Route::get('/fiches', function () {
 })->name('fiches');
 
 // Route vers la page modelisation:
+Route::post('/modelisation', [ModelisationController::class, 'postReinitProjet']);
 Route::get('/modelisation', function () {
     return view('modelisation');
 })->name('modelisation');

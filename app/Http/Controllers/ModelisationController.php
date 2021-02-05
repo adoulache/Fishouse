@@ -14,9 +14,9 @@ class ModelisationController extends Controller
      *
      * @param  string  $idProjet
      */
-    public function reinit_projet(){
-        if (isset($_POST['id']){
-        }
+    public function postReinitProjet(){
+        // if (isset($_POST['id']){
+        // }
         DB::table('projet_plante')->where('id_projet', '=', $idProjet)->delete();
         //return(View("modelisation.blade.php"))
         return view("modelisation");
