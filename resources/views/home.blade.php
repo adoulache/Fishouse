@@ -64,4 +64,7 @@
             </div>
         </div>
     </div>
+
+
+    <p> ICIIIIIII <div id="imageDeco"></div> </p>
 @endsection
