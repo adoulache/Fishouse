@@ -3795,59 +3795,117 @@ module.exports = {
 $(function () {
   $('#boutonSauve').on('click', function () {
     console.log('clic sur le bouton sauvegarde');
-    var idProjet = "123"; // A MODIFIER quand on saura où il apparait
+    var idProjet = 123; // A MODIFIER quand on saura où il apparait
 
+    var exist = '';
     /* Vérification si l'id du projet existe dans la base */
 
     var retour = $.ajax({
-      url: 'modelisation',
+      url: 'modelisation1',
       type: 'GET',
       data: 'idProjet=' + idProjet,
-      success: function success(text) {
-        if (text == "success") {
-          console.log('C est ok');
-        }
+      async: false,
+      dataType: 'JSON',
+      success: function success(data) {
+        //console.log(data);
+        console.log('success getProjet'); // console.log(data.response);
+        // console.log(data);
+      },
+      error: function error(text) {
+        //console.log(text);
+        console.log('error getProjet'); // console.log(text.response);
+        // console.log(text);
       }
     });
     /* Retour : le projet n'existe pas encore (nouveau projet) */
     // ajout if(){} : A AJOUTER
+    //if (retour.statusText!="OK"){
+    // CAS OU LE PROJET N EXISTE PAS ENCORE
 
-    if (!retour) {
+    if (retour == -1) {
       console.log('le projet n existe pas encore');
       /* Affichage modal demande du nom du projet */
 
       $('#modalNomProjet').modal('show');
-      var nom = $("#formulaire").submit(function (event) {
+      $('#sauvegarde').click(function (event) {
         event.preventDefault();
-        var nomProjet = submitForm();
-        return nomProjet;
-      });
-      /* insertion du nom du projet dans la base temporaire*/
+        var nomProjet = $('#nom-projet').val();
+        console.log(nomProjet);
+        /* insertion du nom du projet dans la base temporaire*/
 
-      $.ajax({
-        url: 'modelisation',
-        type: 'POST',
-        data: 'nomProjet=' + nom,
-        success: function success(text) {
-          if (text == "success") {
-            console.log('C est ok');
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
+        });
+        $.ajax({
+          url: 'modelisation2',
+          type: 'POST',
+          data: 'nomProjet=' + nomProjet + '&idProjet=' + idProjet,
+          async: false,
+          // success : function(text){
+          //     if (text == "success"){
+          //         console.log('C est ok');
+          //     }
+          // }
+          success: function success(data) {
+            console.log('success postNom');
+          },
+          error: function error(text) {
+            console.log('error postNom');
+          }
+        });
+        /* sauvegarde du projet dans la base */
+
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({
+          url: 'modelisation3',
+          type: 'POST',
+          async: false,
+          data: {
+            'idProjet': idProjet
+          },
+          //data : 'idProjet=' + idProjet,
+          success: function success(data) {
+            console.log('success postSauveProjet');
+            formSuccess();
+          },
+          error: function error(data) {
+            console.log('error postSauveProjet');
+          }
+        });
+      });
+    } else {
+      // CAS OU LE PROJET EXISTE
+      console.log('projet existe déjà');
+      /* sauvegarde du projet dans la base */
+
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({
+        url: 'modelisation3',
+        type: 'POST',
+        async: false,
+        data: {
+          'idProjet': idProjet
+        },
+        //data : 'idProjet=' + idProjet,
+        success: function success(data) {
+          console.log('success postSauveProjet');
+          $("#sauveFaite").removeClass("hidden");
+        },
+        error: function error(data) {
+          console.log('error postSauveProjet');
         }
       });
     }
-    /* sauvegarde du projet dans la base */
-
-
-    $.ajax({
-      url: 'modelisation',
-      type: 'POST',
-      success: function success(text) {
-        if (text == "success") {
-          console.log('C est ok');
-          formSuccess();
-        }
-      }
-    });
   });
 });
 
@@ -3856,7 +3914,8 @@ function submitForm() {
   $.ajax({
     type: "POST",
     url: "modelisation",
-    data: "nomProjet=" + nom // success : function(text){
+    data: "nomProjet=" + nom,
+    async: false // success : function(text){
     //     if (text == "success"){
     //         formSuccess();
     //     }
