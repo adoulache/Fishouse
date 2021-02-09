@@ -60,7 +60,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary" id="sauvegarde">Sauvegarder</button>
+                        <button type="submit" class="btn btn-dark" id="sauvegarde">Sauvegarder</button>
                     </div>
                 </div>
             <!--</form>-->

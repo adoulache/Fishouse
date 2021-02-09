@@ -3808,7 +3808,8 @@ $(function () {
       dataType: 'JSON',
       success: function success(data) {
         //console.log(data);
-        console.log('success getProjet'); // console.log(data.response);
+        console.log('success getProjet');
+        console.log(data); // console.log(data.response);
         // console.log(data);
       },
       error: function error(text) {
@@ -3816,13 +3817,16 @@ $(function () {
         console.log('error getProjet'); // console.log(text.response);
         // console.log(text);
       }
-    });
+    }); //console.log(retour.responseJSON.get());
+
+    var exist = JSON.parse(retour.responseText);
+    console.log(exist.response);
     /* Retour : le projet n'existe pas encore (nouveau projet) */
     // ajout if(){} : A AJOUTER
     //if (retour.statusText!="OK"){
     // CAS OU LE PROJET N EXISTE PAS ENCORE
 
-    if (retour == -1) {
+    if (exist.response == "introuvable") {
       console.log('le projet n existe pas encore');
       /* Affichage modal demande du nom du projet */
 
