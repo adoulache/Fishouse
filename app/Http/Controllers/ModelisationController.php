@@ -11,8 +11,6 @@ class ModelisationController extends Controller
 {
     /**
      * Réinitialise un projet.
-     *
-     * @param  string  $idProjet
      */
     public function postReinitProjet(){
         $idProjet = $_POST['idProjet'];
@@ -25,3 +23,4 @@ class ModelisationController extends Controller
     }
     
 }
+?>

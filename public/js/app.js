@@ -3805,8 +3805,9 @@ $(function () {
     });
     $.ajax({
       url: 'modelisation4',
-      method: 'POST',
+      type: 'POST',
       data: 'idProjet=' + idProjet,
+      async: false,
       // success: function() {
       //      alert('OK');
       // },
@@ -3814,10 +3815,12 @@ $(function () {
       //   alert('KO');
       // }
       success: function success(data) {
+        console.log(data);
         console.log('success');
       },
       error: function error(data) {
         console.log('error');
+        console.log(data);
       }
     });
   });
