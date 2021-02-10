@@ -9,24 +9,19 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
-    public function getImage(){
+    public function index(){
         $result = array();
-        // $decos = DB::table('decorations')->value('nom_photo');
-        
-        $decos = DB::table('decorations')->pluck('nom_photo');
+
+        $decos = DB::table('decorations')->select(['description','nom_photo']);
         foreach($decos as $deco){
             array_push($result,$deco);
         };
-        return $result;
 
-        
-        // return view('home',['decos'=>$decos]);
-        // return response()->json($decos);
+        return view('home', ['decos' => $result]);
+    }
 
-        // echo $decos;
-        // $decos->each(function($item,$key){
-        //     echo $item;
-        // });
+    public function exempleAjax(){
+        return "test OK!";
     }
 }
 ?>

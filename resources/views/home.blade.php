@@ -66,5 +66,9 @@
     </div>
 
 
-    <p> ICIIIIIII <div id="imageDeco"> </div> </p>
+    <div id="imageDeco">
+        @foreach ($decos as $deco)
+            <img src="{{ asset('./images/'.$deco) }}">
+        @endforeach
+    </div>
 @endsection

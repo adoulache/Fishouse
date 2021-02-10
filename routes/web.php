@@ -14,8 +14,10 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-// HomeController
-Route::get('/testHome', [HomeController::class, 'getImage']);
+// HomeController page d'accueil
+Route::get('/testHome', [HomeController::class, 'index']);
+// HomeController test Ajax
+Route::get('/testHome/ajax', [HomeController::class, 'exempleAjax']);
 
 // Route vers la page d'accueil:
 Route::get('/', function () {

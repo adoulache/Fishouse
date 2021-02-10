@@ -72,34 +72,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/images/aquariumRectangle.png":
-/*!************************************************!*\
-  !*** ./resources/images/aquariumRectangle.png ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/aquariumRectangle.png?1c72758c85735c0a9290eee04c08668e");
-
-/***/ }),
-
-/***/ "./resources/images/aquariumRond.png":
-/*!*******************************************!*\
-  !*** ./resources/images/aquariumRond.png ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/aquariumRond.png?06b3df0e1bd48fa942d2efea8a6659bf");
-
-/***/ }),
-
 /***/ "./resources/images/logo.png":
 /*!***********************************!*\
   !*** ./resources/images/logo.png ***!
@@ -187,8 +159,6 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// Load entry module
 /******/ 	__webpack_require__("./resources/images/aquarium2.jpg");
 /******/ 	// This entry module used 'exports' so it can't be inlined
-/******/ 	__webpack_require__("./resources/images/aquariumRectangle.png");
-/******/ 	__webpack_require__("./resources/images/aquariumRond.png");
 /******/ 	__webpack_require__("./resources/images/Catalogue2.png");
 /******/ 	__webpack_require__("./resources/images/Fiches2.png");
 /******/ 	__webpack_require__("./resources/images/Forum2.png");

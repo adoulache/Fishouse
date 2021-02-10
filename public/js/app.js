@@ -3837,10 +3837,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ (() => {
 
 var decos = $.ajax({
-  url: 'testHome',
+  url: 'testHome/ajax',
   type: 'GET',
   async: false,
   success: function success(data) {
+    console.log('test OK Ajax !');
     console.log('OK');
     console.log(data);
   },
@@ -3848,20 +3849,7 @@ var decos = $.ajax({
     console.log('KO');
     console.log(data);
   }
-}); // console.log(decos);
-
-var image = new Image();
-
-for (var i = 0; i < decos.responseJSON.length; i++) {
-  // console.log(decos.responseJSON[i]);
-  var source = "{{asset('../images/" + decos.responseJSON[i] + "')}}"; // source = decos.responseJSON[i];
-
-  console.log(source);
-  image.src = source;
-  $('#imageDeco').append(image);
-}
-
-;
+});
 
 /***/ }),
 
