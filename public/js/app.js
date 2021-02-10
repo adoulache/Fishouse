@@ -3810,6 +3810,8 @@ __webpack_require__(/*! ./_register */ "./resources/js/_register.js");
 
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
+__webpack_require__(/*! ./home */ "./resources/js/home.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -3840,6 +3842,29 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/home.js":
+/*!******************************!*\
+  !*** ./resources/js/home.js ***!
+  \******************************/
+/***/ (() => {
+
+var decos = $.ajax({
+  url: 'testHome/ajax',
+  type: 'GET',
+  async: false,
+  success: function success(data) {
+    console.log('test OK Ajax !');
+    console.log('OK');
+    console.log(data);
+  },
+  error: function error(data) {
+    console.log('KO');
+    console.log(data);
+  }
+});
 
 /***/ }),
 

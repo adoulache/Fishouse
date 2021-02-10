@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// HomeController page d'accueil
+Route::get('/testHome', [HomeController::class, 'index']);
+// HomeController test Ajax
+Route::get('/testHome/ajax', [HomeController::class, 'exempleAjax']);
 
 // Route vers la page d'accueil:
 Route::get('/', function () {
