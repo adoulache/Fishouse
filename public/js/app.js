@@ -3785,6 +3785,49 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/_modelisation.js":
+/*!***************************************!*\
+  !*** ./resources/js/_modelisation.js ***!
+  \***************************************/
+/***/ (() => {
+
+$(function () {
+  /* Réinitialisation du projet*/
+  $('#boutonReinit').on('click', function () {
+    //   var id = document.getElementById('idProjetTest').textContent;
+    //   console.log(id);
+    var idProjet = 123;
+    console.log(idProjet);
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      url: 'modelisation4',
+      type: 'POST',
+      data: 'idProjet=' + idProjet,
+      async: false,
+      // success: function() {
+      //      alert('OK');
+      // },
+      // error: function() {
+      //   alert('KO');
+      // }
+      success: function success(data) {
+        console.log(data);
+        console.log('success');
+      },
+      error: function error(data) {
+        console.log('error');
+        console.log(data);
+      }
+    });
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/_register.js":
 /*!***********************************!*\
   !*** ./resources/js/_register.js ***!
@@ -3808,9 +3851,11 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./_register */ "./resources/js/_register.js");
 
-__webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
-
 __webpack_require__(/*! ./home */ "./resources/js/home.js");
+
+__webpack_require__(/*! ./_modelisation */ "./resources/js/_modelisation.js");
+
+__webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
 /***/ }),
 

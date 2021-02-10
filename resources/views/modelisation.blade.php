@@ -33,5 +33,13 @@
                     exercitation ullamco.</p>
             </div>
         </div>
+        <!-- Bouton pour la réinitialisation du projet -->
+        <div>
+            <p id=idProjetTest>test</p>
+            <!--<button type="button" class="btn btn-dark" id="boutonReinit" onclick="reinitProjet('essai');"></button>-->
+            <button type="button" class="btn btn-dark" id="boutonReinit">bouton test reinitialisation</button>
+            
+        
+        </div>
     </div>
 @endsection

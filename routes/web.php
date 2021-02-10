@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ModelisationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +30,7 @@ Route::get('/fiches', function () {
 })->name('fiches');
 
 // Route vers la page modelisation:
+Route::post('/modelisation4', [ModelisationController::class, 'postReinitProjet']);
 Route::get('/modelisation', function () {
     return view('modelisation');
 })->name('modelisation');
