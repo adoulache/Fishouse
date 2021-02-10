@@ -30,7 +30,11 @@ Route::get('/fiches', function () {
 })->name('fiches');
 
 // Route vers la page modelisation:
+Route::get('/modelisation1', [ModelisationController::class, 'getProjet']);
+Route::post('/modelisation2', [ModelisationController::class, 'postNom']);
+Route::post('/modelisation3', [ModelisationController::class, 'postSauveProjet']);
 Route::post('/modelisation4', [ModelisationController::class, 'postReinitProjet']);
+
 Route::get('/modelisation', function () {
     return view('modelisation');
 })->name('modelisation');
@@ -54,3 +58,5 @@ Route::get('/connexion', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+

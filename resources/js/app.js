@@ -4,6 +4,3 @@ require('./home');
 require('./_modelisation');
 
 require('alpinejs');
-
-
-
