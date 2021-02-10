@@ -64,11 +64,4 @@
             </div>
         </div>
     </div>
-
-
-    <div id="imageDeco">
-        @foreach ($decos as $deco)
-            <img src="{{ asset('./images/'.$deco) }}">
-        @endforeach
-    </div>
 @endsection
