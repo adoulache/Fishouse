@@ -3785,6 +3785,19 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/_register.js":
+/*!***********************************!*\
+  !*** ./resources/js/_register.js ***!
+  \***********************************/
+/***/ (() => {
+
+$('#expert_file_upload').fadeOut('fast');
+$('#expert').change(function () {
+  if (this.checked) $('#expert_file_upload').fadeIn('fast');else $('#expert_file_upload').fadeOut('fast');
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -3792,6 +3805,8 @@ module.exports = {
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+__webpack_require__(/*! ./_register */ "./resources/js/_register.js");
 
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 

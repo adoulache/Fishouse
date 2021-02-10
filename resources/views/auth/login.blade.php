@@ -1,3 +1,6 @@
+@extends('base')
+
+@section('content')
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
@@ -46,3 +49,4 @@
         </form>
     </x-jet-authentication-card>
 </x-guest-layout>
+@endsection
