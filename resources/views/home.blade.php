@@ -66,5 +66,5 @@
     </div>
 
 
-    <p> ICIIIIIII <div id="imageDeco"></div> </p>
+    <p> ICIIIIIII <div id="imageDeco"> </div> </p>
 @endsection
