@@ -34,6 +34,10 @@ Route::get('/modelisation1', [ModelisationController::class, 'getProjet']);
 Route::post('/modelisation2', [ModelisationController::class, 'postNom']);
 Route::post('/modelisation3', [ModelisationController::class, 'postSauveProjet']);
 Route::post('/modelisation4', [ModelisationController::class, 'postReinitProjet']);
+Route::get('/modelisation5', [ModelisationController::class, 'getPlantes']);
+Route::get('/modelisation6', [ModelisationController::class, 'getDecos']);
+Route::get('/modelisation7', [ModelisationController::class, 'getCheminPlante']);
+Route::get('/modelisation8', [ModelisationController::class, 'getCheminDeco']);
 
 Route::get('/modelisation', function () {
     return view('modelisation');

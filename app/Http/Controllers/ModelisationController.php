@@ -123,6 +123,44 @@ class ModelisationController extends Controller
 
         }
     }
+    public function getPlantes()
+    {
+        if (DB::table('projet_plante')->where('id_projet', $_GET['idProjet'])->exists()) {
+            $plantes = DB::table('projet_plante')->where('id_projet', $_GET['idProjet'])->get();
+            return response()->json(['plantes' => $plantes]);
+        } else {
+            return response()->json(['plantes' => '']);
+        }
+    }
+    public function getDecos()
+    {
+        if (DB::table('projet_decoration')->where('id_projet', $_GET['idProjet'])->exists()) {
+            $decos = DB::table('projet_decoration')->where('id_projet', $_GET['idProjet'])->get();
+            return response()->json(['decos' => $decos]);
+        } else {
+            return response()->json(['decos' => '']);
+        }
+    }
+    public function getCheminPlante()
+    {
+        if (DB::table('plantes')->where('id_plante', $_GET['idPlante'])->exists()) {
+            $chemin = DB::table('plantes')->where('id_plante', $_GET['idPlante'])->value('nom_photo');
+            return response()->json(['chemin' => $chemin]);
+        } else {
+            return response()->json(['chemin' => '']);
+        }
+    }
+    public function getCheminDeco()
+    {
+        if (DB::table('decorations')->where('id_decoration', $_GET['idDeco'])->exists()) {
+            $chemin = DB::table('decorations')->where('id_decoration', $_GET['idDeco'])->value('nom_photo');
+            return response()->json(['chemin' => $chemin]);
+        } else {
+            return response()->json(['chemin' => '']);
+        }
+    }
+    
+
 }
 
 ?>

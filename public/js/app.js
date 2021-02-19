@@ -3971,6 +3971,207 @@ function formSuccess() {
 }
 
 ;
+/* Partie modélisation 2D */
+
+$(function () {
+  $('#aqFace').on('click', function () {
+    var idProjet = 123;
+    var c = $('#mod2D').get(0);
+    var ctx = c.getContext("2d"); // Dessine le contour de l'aquarium
+
+    var hauteur = traceGrandContour(ctx); // Récupère les éléments présents dans l'aquarium (plantes et décorations)
+
+    /* PLANTES */
+
+    var retour = $.ajax({
+      url: 'modelisation5',
+      type: 'GET',
+      data: 'idProjet=' + idProjet,
+      async: false,
+      dataType: 'JSON',
+      success: function success(data) {
+        console.log('success getPlantes');
+      },
+      error: function error(text) {
+        console.log('error getPlantes');
+      }
+    });
+    var reponsePlante = JSON.parse(retour.responseText);
+    var plantesAquarium = [];
+
+    if (reponsePlante.plantes.length > 0) {
+      reponsePlante.plantes.forEach(function (item) {
+        /* Récupération du chemin de la plante */
+        var retourChemin = $.ajax({
+          url: 'modelisation7',
+          type: 'GET',
+          data: 'idPlante=' + item.id_plante,
+          async: false,
+          dataType: 'JSON',
+          success: function success(data) {
+            console.log('success getCheminPlantes');
+          },
+          error: function error(text) {
+            console.log('error getCheminPlantes');
+          }
+        });
+        var parseChemin = JSON.parse(retourChemin.responseText);
+        plantesAquarium.push([item.coordx, item.coordy, item.coordz, parseChemin.chemin]);
+      });
+    }
+
+    ;
+    /* DECORATIONS */
+
+    var retourDeco = $.ajax({
+      url: 'modelisation6',
+      type: 'GET',
+      data: 'idProjet=' + idProjet,
+      async: false,
+      dataType: 'JSON',
+      success: function success(data) {
+        console.log('success getDecos');
+      },
+      error: function error(text) {
+        console.log('error getDecos');
+      }
+    });
+    var reponseDeco = JSON.parse(retourDeco.responseText);
+    var decosAquarium = [];
+
+    if (reponseDeco.decos.length > 0) {
+      reponseDeco.decos.forEach(function (item) {
+        /* Récupération du chemin de la décoration */
+        var retourCheminDeco = $.ajax({
+          url: 'modelisation8',
+          type: 'GET',
+          data: 'idDeco=' + item.id_decoration,
+          async: false,
+          dataType: 'JSON',
+          success: function success(data) {
+            console.log('success getCheminDeco');
+          },
+          error: function error(text) {
+            console.log('error getCheminDeco');
+          }
+        });
+        var parseCheminDeco = JSON.parse(retourCheminDeco.responseText);
+        decosAquarium.push([item.coordx, item.coordy, item.coordz, parseCheminDeco.chemin]);
+      });
+    }
+
+    ; // objets Aquarium contient les coordonnées des objets ainsi que leur nom permettant de trouver leur photo
+
+    var objetsAquarium = plantesAquarium.concat(decosAquarium); // On ajoute les images dans l'ordre de la profondeur afin qu'elles se superposent dans le bon sens
+
+    while (objetsAquarium.length > 0) {
+      var y = 1000;
+      var ind = 0;
+
+      for (var i = 0; i < objetsAquarium.length; i++) {
+        if (objetsAquarium[i][1] <= y) {
+          y = objetsAquarium[i][1];
+          ind = i;
+        }
+
+        ;
+      }
+
+      ;
+      ajoutImage(ind, objetsAquarium, hauteur, ctx);
+      objetsAquarium.splice(ind, 1);
+    }
+
+    ;
+  });
+});
+$(function () {
+  $('#aqFond').on('click', function () {
+    var c = $('#mod2D').get(0);
+    var ctx = c.getContext("2d"); // Dessine le contour de l'aquarium
+
+    traceGrandContour(ctx); // Récupère les éléments présents dans l'aquarium (plantes et décorations)
+    // Calcule quels éléments doivent être devant ou derrière (plus proche : y le plus grand dans la bdd)
+    // Affiche les éléments dans l'aquarium en fonction des superpositions
+    // et en fonction de l'axe des x (x pour aquarium et bdd mais inversé)
+  });
+});
+$(function () {
+  $('#aqDroite').on('click', function () {
+    var c = $('#mod2D').get(0);
+    var ctx = c.getContext("2d"); // Dessine le contour de l'aquarium
+
+    tracePetitContour(ctx); // Récupère les éléments présents dans l'aquarium (plantes et décorations)
+  });
+});
+$(function () {
+  $('#aqGauche').on('click', function () {
+    var c = $('#mod2D').get(0);
+    var ctx = c.getContext("2d"); // Dessine le contour de l'aquarium
+
+    tracePetitContour(ctx); // Récupère les éléments présents dans l'aquarium (plantes et décorations)
+  });
+});
+
+function ajoutImage(ind, objetsAquarium, hauteur, ctx) {
+  var largeurImage = 210;
+  var hauteurImage = 250; // peut poser pb quand image mal rognée
+
+  var x = objetsAquarium[ind][0] + 10; //var y = 10 + (hauteur - (10 + 60) - (objetsAquarium[ind][2])) - hauteurImage;
+  //margeHaut + (hauteurTotale - (margeHaut + margeBas) - z) - hauteurImage
+  // x = x + marge de gauche
+  // y = marge haut + (taille carré - z) - hauteur image
+
+  /* Séparation en 2 lignes d'objets sur le sol en fonction de la profondeur */
+
+  if (objetsAquarium[ind][1] < 50) {
+    var y = 340 - hauteurImage;
+  } else {
+    var y = 270 - hauteurImage;
+  }
+
+  ;
+  var image = new Image();
+  image.src = '../images/' + objetsAquarium[ind][3];
+
+  image.onload = function () {
+    ctx.globalCompositeOperation = "destination-over";
+    ctx.drawImage(this, x, y, largeurImage, hauteurImage);
+  };
+}
+
+function traceGrandContour(ctx) {
+  ctx.clearRect(0, 0, 600, 400);
+  ctx.beginPath();
+  ctx.moveTo(10, 10);
+  ctx.lineTo(590, 10);
+  ctx.lineTo(590, 340);
+  ctx.lineTo(10, 340);
+  ctx.lineTo(10, 10);
+  ctx.closePath();
+  ctx.lineWidth = 2;
+  ctx.stroke(); // "Sol" de l'aquarium
+  // ctx.globalCompositeOperation="destination-over";
+  // ctx.fillStyle = 'rgba(244,205,152,1)';
+  // ctx.fillRect(11,205,578,134);    
+
+  return 400;
+}
+
+;
+
+function tracePetitContour(ctx) {
+  ctx.clearRect(0, 0, 600, 400);
+  ctx.beginPath();
+  ctx.moveTo(150, 10);
+  ctx.lineTo(450, 10);
+  ctx.lineTo(450, 340);
+  ctx.lineTo(150, 340);
+  ctx.lineTo(150, 10);
+  ctx.closePath();
+  ctx.lineWidth = 2;
+  ctx.stroke();
+}
 
 /***/ }),
 
