@@ -235,22 +235,34 @@ $(function(){
             ajoutImageFond(ind, objetsAquarium, hauteur, ctx);
             objetsAquarium.splice(ind,1);
         };
-
-        // Calcule quels éléments doivent être devant ou derrière (plus proche : y le plus grand dans la bdd)
-
-        // Affiche les éléments dans l'aquarium en fonction des superpositions
-        // et en fonction de l'axe des x (x pour aquarium et bdd mais inversé)
     });
 });
 $(function(){
     $('#aqDroite').on('click', function() {
         var c = $('#mod2D').get(0);
         var ctx = c.getContext("2d");
+
+        var idProjet = 123;
         
         // Dessine le contour de l'aquarium
-        tracePetitContour(ctx);
+        var hauteur = tracePetitContour(ctx);
 
         // Récupère les éléments présents dans l'aquarium (plantes et décorations)
+        let objetsAquarium = recupObjets(idProjet);
+
+        // On ajoute les images dans l'ordre de la profondeur afin qu'elles se superposent dans le bon sens
+        while (objetsAquarium.length > 0){
+            let x=0;
+            let ind=0;
+            for (let i = 0; i <objetsAquarium.length; i++){
+                if (objetsAquarium[i][0]<= x){
+                    y = objetsAquarium[i][0];
+                    ind = i;
+                };
+            };
+            ajoutImageDroite(ind, objetsAquarium, hauteur, ctx);
+            objetsAquarium.splice(ind,1);
+        };
     });
 });
 $(function(){
@@ -258,11 +270,28 @@ $(function(){
 
         var c = $('#mod2D').get(0);
         var ctx = c.getContext("2d");
+
+        var idProjet = 123;
         
         // Dessine le contour de l'aquarium
-        tracePetitContour(ctx);
+        var hauteur = tracePetitContour(ctx);
 
         // Récupère les éléments présents dans l'aquarium (plantes et décorations)
+        let objetsAquarium = recupObjets(idProjet);
+
+        // On ajoute les images dans l'ordre de la profondeur afin qu'elles se superposent dans le bon sens
+        while (objetsAquarium.length > 0){
+            let x=1000;
+            let ind=0;
+            for (let i = 0; i <objetsAquarium.length; i++){
+                if (objetsAquarium[i][0]>= x){
+                    y = objetsAquarium[i][0];
+                    ind = i;
+                };
+            };
+            ajoutImageGauche(ind, objetsAquarium, hauteur, ctx);
+            objetsAquarium.splice(ind,1);
+        };
     });
 });
 
@@ -277,10 +306,23 @@ function ajoutImageFace(ind, objetsAquarium, hauteur, ctx){
 
     /* Séparation en 2 lignes d'objets sur le sol en fonction de la profondeur */
     if (objetsAquarium[ind][1] < 50){
-        var y = 340 - hauteurImage
+        var y = 340 - hauteurImage;
     }else{
         var y = 270 - hauteurImage;
     };
+
+    // Si jamais l'image sort de l'aquarium, on la remet dedans
+    if (x + largeurImage > 590){
+        x = 590 - largeurImage;
+    }else if(x < 10){
+        x = 10;
+    };
+    if (y + hauteurImage > 340){
+        y = 340 - hauteurImage; // normalement, déjà ok
+    }else if(y < 10){
+        y = 10
+    };
+
 
     var image = new Image();
     image.src = '../images/'+objetsAquarium[ind][3];
@@ -302,6 +344,82 @@ function ajoutImageFond(ind, objetsAquarium, hauteur, ctx){
         var y = 270 - hauteurImage;
     };
 
+    // Si jamais l'image sort de l'aquarium, on la remet dedans
+    if (x + largeurImage > 590){
+        x = 590 - largeurImage;
+    }else if(x < 10){
+        x = 10;
+    };
+    if (y + hauteurImage > 340){
+        y = 340 - hauteurImage; // normalement, déjà ok
+    }else if(y < 10){
+        y = 10
+    };
+
+    var image = new Image();
+    image.src = '../images/'+objetsAquarium[ind][3];
+    image.onload = function(){
+        ctx.globalCompositeOperation="destination-over";
+        ctx.drawImage(this, x, y, largeurImage, hauteurImage);
+    };
+};
+function ajoutImageDroite(ind, objetsAquarium, hauteur, ctx){
+    var largeurImage = 180; 
+    var hauteurImage = 230;// peut poser pb quand image mal rognée
+    var x = objetsAquarium[ind][1] + 140 + 10
+    // nouveau x = y + décalage du contour + marge gauche
+
+    /* Séparation en 2 lignes d'objets sur le sol en fonction de la profondeur */
+    if (objetsAquarium[ind][0] > 200){
+        var y = 340 - hauteurImage;
+    }else{
+        var y = 270 - hauteurImage;
+    };
+
+    // Si jamais l'image sort de l'aquarium, on la remet dedans
+    if (x + largeurImage > 450){
+        x = 450 - largeurImage;
+    }else if(x < 150){
+        x = 150;
+    };
+    if (y + hauteurImage > 340){
+        y = 340 - hauteurImage; // normalement, déjà ok
+    }else if(y < 10){
+        y = 10
+    };
+
+    var image = new Image();
+    image.src = '../images/'+objetsAquarium[ind][3];
+    image.onload = function(){
+        ctx.globalCompositeOperation="source-over";
+        ctx.drawImage(this, x, y, largeurImage, hauteurImage);
+    };
+};
+function ajoutImageGauche(ind, objetsAquarium, hauteur, ctx){
+    var largeurImage = 180; 
+    var hauteurImage = 230;// peut poser pb quand image mal rognée
+    var x = 600 - 150 - objetsAquarium[ind][1] - largeurImage;
+    // x = largeur totale - marge droite - y - largeurImage
+
+    /* Séparation en 2 lignes d'objets sur le sol en fonction de la profondeur */
+    if (objetsAquarium[ind][0] < 200){
+        var y = 340 - hauteurImage; 
+    }else{
+        var y = 270 - hauteurImage;
+    };
+
+    // Si jamais l'image sort de l'aquarium, on la remet dedans
+    if (x + largeurImage > 450){
+        x = 450 - largeurImage;
+    }else if(x < 150){
+        x = 150;
+    };
+    if (y + hauteurImage > 340){
+        y = 340 - hauteurImage; // normalement, déjà ok
+    }else if(y < 10){
+        y = 10
+    };
+
     var image = new Image();
     image.src = '../images/'+objetsAquarium[ind][3];
     image.onload = function(){
@@ -321,7 +439,7 @@ function traceGrandContour(ctx){
     ctx.closePath();
     ctx.lineWidth = 2; 
     ctx.stroke();
-    // "Sol" de l'aquarium
+    // // "Sol" de l'aquarium
     // ctx.globalCompositeOperation="destination-over";
     // ctx.fillStyle = 'rgba(244,205,152,1)';
     // ctx.fillRect(11,205,578,134);    
@@ -337,7 +455,8 @@ function tracePetitContour(ctx){
     ctx.lineTo(150,10);
     ctx.closePath();
     ctx.lineWidth = 2; 
-    ctx.stroke();
+    ctx.stroke(); 
+    return 400;
 };
 function recupObjets(idProjet){
     /* PLANTES */
