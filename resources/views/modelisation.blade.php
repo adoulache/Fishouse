@@ -34,12 +34,14 @@
             </div>
         </div>
 
+
         <!-- Bouton pour la réinitialisation du projet -->
         <div>
             <p id=idProjetTest>test</p>
             <!--<button type="button" class="btn btn-dark" id="boutonReinit" onclick="reinitProjet('essai');"></button>-->
             <button type="button" class="btn btn-dark" id="boutonReinit">bouton test reinitialisation</button>
         </div>
+
 
         <!-- Bouton pour la sauvegarde du projet -->
         <div>
@@ -74,6 +76,8 @@
             <!--</form>-->
             </div>
         </div>
+
+        
         <!-- Modélisation 2D -->
         <div>
             <button type="button" class="btn btn-light" id="aqFace">

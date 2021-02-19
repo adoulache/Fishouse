@@ -23,19 +23,14 @@ class ModelisationController extends Controller
 
     /**
      * Vérifie si un projet existe.
+     * 
+     * @return JSON message de retour
      */
     public function getProjet()
     {
         if (DB::table('projets')->where('id_projet', $_GET['idProjet'])->exists()) {
-            // $response = new JsonResponse();
-            // $response->setData(array('rep'=> 1));
-            // echo $response;
-            //return '1';
             return response()->json(['response' => 'existe']);
         } else {
-            //echo json_encode(-1);
-            // echo '-1';
-            // return '-1';
             return response()->json(['response' => 'introuvable']);
         }
     }
@@ -123,6 +118,12 @@ class ModelisationController extends Controller
 
         }
     }
+
+    /**
+     * Réupère les plantes d'un projet
+     * 
+     * @return JSON plantes se trouvant dans le projet
+     */
     public function getPlantes()
     {
         if (DB::table('projet_plante')->where('id_projet', $_GET['idProjet'])->exists()) {
@@ -132,6 +133,12 @@ class ModelisationController extends Controller
             return response()->json(['plantes' => '']);
         }
     }
+
+    /**
+     * Récupère les décorations d'un projet
+     * 
+     * @return JSON décorations se trouvant dans le projet
+     */
     public function getDecos()
     {
         if (DB::table('projet_decoration')->where('id_projet', $_GET['idProjet'])->exists()) {
@@ -141,6 +148,12 @@ class ModelisationController extends Controller
             return response()->json(['decos' => '']);
         }
     }
+
+    /**
+     * Récupère le nom du fichier de la plante
+     * 
+     * @return JSON nom du fichier de la plante
+     */
     public function getCheminPlante()
     {
         if (DB::table('plantes')->where('id_plante', $_GET['idPlante'])->exists()) {
@@ -150,6 +163,12 @@ class ModelisationController extends Controller
             return response()->json(['chemin' => '']);
         }
     }
+
+    /**
+     * Récupère le nom du fichier de la décoration
+     * 
+     * @return JSON nom du fichier de la décoration
+     */
     public function getCheminDeco()
     {
         if (DB::table('decorations')->where('id_decoration', $_GET['idDeco'])->exists()) {
@@ -159,7 +178,6 @@ class ModelisationController extends Controller
             return response()->json(['chemin' => '']);
         }
     }
-    
 
 }
 

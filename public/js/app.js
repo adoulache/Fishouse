@@ -3791,13 +3791,13 @@ module.exports = {
   \***************************************/
 /***/ (() => {
 
+var idProjet = 123; // A RECUPERER DEPUIS LA PAGE QUAND SERA DISPO
+
+/* PARTIE REINITIALISATION D'UN PROJET*/
+
 $(function () {
   /* Réinitialisation du projet*/
   $('#boutonReinit').on('click', function () {
-    //   var id = document.getElementById('idProjetTest').textContent;
-    //   console.log(id);
-    var idProjet = 123;
-    console.log(idProjet);
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -3808,30 +3808,21 @@ $(function () {
       type: 'POST',
       data: 'idProjet=' + idProjet,
       async: false,
-      // success: function() {
-      //      alert('OK');
-      // },
-      // error: function() {
-      //   alert('KO');
-      // }
       success: function success(data) {
-        console.log(data);
+        //console.log(data);
         console.log('success');
       },
       error: function error(data) {
-        console.log('error');
-        console.log(data);
+        console.log('error'); //console.log(data);
       }
     });
   });
 });
-/* Clic sur le bouton sauvegarde*/
+/* PARTIE SAUVEGARDE D'UN PROJET */
 
 $(function () {
   $('#boutonSauve').on('click', function () {
-    console.log('clic sur le bouton sauvegarde');
-    var idProjet = 123; // A MODIFIER quand on saura où il apparait
-
+    //console.log('clic sur le bouton sauvegarde');
     var exist = '';
     /* Vérification si l'id du projet existe dans la base */
 
@@ -3842,34 +3833,24 @@ $(function () {
       async: false,
       dataType: 'JSON',
       success: function success(data) {
-        //console.log(data);
-        console.log('success getProjet');
-        console.log(data); // console.log(data.response);
-        // console.log(data);
+        console.log('success getProjet'); //console.log(data);
       },
       error: function error(text) {
-        //console.log(text);
-        console.log('error getProjet'); // console.log(text.response);
-        // console.log(text);
+        console.log('error getProjet'); // console.log(text);
       }
-    }); //console.log(retour.responseJSON.get());
-
+    });
     var exist = JSON.parse(retour.responseText);
-    console.log(exist.response);
-    /* Retour : le projet n'existe pas encore (nouveau projet) */
-    // ajout if(){} : A AJOUTER
-    //if (retour.statusText!="OK"){
-    // CAS OU LE PROJET N EXISTE PAS ENCORE
+    console.log(exist.response); // CAS OU LE PROJET N EXISTE PAS ENCORE
 
     if (exist.response == "introuvable") {
-      console.log('le projet n existe pas encore');
-      /* Affichage modal demande du nom du projet */
+      //console.log('le projet n existe pas encore');
 
+      /* Affichage modal demande du nom du projet */
       $('#modalNomProjet').modal('show');
       $('#sauvegarde').click(function (event) {
         event.preventDefault();
-        var nomProjet = $('#nom-projet').val();
-        console.log(nomProjet);
+        var nomProjet = $('#nom-projet').val(); //console.log(nomProjet);
+
         /* insertion du nom du projet dans la base temporaire*/
 
         $.ajaxSetup({
@@ -3882,11 +3863,6 @@ $(function () {
           type: 'POST',
           data: 'nomProjet=' + nomProjet + '&idProjet=' + idProjet,
           async: false,
-          // success : function(text){
-          //     if (text == "success"){
-          //         console.log('C est ok');
-          //     }
-          // }
           success: function success(data) {
             console.log('success postNom');
           },
@@ -3908,7 +3884,6 @@ $(function () {
           data: {
             'idProjet': idProjet
           },
-          //data : 'idProjet=' + idProjet,
           success: function success(data) {
             console.log('success postSauveProjet');
             formSuccess();
@@ -3920,9 +3895,9 @@ $(function () {
       });
     } else {
       // CAS OU LE PROJET EXISTE
-      console.log('projet existe déjà');
-      /* sauvegarde du projet dans la base */
+      //console.log('projet existe déjà');
 
+      /* sauvegarde du projet dans la base */
       $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -3935,7 +3910,6 @@ $(function () {
         data: {
           'idProjet': idProjet
         },
-        //data : 'idProjet=' + idProjet,
         success: function success(data) {
           console.log('success postSauveProjet');
           $("#sauveFaite").removeClass("hidden");
@@ -3947,6 +3921,7 @@ $(function () {
     }
   });
 });
+/* Fonction d'ajout du nom du projet dans la base */
 
 function submitForm() {
   var nom = $("#nom-projet").val();
@@ -3954,34 +3929,41 @@ function submitForm() {
     type: "POST",
     url: "modelisation",
     data: "nomProjet=" + nom,
-    async: false // success : function(text){
-    //     if (text == "success"){
-    //         formSuccess();
-    //     }
-    // }
-
+    async: false
   });
   return nom;
 }
 
 ;
+/* Affichage message uilisateur */
 
 function formSuccess() {
   $("#sauveOk").removeClass("hidden");
 }
 
 ;
-/* Partie modélisation 2D */
+/* PARTIE MODELISATION 2D */
 
+var largeurCanvas = 600;
+var hauteurCanvas = 400;
+var hauteurAquarium = 330;
+var grandeLargeurAquarium = 580;
+var petiteLargeurAquarium = 300;
+var margeGaucheLong = 10;
+var margeGauchePetit = 150;
+var margeDroiteLong = 10;
+var margeDroitePetit = 150;
+var margeHaut = 10;
+var margeBas = 60;
 $(function () {
   $('#aqFace').on('click', function () {
+    /* Canvas 2D */
     var c = $('#mod2D').get(0);
-    var ctx = c.getContext("2d");
-    var idProjet = 123; // Dessine le contour de l'aquarium
+    var ctx = c.getContext("2d"); // Dessine le contour de l'aquarium
 
-    var hauteur = traceGrandContour(ctx); // Récupère les éléments présents dans l'aquarium (plantes et décorations)
+    traceGrandContour(ctx); // Récupère les éléments présents dans l'aquarium (plantes et décorations)
 
-    var objetsAquarium = recupObjets(idProjet); // On ajoute les images dans l'ordre de la profondeur afin qu'elles se superposent dans le bon sens
+    var objetsAquarium = recupObjets(); // On ajoute les images dans l'ordre de la profondeur afin qu'elles se superposent dans le bon sens
 
     while (objetsAquarium.length > 0) {
       var _y = 1000;
@@ -3997,7 +3979,7 @@ $(function () {
       }
 
       ;
-      ajoutImageFace(ind, objetsAquarium, hauteur, ctx);
+      ajoutImageFace(ind, objetsAquarium, ctx);
       objetsAquarium.splice(ind, 1);
     }
 
@@ -4006,13 +3988,13 @@ $(function () {
 });
 $(function () {
   $('#aqFond').on('click', function () {
+    /* Canvas 2D */
     var c = $('#mod2D').get(0);
-    var ctx = c.getContext("2d");
-    var idProjet = 123; // Dessine le contour de l'aquarium
+    var ctx = c.getContext("2d"); // Dessine le contour de l'aquarium
 
-    var hauteur = traceGrandContour(ctx); // Récupère les éléments présents dans l'aquarium (plantes et décorations)
+    traceGrandContour(ctx); // Récupère les éléments présents dans l'aquarium (plantes et décorations)
 
-    var objetsAquarium = recupObjets(idProjet); // On ajoute les images dans l'ordre de la profondeur afin qu'elles se superposent dans le bon sens
+    var objetsAquarium = recupObjets(); // On ajoute les images dans l'ordre de la profondeur afin qu'elles se superposent dans le bon sens
 
     while (objetsAquarium.length > 0) {
       var _y2 = 0;
@@ -4028,7 +4010,7 @@ $(function () {
       }
 
       ;
-      ajoutImageFond(ind, objetsAquarium, hauteur, ctx);
+      ajoutImageFond(ind, objetsAquarium, ctx);
       objetsAquarium.splice(ind, 1);
     }
 
@@ -4037,13 +4019,13 @@ $(function () {
 });
 $(function () {
   $('#aqDroite').on('click', function () {
+    /* Canvas 2D */
     var c = $('#mod2D').get(0);
-    var ctx = c.getContext("2d");
-    var idProjet = 123; // Dessine le contour de l'aquarium
+    var ctx = c.getContext("2d"); // Dessine le contour de l'aquarium
 
-    var hauteur = tracePetitContour(ctx); // Récupère les éléments présents dans l'aquarium (plantes et décorations)
+    tracePetitContour(ctx); // Récupère les éléments présents dans l'aquarium (plantes et décorations)
 
-    var objetsAquarium = recupObjets(idProjet); // On ajoute les images dans l'ordre de la profondeur afin qu'elles se superposent dans le bon sens
+    var objetsAquarium = recupObjets(); // On ajoute les images dans l'ordre de la profondeur afin qu'elles se superposent dans le bon sens
 
     while (objetsAquarium.length > 0) {
       var x = 0;
@@ -4059,7 +4041,7 @@ $(function () {
       }
 
       ;
-      ajoutImageDroite(ind, objetsAquarium, hauteur, ctx);
+      ajoutImageDroite(ind, objetsAquarium, ctx);
       objetsAquarium.splice(ind, 1);
     }
 
@@ -4068,13 +4050,13 @@ $(function () {
 });
 $(function () {
   $('#aqGauche').on('click', function () {
+    /* Canvas 2D */
     var c = $('#mod2D').get(0);
-    var ctx = c.getContext("2d");
-    var idProjet = 123; // Dessine le contour de l'aquarium
+    var ctx = c.getContext("2d"); // Dessine le contour de l'aquarium
 
-    var hauteur = tracePetitContour(ctx); // Récupère les éléments présents dans l'aquarium (plantes et décorations)
+    tracePetitContour(ctx); // Récupère les éléments présents dans l'aquarium (plantes et décorations)
 
-    var objetsAquarium = recupObjets(idProjet); // On ajoute les images dans l'ordre de la profondeur afin qu'elles se superposent dans le bon sens
+    var objetsAquarium = recupObjets(); // On ajoute les images dans l'ordre de la profondeur afin qu'elles se superposent dans le bon sens
 
     while (objetsAquarium.length > 0) {
       var x = 1000;
@@ -4090,19 +4072,20 @@ $(function () {
       }
 
       ;
-      ajoutImageGauche(ind, objetsAquarium, hauteur, ctx);
+      ajoutImageGauche(ind, objetsAquarium, ctx);
       objetsAquarium.splice(ind, 1);
     }
 
     ;
   });
 });
+/* Fonction d'affichage de l'objet dans l'aquarium pour une vue de face */
 
-function ajoutImageFace(ind, objetsAquarium, hauteur, ctx) {
+function ajoutImageFace(ind, objetsAquarium, ctx) {
   var largeurImage = 210;
   var hauteurImage = 250; // peut poser pb quand image mal rognée
 
-  var x = objetsAquarium[ind][0] + 10; //var y = 10 + (hauteur - (10 + 60) - (objetsAquarium[ind][2])) - hauteurImage;
+  var x = objetsAquarium[ind][0] + margeGaucheLong; //var y = 10 + (hauteur - (10 + 60) - (objetsAquarium[ind][2])) - hauteurImage;
   //margeHaut + (hauteurTotale - (margeHaut + margeBas) - z) - hauteurImage
   // x = x + marge de gauche
   // y = marge haut + (taille carré - z) - hauteur image
@@ -4117,18 +4100,18 @@ function ajoutImageFace(ind, objetsAquarium, hauteur, ctx) {
 
   ; // Si jamais l'image sort de l'aquarium, on la remet dedans
 
-  if (x + largeurImage > 590) {
-    x = 590 - largeurImage;
-  } else if (x < 10) {
-    x = 10;
+  if (x + largeurImage > largeurCanvas - margeDroiteLong) {
+    x = largeurCanvas - margeDroiteLong - largeurImage;
+  } else if (x < margeGaucheLong) {
+    x = margeGaucheLong;
   }
 
   ;
 
-  if (y + hauteurImage > 340) {
-    y = 340 - hauteurImage; // normalement, déjà ok
-  } else if (y < 10) {
-    y = 10;
+  if (y + hauteurImage > margeHaut + hauteurAquarium) {
+    y = margeHaut + hauteurAquarium - hauteurImage; // normalement, déjà ok
+  } else if (y < margeHaut) {
+    y = margeHaut;
   }
 
   ;
@@ -4142,12 +4125,13 @@ function ajoutImageFace(ind, objetsAquarium, hauteur, ctx) {
 }
 
 ;
+/* Fonction d'affichage de l'objet dans l'aquarium pour une vue de fond */
 
-function ajoutImageFond(ind, objetsAquarium, hauteur, ctx) {
+function ajoutImageFond(ind, objetsAquarium, ctx) {
   var largeurImage = 210;
   var hauteurImage = 250; // peut poser pb quand image mal rognée
 
-  var x = 600 - 10 - objetsAquarium[ind][0] - largeurImage; // x = largeur totale - marge droite - x - largeur image
+  var x = largeurCanvas - margeDroiteLong - objetsAquarium[ind][0] - largeurImage; // x = largeur totale - marge droite - x - largeur image
 
   /* Séparation en 2 lignes d'objets sur le sol en fonction de la profondeur */
 
@@ -4159,18 +4143,18 @@ function ajoutImageFond(ind, objetsAquarium, hauteur, ctx) {
 
   ; // Si jamais l'image sort de l'aquarium, on la remet dedans
 
-  if (x + largeurImage > 590) {
-    x = 590 - largeurImage;
-  } else if (x < 10) {
-    x = 10;
+  if (x + largeurImage > largeurCanvas - margeDroiteLong) {
+    x = largeurCanvas - margeDroiteLong - largeurImage;
+  } else if (x < margeGaucheLong) {
+    x = margeGaucheLong;
   }
 
   ;
 
-  if (y + hauteurImage > 340) {
-    y = 340 - hauteurImage; // normalement, déjà ok
-  } else if (y < 10) {
-    y = 10;
+  if (y + hauteurImage > margeHaut + hauteurAquarium) {
+    y = margeHaut + hauteurAquarium - hauteurImage; // normalement, déjà ok
+  } else if (y < margeHaut) {
+    y = margeHaut;
   }
 
   ;
@@ -4184,12 +4168,13 @@ function ajoutImageFond(ind, objetsAquarium, hauteur, ctx) {
 }
 
 ;
+/* Fonction d'affichage de l'objet dans l'aquarium pour une vue de droite */
 
-function ajoutImageDroite(ind, objetsAquarium, hauteur, ctx) {
+function ajoutImageDroite(ind, objetsAquarium, ctx) {
   var largeurImage = 180;
   var hauteurImage = 230; // peut poser pb quand image mal rognée
 
-  var x = objetsAquarium[ind][1] + 140 + 10; // nouveau x = y + décalage du contour + marge gauche
+  var x = objetsAquarium[ind][1] + margeGauchePetit; // nouveau x = y + marge gauche
 
   /* Séparation en 2 lignes d'objets sur le sol en fonction de la profondeur */
 
@@ -4201,18 +4186,18 @@ function ajoutImageDroite(ind, objetsAquarium, hauteur, ctx) {
 
   ; // Si jamais l'image sort de l'aquarium, on la remet dedans
 
-  if (x + largeurImage > 450) {
-    x = 450 - largeurImage;
-  } else if (x < 150) {
-    x = 150;
+  if (x + largeurImage > margeGauchePetit + petiteLargeurAquarium) {
+    x = margeGauchePetit + petiteLargeurAquarium - largeurImage;
+  } else if (x < margeGauchePetit) {
+    x = margeGauchePetit;
   }
 
   ;
 
-  if (y + hauteurImage > 340) {
-    y = 340 - hauteurImage; // normalement, déjà ok
-  } else if (y < 10) {
-    y = 10;
+  if (y + hauteurImage > margeHaut + hauteurAquarium) {
+    y = margeHaut + hauteurAquarium - hauteurImage; // normalement, déjà ok
+  } else if (y < margeHaut) {
+    y = margeHaut;
   }
 
   ;
@@ -4226,12 +4211,13 @@ function ajoutImageDroite(ind, objetsAquarium, hauteur, ctx) {
 }
 
 ;
+/* Fonction d'affichage de l'objet dans l'aquarium pour une vue de gauche */
 
-function ajoutImageGauche(ind, objetsAquarium, hauteur, ctx) {
+function ajoutImageGauche(ind, objetsAquarium, ctx) {
   var largeurImage = 180;
   var hauteurImage = 230; // peut poser pb quand image mal rognée
 
-  var x = 600 - 150 - objetsAquarium[ind][1] - largeurImage; // x = largeur totale - marge droite - y - largeurImage
+  var x = largeurCanvas - margeDroitePetit - objetsAquarium[ind][1] - largeurImage; // x = largeur totale - marge droite - y - largeurImage
 
   /* Séparation en 2 lignes d'objets sur le sol en fonction de la profondeur */
 
@@ -4243,18 +4229,18 @@ function ajoutImageGauche(ind, objetsAquarium, hauteur, ctx) {
 
   ; // Si jamais l'image sort de l'aquarium, on la remet dedans
 
-  if (x + largeurImage > 450) {
-    x = 450 - largeurImage;
-  } else if (x < 150) {
-    x = 150;
+  if (x + largeurImage > margeGauchePetit + petiteLargeurAquarium) {
+    x = margeGauchePetit + petiteLargeurAquarium - largeurImage;
+  } else if (x < margeGauchePetit) {
+    x = margeGauchePetit;
   }
 
   ;
 
-  if (y + hauteurImage > 340) {
-    y = 340 - hauteurImage; // normalement, déjà ok
-  } else if (y < 10) {
-    y = 10;
+  if (y + hauteurImage > margeHaut + hauteurAquarium) {
+    y = margeHaut + hauteurAquarium - hauteurImage; // normalement, déjà ok
+  } else if (y < margeHaut) {
+    y = margeHaut;
   }
 
   ;
@@ -4268,44 +4254,44 @@ function ajoutImageGauche(ind, objetsAquarium, hauteur, ctx) {
 }
 
 ;
+/* Trace les contours de l'aquarium pour les vues de face et de fond */
 
 function traceGrandContour(ctx) {
-  ctx.clearRect(0, 0, 600, 400);
+  ctx.clearRect(0, 0, largeurCanvas, hauteurCanvas);
   ctx.beginPath();
-  ctx.moveTo(10, 10);
-  ctx.lineTo(590, 10);
-  ctx.lineTo(590, 340);
-  ctx.lineTo(10, 340);
-  ctx.lineTo(10, 10);
+  ctx.moveTo(margeGaucheLong, margeHaut);
+  ctx.lineTo(margeGaucheLong + grandeLargeurAquarium, margeHaut);
+  ctx.lineTo(margeGaucheLong + grandeLargeurAquarium, margeHaut + hauteurAquarium);
+  ctx.lineTo(margeGaucheLong, margeHaut + hauteurAquarium);
+  ctx.lineTo(margeGaucheLong, margeHaut);
   ctx.closePath();
   ctx.lineWidth = 2;
   ctx.stroke(); // // "Sol" de l'aquarium
   // ctx.globalCompositeOperation="destination-over";
   // ctx.fillStyle = 'rgba(244,205,152,1)';
-  // ctx.fillRect(11,205,578,134);    
-
-  return 400;
+  // ctx.fillRect(11,205,578,134);
 }
 
 ;
+/* Trace les contours de l'aquarium pour les vues de côté */
 
 function tracePetitContour(ctx) {
-  ctx.clearRect(0, 0, 600, 400);
+  ctx.clearRect(0, 0, largeurCanvas, hauteurCanvas);
   ctx.beginPath();
-  ctx.moveTo(150, 10);
-  ctx.lineTo(450, 10);
-  ctx.lineTo(450, 340);
-  ctx.lineTo(150, 340);
-  ctx.lineTo(150, 10);
+  ctx.moveTo(margeGauchePetit, margeHaut);
+  ctx.lineTo(margeGauchePetit + petiteLargeurAquarium, margeHaut);
+  ctx.lineTo(margeGauchePetit + petiteLargeurAquarium, margeHaut + hauteurAquarium);
+  ctx.lineTo(margeGauchePetit, margeHaut + hauteurAquarium);
+  ctx.lineTo(margeGauchePetit, margeHaut);
   ctx.closePath();
   ctx.lineWidth = 2;
   ctx.stroke();
-  return 400;
 }
 
 ;
+/* Récupère les objets présents dans l'aquarium depuis la base de données */
 
-function recupObjets(idProjet) {
+function recupObjets() {
   /* PLANTES */
   var retour = $.ajax({
     url: 'modelisation5',
