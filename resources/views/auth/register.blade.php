@@ -9,7 +9,7 @@
 
         <x-jet-validation-errors class="mb-4"/>
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
 
             <div>
@@ -61,8 +61,8 @@
             </div>
 
             <div class="mt-4" id="expert_file_upload">
-                <x-jet-label for="expert_file" value="{!! __('Justificatif d\'expert') !!}"/>
-                <x-jet-input id="expert_file" class="block mt-1 w-full" type="file" name="expert_file"/>
+                <x-jet-label for="expert_file" value="{!! __('Justificatif d\'expert') !!}" />
+                <x-jet-input id="expert_file" class="block mt-1 w-full" type="file" name="expert_file" />
             </div>
 
             <div class="flex items-center justify-end mt-5">

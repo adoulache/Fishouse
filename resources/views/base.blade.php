@@ -18,8 +18,13 @@
 <!--HEADER-->
 <header class="header">
     <div class="buttonHeader">
-        <a class="btn btn-dark" href="{{ route('connexion') }}">Connexion</a>
-        <a class="btn btn-dark" href="{{ route('inscription') }}">Inscription</a>
+    @if (Auth::check())
+        <a class="btn btn-dark" href="{{ route('profile.show') }}">Mon Compte</a>
+        <a class="btn btn-dark" href="{{ route('logout') }}">Déconnexion</a>
+    @else
+        <a class="btn btn-dark" href="{{ route('sign-in') }}">Connexion</a>
+        <a class="btn btn-dark" href="{{ route('sign-up') }}">Inscription</a>
+    @endif
     </div>
 </header>
 

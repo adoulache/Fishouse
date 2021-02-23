@@ -3,11 +3,12 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
-use Laravel\Jetstream\Jetstream;
+use Livewire\WithFileUploads;
+use Illuminate\Http\Request;
+use function PHPUnit\Framework\isEmpty;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -16,12 +17,11 @@ class CreateNewUser implements CreatesNewUsers
     /**
      * Validate and create a newly registered user.
      *
-     * @param  array  $input
-     * @return \App\Models\User
+     * @param array $input
+     * @return User
      */
     public function create(array $input)
     {
-        $request = new Request();
 
         Validator::make($input, [
             'firstname' => ['required', 'string', 'max:255'],
@@ -30,6 +30,7 @@ class CreateNewUser implements CreatesNewUsers
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'expert' => 'integer|boolean|min:0|max:1',
+            'expert_file' => 'mimes:png,jpg,jpeg,pdf|max:2048',
         ])->validate();
 
         return User::create([
@@ -39,7 +40,7 @@ class CreateNewUser implements CreatesNewUsers
             'username' => $input['username'],
             'password' => Hash::make($input['password']),
             'expert' => !isset($input['expert']) ? 0 : 1,
-            // Il ne reste plus qu'a rajouter l'upload du fichier
+            'expert_file' => !empty($input['expert_file']) ? $input['expert_file']->getClientOriginalName() : null,
         ]);
     }
 }
