@@ -3785,6 +3785,62 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/_projet.js":
+/*!*********************************!*\
+  !*** ./resources/js/_projet.js ***!
+  \*********************************/
+/***/ (() => {
+
+$(function () {
+  $('#nouveauProjet').on('click', function () {
+    $.ajax({
+      url: 'mes_projets',
+      type: 'GET',
+      async: false,
+      success: function success(data) {
+        console.log('SUCCES dans la récupération des images');
+      },
+      error: function error(data) {
+        console.log('ERREUR dans la récupération des images');
+      }
+    });
+  });
+});
+$(function () {
+  /*Ajout d'un nouveau projet */
+  $('.ajouterProjet').on('click', function () {
+    console.log("C'est parti pour l'ajout d'un projet !");
+    var idBac = $(this).val();
+    console.log("IdBac = " + idBac);
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      url: 'mes_projets',
+      type: 'POST',
+      data: 'id_bac=' + idBac,
+      dataType: 'html',
+      async: true,
+      success: function success(data) {
+        console.log("Succès dans l'ajout du nouveau projet !");
+      },
+      error: function error(resultat, statut, erreur) {
+        console.log("Erreur dans l'ajout du nouveau projet...");
+        console.log('======================');
+        console.log(resultat);
+        console.log('======================');
+        console.log(statut);
+        console.log('======================');
+        console.log(erreur);
+      }
+    });
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -3794,6 +3850,8 @@ module.exports = {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
+
+__webpack_require__(/*! ./_projet */ "./resources/js/_projet.js");
 
 /***/ }),
 

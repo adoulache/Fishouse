@@ -1,7 +1,6 @@
 .blocRecherche{
     border-radius: 5%;
-    background-color: #EFEBE9;
-    opacity: 0.5;
+    background-color: rgba(239, 235, 233, 0.5);
 }
 
 .blocRecherche h3{

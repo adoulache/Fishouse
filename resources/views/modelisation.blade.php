@@ -10,8 +10,8 @@
                     <input type="search" class="form-control rounded" placeholder="Recherche..." aria-label="Recherche"
                            aria-describedby="search-addon"/>
                     <span class="input-group-text border-0" id="search-addon">
-          <i class="fa fa-search"></i>
-        </span>
+                        <i class="fa fa-search"></i>
+                    </span>
                 </div>
                 <hr>
             </div>

@@ -1,0 +1,82 @@
+.projectText {
+    position: relative;
+    font-size: 3rem;
+    top: auto;
+    text-align: center;
+    font-family: 'Palatino Linotype';
+    align-content: center;
+    color: rgb(3, 3, 3);
+    margin-top: 10px;
+}
+
+.projectHr {
+    background-color: rgb(7, 7, 7);
+    width: 3%;
+    height: 2px;
+}
+
+.projectBloc{
+    border-radius: 10%;
+    background-color: rgba(239, 235, 233, 0.5);
+    height: 300px;
+    width: 420px;
+
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.imageAjoutProjet{
+    width: 35%;
+}
+
+/**POP-UP DE CREATION D'UN NOUVEAU PROJET**/
+.modal-body{
+    overflow-y: scroll;
+}
+
+.newprojectText {
+    font-size: 2rem;
+    font-family: 'Palatino Linotype';
+    color: rgb(3, 3, 3);
+    margin-left: 10px;
+}
+
+.newAquarium{
+    border-radius: 7%;
+    background-color: rgba(239, 235, 233, 0.5);
+    height: 200px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.newAquariumPicture {
+    float:left;
+    width: 70%;
+    height: 100%;
+    border-radius: 5%;
+    align-self: center;
+    position: static;
+}
+
+/* .description-right{
+    margin-left: 100px;
+    align-self: auto;
+} */
+
+.newAquariumTitle{
+    margin-left: auto;
+    text-align: center;
+}
+
+.newAquariumHr{
+    background-color: rgb(7, 7, 7);
+    width: 30%;
+    height: 2px;
+    margin-left: auto;
+}
+
+.boutonChoix{
+    align-items: center;
+    margin-top: 5px;
+}
