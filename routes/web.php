@@ -30,9 +30,8 @@ Route::get('/modelisation', function () {
 })->name('modelisation');
 
 // Route vers la page projet:
-Route::post('/mes_projets', [ProjectController::class, 'addProject']);
-Route::get('/mes_projets', [ProjectController::class, 'newAquarium'])
-    ->name('projet');
+Route::post('/mes_projets', [ProjectController::class, 'addProject'])->name('ajoutProjet');;
+Route::get('/mes_projets', [ProjectController::class, 'newAquarium'])->name('projet');
 
 // Route vers la page forum:
 Route::get('/forum', function () {

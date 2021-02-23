@@ -14,8 +14,8 @@ $(function(){
     });
 });
 
-$(function(){
-    /*Ajout d'un nouveau projet */
+/*$(function(){
+    /!*Ajout d'un nouveau projet *!/
     $('.ajouterProjet').on('click', function() {
         console.log("C'est parti pour l'ajout d'un projet !");
 
@@ -27,14 +27,16 @@ $(function(){
                 'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
             }
         });
+
         $.ajax({
-            url: 'mes_projets',
+            url: "{{ route('ajoutProjet') }}",
             type: 'POST',
             data: 'id_bac=' + idBac,
-            dataType: 'html',
+            dataType: 'json',
             async: true,
             success: function(data){
                 console.log("Succès dans l'ajout du nouveau projet !");
+                //console.log(data);
             },
             error: function(resultat, statut, erreur){
                 console.log("Erreur dans l'ajout du nouveau projet...")
@@ -47,4 +49,4 @@ $(function(){
             }
         })
     });
-});
+});*/

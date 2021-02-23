@@ -29,28 +29,32 @@ class ProjectController extends Controller
         $idUser = Auth::id();
 
         //Id du dernier projet existant
-        $idProjet = DB::table('projets') -> max('id_projet');
+        $idProjet = DB::table('projets') -> max('id_projet'); // WARNING : La requete recupère toujours 1 !!!
         if (is_null($idProjet)){
             $idProjet = 0;
         }
 
-        //$idBac = $_POST['id_bac'];
+        $idNewProjet = $idProjet + 1;
 
-        //Insertion dans la BDD    
+        $idBac = $request->idBack;
+
+        //Insertion dans la BDD
         DB::table('projets_temp')
             ->insert([
-                'id_projet' => 1,
-                'id_bac' => 1,
-                'id_user' => 1,
-                'nom_projet' => null,
+                'id_projet' => $idNewProjet,
+                'id_bac' => $idBac,
+                'id_user' => 1, //Après le merge il faut remplacer le 1 par $idUser
+                'nom_projet' => "test".$idNewProjet,
                 'partage' => false
-        ]);        
+        ]);
+
+        return response()->json(['success'=>'Got Simple Ajax Request.']);
     }
 
     /*public function shareProject($idProject)
     {
         $affected = DB::update(
-            'update projet set partage = ',true,' where name = ?', 
+            'update projet set partage = ',true,' where name = ?',
             [$idProject]
         );
     } */
