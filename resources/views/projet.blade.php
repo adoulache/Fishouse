@@ -45,12 +45,15 @@
                         <!-- Body pop-up -->
                         <div class="modal-body">
                             <p>Confirmes-tu la suppression définitive de ce projet ?</p>
-                            <!-- <input id="supprId" name="idSuppresion" type="hidden" value="">  -->
                         </div>
                         <!-- Footer pop-up -->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-dark boutonSuppr" name="supprProjet">Valider et confirmer</button>
-                            <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+                            <form method="post" action="{{ route('suppProjet') }}">
+                                {{ csrf_field() }}
+                                <input id="supprIdHidden" name="idSuppresion" type="hidden" value="">
+                                <button type="submit" class="btn btn-dark boutonSuppr" name="supprProjet">Valider et confirmer</button>
+                                <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+                            </form>
                         </div>
                     </div>
                 </div>

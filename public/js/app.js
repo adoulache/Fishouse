@@ -3803,42 +3803,48 @@ $(function () {
       console.log('ERREUR dans la récupération des projets existants et des bacs pour nouveaux projets');
     }
   });
-});
-var idProjetASuppr;
+}); //let idProjetASuppr;
+
 /*SUPPRESSION D'UN PROJET */
 
 $(function () {
   $('.btnSupprimer').on('click', function () {
     $('#delete').modal();
     var id = $(this).attr('id');
-    idProjetASuppr = id;
+    $('#supprIdHidden').val(id);
     document.getElementById("supprId").innerHTML = id;
     return false;
   });
 });
-$(function () {
-  $('.boutonSuppr').on('click', function () {
-    console.log(idProjetASuppr);
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
+/*$(function(){
+    $('.boutonSuppr').on('click', function() {
+
+        let idProjetASuppr = $("input[name='username']").val();
+
+        alert(idProjetASuppr);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: 'projets3',
+            type: 'POST',
+            data: {idProjet : idProjetASuppr},
+            async: false,
+            success: function(data) {
+                console.log('SUCCES dans la suppression');
+            },
+            error: function(error) {
+                console.log('ERREUR dans la suppression');
+                console.log(error);
+            }
+        });
     });
-    $.ajax({
-      url: 'projets3',
-      type: 'POST',
-      data: 'idProjet=' + idProjetASuppr,
-      async: false,
-      success: function success(data) {
-        console.log('SUCCES dans la suppression');
-      },
-      error: function error(_error) {
-        console.log('ERREUR dans la suppression');
-        console.log(_error);
-      }
-    });
-  });
-});
+});*/
+
 /*$(function(){
     /!*Ajout d'un nouveau projet *!/
     $('.ajouterProjet').on('click', function() {

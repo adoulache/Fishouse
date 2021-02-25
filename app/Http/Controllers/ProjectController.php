@@ -33,13 +33,15 @@ class ProjectController extends Controller
         return view('projet', ['listeBacs' => $listeBacs, 'listeProjets' => $listeProjets]);
     }
 
-    public function deleteProject()
+    public function deleteProject(Request $request)
     {
-        $idProjet = $_POST['idProjet'];
+        $idProjet = $request->idSuppresion;
+
         if (DB::table('projets')->where('id_projet', $idProjet)->exists()) {
             DB::table('projets')->where('id_projet', $idProjet)->delete();
         };
-        return view('projet');
+
+        return redirect()->route('projet');
     }
 
     public function addProject(Request $request)
@@ -48,7 +50,7 @@ class ProjectController extends Controller
         $idUser = Auth::id();
 
         //Id du dernier projet existant
-        $idProjet = DB::table('projets') -> max('id_projet'); 
+        $idProjet = DB::table('projets') -> max('id_projet');
         $idProjetTemp = DB::table('projets_temp') -> max('id_projet');
         if (is_null($idProjet) && is_null($idProjetTemp)){
             $idProjet = 0;

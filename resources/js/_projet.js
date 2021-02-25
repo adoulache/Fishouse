@@ -12,23 +12,26 @@ $(function(){
     });
 });
 
-let idProjetASuppr;
+//let idProjetASuppr;
 
 /*SUPPRESSION D'UN PROJET */
 $(function(){
     $('.btnSupprimer').on('click', function(){
         $('#delete').modal();
         let id = $(this).attr('id');
-        idProjetASuppr = id;
-        document.getElementById("supprId").innerHTML=id;      
-        
+        $('#supprIdHidden').val(id);
+        document.getElementById("supprId").innerHTML=id;
+
         return false;
     });
 });
 
-$(function(){
+/*$(function(){
     $('.boutonSuppr').on('click', function() {
-        console.log(idProjetASuppr);
+
+        let idProjetASuppr = $("input[name='username']").val();
+
+        alert(idProjetASuppr);
 
         $.ajaxSetup({
             headers: {
@@ -39,7 +42,7 @@ $(function(){
         $.ajax({
             url: 'projets3',
             type: 'POST',
-            data: 'idProjet=' + idProjetASuppr,
+            data: {idProjet : idProjetASuppr},
             async: false,
             success: function(data) {
                 console.log('SUCCES dans la suppression');
@@ -50,7 +53,7 @@ $(function(){
             }
         });
     });
-});
+});*/
 
 /*$(function(){
     /!*Ajout d'un nouveau projet *!/
