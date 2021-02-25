@@ -10,12 +10,54 @@
     <div class="container-fluid">
         <div class="row">
 
+            @foreach($listeProjets as $listeProjet)
+            <div class="projectBloc row justify-content-center align-items-center">
+                <h2 class="projectTitle"> {{ $listeProjet->nom_projet }} </h2>
+                <img src="{{ asset('../images/aquarium.jpg') }}" class="imageProjetExistant" id="projetExistant"/>
+                <div class="buttonProjetsExistants">
+                    <a class="btn btn-dark" href="#home">Modifier</a>
+                    <a class="btn btn-dark btnSupprimer" id="{{ $listeProjet->id_projet }}" href="#contact" data-toggle="modal" data-target="#delete">Supprimer</a>
+                    <a class="btn btn-dark fa fa-ellipsis-h" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">Renommer</a>
+                        <a class="dropdown-item" href="#">Partager</a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+
             <div class="projectBloc row justify-content-center align-items-center">
                 <img src="{{ asset('../images/ajoutProjet.png') }}" class="imageAjoutProjet" type="button"
-                     data-toggle="modal" data-target="#popup" id="nouveauProjet">
+                     data-toggle="modal" data-target="#popup" id="newAquarium"/>
             </div>
 
-            <!-- Pop-up -->
+            <!-- DEBUT POP-UP, suppression d'un projet existant -->
+            <div id="delete" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Header pop-up -->
+                        <div class="modal-header">
+                            <p class="modal-title newprojectText"> Supprimer le projet n° <span id="supprId"></span> </p>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <!-- Body pop-up -->
+                        <div class="modal-body">
+                            <p>Confirmes-tu la suppression définitive de ce projet ?</p>
+                            <!-- <input id="supprId" name="idSuppresion" type="hidden" value="">  -->
+                        </div>
+                        <!-- Footer pop-up -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark boutonSuppr" name="supprProjet">Valider et confirmer</button>
+                            <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--FIN POP-UP -->
+
+            <!-- DEBUT POP-UP, création d'un nouveau projet -->
             <div id="popup" class="modal fade">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -61,7 +103,7 @@
                                                     <li> Prix (en €) : {{ $listeBac->prix }} </li>
                                                 </ul>
                                                 <input id="idBack" name="idBack" type="hidden" value="{{ $listeBac->id_bac }}">
-                                                <button type="submit" class="btn btn-dark boutonChoix ajouterProjet" value="{{ $listeBac->id_bac }}"> Choisir {{$listeBac->id_bac}} </button>
+                                                <button type="submit" class="btn btn-dark boutonChoix ajouterProjet"> Choisir </button>
                                             </div>
                                         </div>
                                     </form>
@@ -76,7 +118,7 @@
                     </div>
                 </div>
             </div>
-
+            <!--FIN POP-UP -->
         </div>
     </div>
 

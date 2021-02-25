@@ -24,14 +24,18 @@ Route::get('/fiches', function () {
     return view('fiches');
 })->name('fiches');
 
-// Route vers la page modelisation:
+// Route vers la page modelisation: (Peut-être qu'il sert plus à rien, A VERIFIER)
 Route::get('/modelisation', function () {
     return view('modelisation');
 })->name('modelisation');
 
 // Route vers la page projet:
-Route::post('/mes_projets', [ProjectController::class, 'addProject'])->name('ajoutProjet');;
-Route::get('/mes_projets', [ProjectController::class, 'newAquarium'])->name('projet');
+Route::post('/projets2', [ProjectController::class, 'addProject'])->name('ajoutProjet'); //Si jamais, changé nom en modelisation
+//Route::post('/mes_projets1', [ProjectController::class, 'deleteProject']);
+Route::post('/projets3', [ProjectController::class, 'postDelete']);
+
+Route::get('/mes_projets', [ProjectController::class, 'Aquarium'])->name('projet');
+
 
 // Route vers la page forum:
 Route::get('/forum', function () {

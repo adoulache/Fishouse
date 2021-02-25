@@ -13,14 +13,33 @@ header('Content-Type: text/html; charset=ISO-8859-15');
 
 class ProjectController extends Controller
 {
-    public function newAquarium(){
+
+    public function Aquarium()
+    {
+        //Id de l'utilisateur courant
+        $idUser = Auth::id();
+
+        //Liste des projets existants
+        $listeProjets = DB::table('projets')
+            ->select(['id_projet', 'id_bac', 'id_user', 'nom_projet', 'partage'])
+            ->where('id_user', 1) //remettre au propre avec $idUser
+            ->get();
 
         //Images des bacs
         $listeBacs = DB::table('bacs')
             ->select(['description', 'nom_photo', 'prix', 'taille', 'nom', 'id_bac'])
             ->get();
 
-        return view('projet', ['listeBacs' => $listeBacs]);
+        return view('projet', ['listeBacs' => $listeBacs, 'listeProjets' => $listeProjets]);
+    }
+
+    public function deleteProject()
+    {
+        $idProjet = $_POST['idProjet'];
+        if (DB::table('projets')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projets')->where('id_projet', $idProjet)->delete();
+        };
+        return view('projet');
     }
 
     public function addProject(Request $request)
@@ -29,12 +48,13 @@ class ProjectController extends Controller
         $idUser = Auth::id();
 
         //Id du dernier projet existant
-        $idProjet = DB::table('projets') -> max('id_projet'); // WARNING : La requete recupère toujours 1 !!!
-        if (is_null($idProjet)){
+        $idProjet = DB::table('projets') -> max('id_projet'); 
+        $idProjetTemp = DB::table('projets_temp') -> max('id_projet');
+        if (is_null($idProjet) && is_null($idProjetTemp)){
             $idProjet = 0;
         }
 
-        $idNewProjet = $idProjet + 1;
+        $idNewProjet = max($idProjet, $idProjetTemp) + 1;
 
         $idBac = $request->idBack;
 
@@ -44,11 +64,11 @@ class ProjectController extends Controller
                 'id_projet' => $idNewProjet,
                 'id_bac' => $idBac,
                 'id_user' => 1, //Après le merge il faut remplacer le 1 par $idUser
-                'nom_projet' => "test".$idNewProjet,
+                'nom_projet' => "projet_".$idNewProjet,
                 'partage' => false
         ]);
 
-        return response()->json(['success'=>'Got Simple Ajax Request.']);
+        return view('modelisation');
     }
 
     /*public function shareProject($idProject)

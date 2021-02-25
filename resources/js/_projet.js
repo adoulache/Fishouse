@@ -1,14 +1,52 @@
 $(function(){
-    $('#nouveauProjet').on('click', function(){
+    $.ajax({
+        url: 'mes_projets',
+        type: 'GET',
+        async: false,
+        success: function(data) {
+            console.log('SUCCES dans la récupération des projets existants et des bacs pour nouveaux projets');
+        },
+        error: function(data) {
+            console.log('ERREUR dans la récupération des projets existants et des bacs pour nouveaux projets')
+        }
+    });
+});
+
+let idProjetASuppr;
+
+/*SUPPRESSION D'UN PROJET */
+$(function(){
+    $('.btnSupprimer').on('click', function(){
+        $('#delete').modal();
+        let id = $(this).attr('id');
+        idProjetASuppr = id;
+        document.getElementById("supprId").innerHTML=id;      
+        
+        return false;
+    });
+});
+
+$(function(){
+    $('.boutonSuppr').on('click', function() {
+        console.log(idProjetASuppr);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $.ajax({
-            url: 'mes_projets',
-            type: 'GET',
+            url: 'projets3',
+            type: 'POST',
+            data: 'idProjet=' + idProjetASuppr,
             async: false,
             success: function(data) {
-                console.log('SUCCES dans la récupération des images');
+                console.log('SUCCES dans la suppression');
             },
-            error: function(data) {
-                console.log('ERREUR dans la récupération des images')
+            error: function(error) {
+                console.log('ERREUR dans la suppression');
+                console.log(error);
             }
         });
     });

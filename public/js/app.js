@@ -3792,52 +3792,89 @@ module.exports = {
 /***/ (() => {
 
 $(function () {
-  $('#nouveauProjet').on('click', function () {
-    $.ajax({
-      url: 'mes_projets',
-      type: 'GET',
-      async: false,
-      success: function success(data) {
-        console.log('SUCCES dans la récupération des images');
-      },
-      error: function error(data) {
-        console.log('ERREUR dans la récupération des images');
-      }
-    });
+  $.ajax({
+    url: 'mes_projets',
+    type: 'GET',
+    async: false,
+    success: function success(data) {
+      console.log('SUCCES dans la récupération des projets existants et des bacs pour nouveaux projets');
+    },
+    error: function error(data) {
+      console.log('ERREUR dans la récupération des projets existants et des bacs pour nouveaux projets');
+    }
+  });
+});
+var idProjetASuppr;
+/*SUPPRESSION D'UN PROJET */
+
+$(function () {
+  $('.btnSupprimer').on('click', function () {
+    $('#delete').modal();
+    var id = $(this).attr('id');
+    idProjetASuppr = id;
+    document.getElementById("supprId").innerHTML = id;
+    return false;
   });
 });
 $(function () {
-  /*Ajout d'un nouveau projet */
-  $('.ajouterProjet').on('click', function () {
-    console.log("C'est parti pour l'ajout d'un projet !");
-    var idBac = $(this).val();
-    console.log("IdBac = " + idBac);
+  $('.boutonSuppr').on('click', function () {
+    console.log(idProjetASuppr);
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
     $.ajax({
-      url: 'mes_projets',
+      url: 'projets3',
       type: 'POST',
-      data: 'id_bac=' + idBac,
-      dataType: 'html',
-      async: true,
+      data: 'idProjet=' + idProjetASuppr,
+      async: false,
       success: function success(data) {
-        console.log("Succès dans l'ajout du nouveau projet !");
+        console.log('SUCCES dans la suppression');
       },
-      error: function error(resultat, statut, erreur) {
-        console.log("Erreur dans l'ajout du nouveau projet...");
-        console.log('======================');
-        console.log(resultat);
-        console.log('======================');
-        console.log(statut);
-        console.log('======================');
-        console.log(erreur);
+      error: function error(_error) {
+        console.log('ERREUR dans la suppression');
+        console.log(_error);
       }
     });
   });
 });
+/*$(function(){
+    /!*Ajout d'un nouveau projet *!/
+    $('.ajouterProjet').on('click', function() {
+        console.log("C'est parti pour l'ajout d'un projet !");
+
+        let idBac = $(this).val();
+        console.log("IdBac = " + idBac);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "{{ route('ajoutProjet') }}",
+            type: 'POST',
+            data: 'id_bac=' + idBac,
+            dataType: 'json',
+            async: true,
+            success: function(data){
+                console.log("Succès dans l'ajout du nouveau projet !");
+                //console.log(data);
+            },
+            error: function(resultat, statut, erreur){
+                console.log("Erreur dans l'ajout du nouveau projet...")
+                console.log('======================');
+                console.log(resultat);
+                console.log('======================');
+                console.log(statut);
+                console.log('======================');
+                console.log(erreur);
+            }
+        })
+    });
+});*/
 
 /***/ }),
 
