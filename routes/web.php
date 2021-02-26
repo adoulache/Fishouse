@@ -32,7 +32,9 @@ Route::get('/modelisation', function () {
 // Route vers la page projet:
 Route::post('/projets2', [ProjectController::class, 'addProject'])->name('ajoutProjet'); //Si jamais, changé nom en modelisation
 //Route::post('/mes_projets1', [ProjectController::class, 'deleteProject']);
-Route::post('/projets3', [ProjectController::class, 'deleteProject'])->name('suppProjet');;
+Route::post('/projets3', [ProjectController::class, 'deleteProject'])->name('suppProjet');
+Route::post('/projets4', [ProjectController::class, 'renameProject'])->name('renameProjet');;
+Route::post('/projets5', [ProjectController::class, 'shareProject'])->name('shareProjet');;
 
 Route::get('/mes_projets', [ProjectController::class, 'Aquarium'])->name('projet');
 

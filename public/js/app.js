@@ -3816,6 +3816,28 @@ $(function () {
     return false;
   });
 });
+/*RENOMMAGE D'UN PROJET */
+
+$(function () {
+  $('.btnRenommer').on('click', function () {
+    $('#rename').modal();
+    var id = $(this).attr('id');
+    $('#renommeIdHidden').val(id);
+    document.getElementById("renommeId").innerHTML = id;
+    return false;
+  });
+});
+/*PARTAGE D'UN PROJET */
+
+$(function () {
+  $('.btnPartager').on('click', function () {
+    $('#share').modal();
+    var id = $(this).attr('id');
+    $('#partageIdHidden').val(id);
+    document.getElementById("partageId").innerHTML = id;
+    return false;
+  });
+});
 /*$(function(){
     $('.boutonSuppr').on('click', function() {
 

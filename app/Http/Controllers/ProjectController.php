@@ -44,6 +44,29 @@ class ProjectController extends Controller
         return redirect()->route('projet');
     }
 
+    public function renameProject(Request $request)
+    {
+        $idProjet = $request->idRenomme;
+        $newName = $request->newName;
+
+        if (DB::table('projets')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projets')->where('id_projet', $idProjet)->update(['nom_projet' => $newName]);
+        };
+
+        return redirect()->route('projet');
+    }
+
+    public function shareProject(Request $request)
+    {
+        $idProjet = $request->idPartage;
+
+        if (DB::table('projets')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projets')->where('id_projet', $idProjet)->update(['partage' => true]);
+        };
+
+        return redirect()->route('projet');
+    }
+
     public function addProject(Request $request)
     {
         //Id de l'utilisateur courant

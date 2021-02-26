@@ -19,8 +19,8 @@
                     <a class="btn btn-dark btnSupprimer" id="{{ $listeProjet->id_projet }}" href="#contact" data-toggle="modal" data-target="#delete">Supprimer</a>
                     <a class="btn btn-dark fa fa-ellipsis-h" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Renommer</a>
-                        <a class="dropdown-item" href="#">Partager</a>
+                        <a class="dropdown-item btn-dark btnRenommer" id="{{ $listeProjet->id_projet }}" href="#" data-toggle="modal" data-target="#rename">Renommer</a>
+                        <a class="dropdown-item btn-dark btnPartager" id="{{ $listeProjet->id_projet }}" href="#" data-toggle="modal" data-target="#share">Partager</a>
                     </div>
                 </div>
             </div>
@@ -52,6 +52,65 @@
                                 {{ csrf_field() }}
                                 <input id="supprIdHidden" name="idSuppresion" type="hidden" value="">
                                 <button type="submit" class="btn btn-dark boutonSuppr" name="supprProjet">Valider et confirmer</button>
+                                <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--FIN POP-UP -->
+
+            <!-- DEBUT POP-UP, renommage d'un projet existant -->
+            <div id="rename" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Header pop-up -->
+                        <div class="modal-header">
+                            <p class="modal-title newprojectText"> Renommer le projet n° <span id="renommeId"></span> </p>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <!-- Body pop-up -->
+                        <form method="post" action="{{ route('renameProjet') }}">
+                        {{ csrf_field() }}
+                            <div class="modal-body">
+                                <p>Comment souhaites-tu renommer ton projet ?</p>
+                                <input type="text" id="newName" name="newName">
+                                <input id="renommeIdHidden" name="idRenomme" type="hidden" value="">
+                            </div>
+                            <!-- Footer pop-up -->
+                            <div class="modal-footer">
+                                <button type="submit" value="Submit" class="btn btn-dark boutonRenom" name="renameProjet">Valider et confirmer</button>
+                                <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--FIN POP-UP -->
+
+            <!-- DEBUT POP-UP, activation du partage d'un projet existant -->
+            <div id="share" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Header pop-up -->
+                        <div class="modal-header">
+                            <p class="modal-title newprojectText"> Partager le projet n° <span id="partageId"></span> </p>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <!-- Body pop-up -->
+                        <div class="modal-body">
+                            <p>Souhaites-tu vraiment partager ton projet avec les autres membres de Fishouse ?</p>
+                        </div>
+                        <!-- Footer pop-up -->
+                        <div class="modal-footer">
+                            <form method="post" action="{{ route('shareProjet') }}">
+                                {{ csrf_field() }}
+                                <input id="partageIdHidden" name="idPartage" type="hidden" value="">
+                                <button type="submit" class="btn btn-dark boutonParta" name="shareProjet">Valider et confirmer</button>
                                 <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
                             </form>
                         </div>
