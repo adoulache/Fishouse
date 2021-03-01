@@ -1,17 +1,110 @@
 .blocRecherche{
+    border:solid 10px white;
     border-radius: 5%;
-    background-color: #EFEBE9;
-    opacity: 0.5;
+    background-color: rgba(239, 235, 233, 0.5);
 }
 
-.blocRecherche h3{
+.h3BlocRecherche{
     color:black;
+    font-size: medium;
 }
 
-.blocRecherche hr{
+.hrBlocRecherche{
     height: 2px;
     color: black;
-    background-color: black;
     width: 80%;
-    border: none;
+    border-top: 1px solid;
+}
+
+.dropdown {
+    margin-top:2px;
+}
+
+/* DEBUT BLOCK MODELISATION */
+
+/* Pour l'ancien bouton
+@import url("https://fonts.googleapis.com/css?family=Montserrat:700");*/
+
+/* Partie modélisation de l'accueil */
+
+.modelisationContent {
+    text-align: center;
+    position: relative;
+}
+
+.modelisationImageHome {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.modelisationTextHome {
+    position: absolute;
+    background-color: #0a0a0ac0;
+    font-size: 1rem;
+    top: 25%;
+    left: 15%;
+    right: 15%;
+    color: #fdfdfd;
+}
+
+/*hr {
+    background-color: white;
+    width: 90%;
+    height: 1px;
+}*/
+
+#modelisation {
+    width: 100%;
+}
+
+/*Ancien bouton
+  .modelisationButton{
+    left : 20%;
+    right : 20%;
+    color: white;
+    font-weight: bold;
+    font-size: 2rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 2% 2%;
+    background-color: #242323;
+    transition: transform 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55), background-position 800ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    background-size: contain;
+    background-position: -200px center;
+    background-repeat: no-repeat;
+    border:1px solid #dee2e6;
+  }
+  .modelisationButton:hover {
+    transform: scale(1.1);
+    background-position: -60px;
+  }
+  .modelisationButton:active {
+    transform: scale(1);
+    background-position: 500px;
+  }*/
+
+/* Partie fonctionnalités de l'accueil */
+
+.fonctionnalite {
+    border: 5px solid white;
+    max-width: 100%;
+    height: auto;
+}
+
+.fonctionnalitésText {
+    position: relative;
+    font-size: 2rem;
+    top: auto;
+    text-align: center;
+    text-transform: uppercase;
+    align-content: center;
+    color: rgb(3, 3, 3);
+    margin-bottom: 10px;
+}
+
+.hrbis {
+    background-color: rgb(7, 7, 7);
+    width: 70%;
+    height: 2px;
 }

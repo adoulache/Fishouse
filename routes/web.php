@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ModelisationController;
 
 /*
@@ -35,9 +36,21 @@ Route::post('/modelisation2', [ModelisationController::class, 'postNom']);
 Route::post('/modelisation3', [ModelisationController::class, 'postSauveProjet']);
 Route::post('/modelisation4', [ModelisationController::class, 'postReinitProjet']);
 
-Route::get('/modelisation', function () {
-    return view('modelisation');
-})->name('modelisation');
+
+// Route vers la page modelisation: (Peut-être qu'il sert plus à rien, A VERIFIER)
+Route::get('/modelisation/{id}/{name}', [ModelisationController::class, 'openProject'])->name('openProjet');
+//Route::get('/modelisation', function () {
+//    return view('modelisation');
+//})->name('modelisation');
+
+// Route vers la page projet:
+Route::post('/projets2', [ProjectController::class, 'addProject'])->name('ajoutProjet'); //Si jamais, changé nom en modelisation
+//Route::post('/mes_projets1', [ProjectController::class, 'deleteProject']);
+Route::post('/projets3', [ProjectController::class, 'deleteProject'])->name('suppProjet');
+Route::post('/projets4', [ProjectController::class, 'renameProject'])->name('renameProjet');
+Route::post('/projets5', [ProjectController::class, 'shareProject'])->name('shareProjet');
+
+Route::get('/mes_projets', [ProjectController::class, 'Aquarium'])->name('projet');
 
 // Route vers la page forum:
 Route::get('/forum', function () {

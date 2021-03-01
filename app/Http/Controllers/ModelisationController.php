@@ -3,10 +3,94 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use View;
 
 class ModelisationController extends Controller
 {
+
+    //OUVERTURE D'UN PROJET EXISTANT (via bouton Modifier de la page des projets)
+    public function openProject($id, $name)
+    {
+        //Id de l'utilisateur courant
+        $idUser = Auth::id();
+
+        //Données du projet existant
+        $Projet = DB::table('projets')
+            ->select(['id_projet', 'id_bac', 'id_user', 'nom_projet', 'partage'])
+            ->where('id_projet', $id)
+            ->get();
+
+        //Copie des données du projet dans la table temporaire des projets
+        DB::table('projets_temp')
+            ->insert([
+                'id_projet' => $Projet[0]->id_projet,
+                'id_bac' => $Projet[0]->id_bac,
+                'id_user' => $Projet[0]->id_user,
+                'nom_projet' => $Projet[0]->nom_projet,
+                'partage' => $Projet[0]->partage
+        ]);
+
+        //Données de l'aquarium, relatif au projet existant
+        if (DB::table('projet_aquarium')->where('id_projet', $id) ->exists()) {
+            $ProjetAquarium = DB::table('projet_aquarium')
+            ->select(['id_projet', 'id_aquarium'])
+            ->where('id_projet', $id)
+            ->get();
+
+            //Copie des données du projet dans la table temporaire des projets
+            DB::table('projet_aquarium_temp')
+                ->insert([
+                    'id_projet' => $ProjetAquarium[0]->id_projet,
+                    'id_bac' => $ProjetAquarium[0]->id_bac,
+            ]);
+        };
+
+        //Données de l'aquarium, relatif au projet existant
+        if (DB::table('projet_decoration')->where('id_projet', $id) ->exists()) {
+            $ProjetDecoration = DB::table('projet_decoration')
+                ->select(['id_projet', 'id_decoration', 'coordx', 'coordy', 'coordz'])
+                ->where('id_projet', $id)
+                ->get();
+
+            //Copie des données du projet dans la table temporaire des projets
+            DB::table('projet_decoration_temp')
+                ->insert([
+                    'id_projet' => $ProjetDecoration[0]->id_projet,
+                    'id_decoration' => $ProjetDecoration[0]->id_decoration,
+                    'coordx' => $ProjetDecoration[0]->coordx,
+                    'coordy' => $ProjetDecoration[0]->coordy,
+                    'coordz' => $ProjetDecoration[0]->coordz
+            ]);
+        };
+
+        //Données de l'aquarium, relatif au projet existant
+        if (DB::table('projet_plante')->where('id_projet', $id) ->exists()) {
+            $ProjetPlante = DB::table('projet_plante')
+                ->select(['id_projet', 'id_plante', 'coordx', 'coordy', 'coordz'])
+                ->where('id_projet', $id)
+                ->get();
+
+            //Copie des données du projet dans la table temporaire des projets
+            DB::table('projet_plante_temp')
+                ->insert([
+                    'id_projet' => $ProjetPlante[0]->id_projet,
+                    'id_plante' => $ProjetPlante[0]->id_plante,
+                    'coordx' => $ProjetPlante[0]->coordx,
+                    'coordy' => $ProjetPlante[0]->coordy,
+                    'coordz' => $ProjetPlante[0]->coordz
+            ]);
+        };
+
+        return view::make('modelisation');
+    }
+
+    public function catalogue(){
+        $Decorations = DB::table('decorations')
+            ->select(['id_decoration', 'nom', 'description', 'nom_photo', 'tag', 'prix', 'taille'])
+            ->get();
+    }
+
     /**
      * Réinitialise un projet.
      */

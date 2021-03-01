@@ -4,3 +4,5 @@ require('./home');
 require('./_modelisation');
 
 require('alpinejs');
+
+require('./_projet');
