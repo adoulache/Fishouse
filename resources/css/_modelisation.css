@@ -1,18 +1,23 @@
 .blocRecherche{
+    border:solid 10px white;
     border-radius: 5%;
     background-color: rgba(239, 235, 233, 0.5);
 }
 
-.blocRecherche h3{
+.h3BlocRecherche{
     color:black;
+    font-size: medium;
 }
 
-.blocRecherche hr{
-    height: 2px;
-    color: black;
-    background-color: black;
-    width: 80%;
-    border: none;
+.hrBlocRecherche{
+    height: 2px; 
+    color: black; 
+    width: 80%; 
+    border-top: 1px solid;
+}
+
+.dropdown {
+    margin-top:2px;
 }
 
 /* DEBUT BLOCK MODELISATION */
@@ -43,11 +48,11 @@
     color: #fdfdfd;
 }
 
-hr {
+/*hr {
     background-color: white;
     width: 90%;
     height: 1px;
-}
+}*/
 
 #modelisation {
     width: 100%;

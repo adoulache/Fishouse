@@ -3803,8 +3803,7 @@ $(function () {
       console.log('ERREUR dans la récupération des projets existants et des bacs pour nouveaux projets');
     }
   });
-}); //let idProjetASuppr;
-
+});
 /*SUPPRESSION D'UN PROJET */
 
 $(function () {

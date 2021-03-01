@@ -93,7 +93,7 @@ class ProjectController extends Controller
                 'partage' => false
         ]);
 
-        return view('modelisation');
+        return view('modelisation', ['idProjet' => $idNewProjet, 'nomProjet' => "projet_".$idNewProjet]);
     }
 
     /*public function shareProject($idProject)

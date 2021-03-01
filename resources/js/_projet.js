@@ -12,8 +12,6 @@ $(function(){
     });
 });
 
-//let idProjetASuppr;
-
 /*SUPPRESSION D'UN PROJET */
 $(function(){
     $('.btnSupprimer').on('click', function(){

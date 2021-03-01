@@ -6321,6 +6321,11 @@
     "source-map" "~0.7.2"
     "source-map-support" "~0.5.19"
 
+"three@^0.126.0":
+  "integrity" "sha512-/MecvboUefStCkUfXLImoJxthN+FoLPcEP7pz1r1Dd9i8BPGGuj+S1sOPRvW4Z+ViZjP2oWWm1inNC/MT52ybA=="
+  "resolved" "https://registry.npmjs.org/three/-/three-0.126.0.tgz"
+  "version" "0.126.0"
+
 "thunky@^1.0.2":
   "integrity" "sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA=="
   "resolved" "https://registry.npmjs.org/thunky/-/thunky-1.1.0.tgz"

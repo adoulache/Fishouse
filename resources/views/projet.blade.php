@@ -14,8 +14,8 @@
             <div class="projectBloc row justify-content-center align-items-center">
                 <h2 class="projectTitle"> {{ $listeProjet->nom_projet }} </h2>
                 <img src="{{ asset('../images/aquarium.jpg') }}" class="imageProjetExistant" id="projetExistant"/>
-                <div class="buttonProjetsExistants">
-                    <a class="btn btn-dark" href="#home">Modifier</a>
+                <div class="buttonProjetsExistants">            
+                    <a class="btn btn-dark" href="{{ route('openProjet',['id'=>$listeProjet->id_projet, 'name'=>$listeProjet->nom_projet]) }}">Modifier</a>
                     <a class="btn btn-dark btnSupprimer" id="{{ $listeProjet->id_projet }}" href="#contact" data-toggle="modal" data-target="#delete">Supprimer</a>
                     <a class="btn btn-dark fa fa-ellipsis-h" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -174,7 +174,6 @@
                         </div>
                         <!-- Footer pop-up -->
                         <div class="modal-footer">
-                        <!-- <a type="submit" class="btn btn-dark" id="addProject" href="{{ route('modelisation') }}">Valider</a> -->
                             <a type="button" class="btn btn-dark" data-dismiss="modal">Abandonner</a>
                         </div>
                     </div>

@@ -33090,20 +33090,25 @@ a:hover{
 }
 
 .blocRecherche{
+  border:solid 10px white;
   border-radius: 5%;
   background-color: rgba(239, 235, 233, 0.5);
 }
 
-.blocRecherche h3{
+.h3BlocRecherche{
   color:black;
+  font-size: medium;
 }
 
-.blocRecherche hr{
+.hrBlocRecherche{
   height: 2px;
   color: black;
-  background-color: black;
   width: 80%;
-  border: none;
+  border-top: 1px solid;
+}
+
+.dropdown {
+  margin-top:2px;
 }
 
 /* DEBUT BLOCK MODELISATION */
@@ -33134,11 +33139,11 @@ a:hover{
   color: #fdfdfd;
 }
 
-hr {
-  background-color: white;
-  width: 90%;
-  height: 1px;
-}
+/*hr {
+    background-color: white;
+    width: 90%;
+    height: 1px;
+}*/
 
 #modelisation {
   width: 100%;
