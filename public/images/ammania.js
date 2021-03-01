@@ -212,6 +212,62 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/images/droite.png":
+/*!*************************************!*\
+  !*** ./resources/images/droite.png ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/droite.png?14866fc3156309b64abb635061f0062f");
+
+/***/ }),
+
+/***/ "./resources/images/face.png":
+/*!***********************************!*\
+  !*** ./resources/images/face.png ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/face.png?299f0209f560ad9b4163bc8d504cd1a9");
+
+/***/ }),
+
+/***/ "./resources/images/fond.png":
+/*!***********************************!*\
+  !*** ./resources/images/fond.png ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/fond.png?2e795b7e531eb67cc1a2548d1989a8a1");
+
+/***/ }),
+
+/***/ "./resources/images/gauche.png":
+/*!*************************************!*\
+  !*** ./resources/images/gauche.png ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/gauche.png?9352c44048fe3daa6b6a79d4fe8a00ae");
+
+/***/ }),
+
 /***/ "./resources/images/ile.png":
 /*!**********************************!*\
   !*** ./resources/images/ile.png ***!
@@ -366,8 +422,12 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	__webpack_require__("./resources/images/Catalogue2.png");
 /******/ 	__webpack_require__("./resources/images/chaussure.png");
 /******/ 	__webpack_require__("./resources/images/cornifle.png");
+/******/ 	__webpack_require__("./resources/images/droite.png");
+/******/ 	__webpack_require__("./resources/images/face.png");
 /******/ 	__webpack_require__("./resources/images/Fiches2.png");
+/******/ 	__webpack_require__("./resources/images/fond.png");
 /******/ 	__webpack_require__("./resources/images/Forum2.png");
+/******/ 	__webpack_require__("./resources/images/gauche.png");
 /******/ 	__webpack_require__("./resources/images/ile.png");
 /******/ 	__webpack_require__("./resources/images/logo.png");
 /******/ 	__webpack_require__("./resources/images/logoFixe.png");

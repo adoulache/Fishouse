@@ -56,12 +56,14 @@
             </div>
         </div>
 
+
         <!-- Bouton pour la réinitialisation du projet -->
         <div>
             <p id=idProjetTest>test</p>
             <!--<button type="button" class="btn btn-dark" id="boutonReinit" onclick="reinitProjet('essai');"></button>-->
             <button type="button" class="btn btn-dark" id="boutonReinit">bouton test reinitialisation</button>
         </div>
+
 
         <!-- Bouton pour la sauvegarde du projet -->
         <div>
@@ -95,6 +97,26 @@
                 </div>
             <!--</form>-->
             </div>
+        </div>
+
+        
+        <!-- Modélisation 2D -->
+        <div>
+            <button type="button" class="btn btn-light" id="aqFace">
+                <img src="{{ asset('../images/face.png') }}" style="width:50px;">
+            </button>
+            <button type="button" class="btn btn-light" id="aqGauche">
+                <img src="{{ asset('../images/gauche.png') }}" style="width:50px;">
+            </button>
+            <button type="button" class="btn btn-light" id="aqFond">
+                <img src="{{ asset('../images/fond.png') }}" style="width:50px;">
+            </button>
+            <button type="button" class="btn btn-light" id="aqDroite">
+                <img src="{{ asset('../images/droite.png') }}" style="width:50px;">
+            </button>
+        </div>
+        <div >
+            <canvas id="mod2D" width="600px" height="400px">Eh ben non !</canvas>
         </div>
     </div>
 @endsection

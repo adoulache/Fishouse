@@ -107,19 +107,14 @@ class ModelisationController extends Controller
 
     /**
      * Vérifie si un projet existe.
+     * 
+     * @return JSON message de retour
      */
     public function getProjet()
     {
         if (DB::table('projets')->where('id_projet', $_GET['idProjet'])->exists()) {
-            // $response = new JsonResponse();
-            // $response->setData(array('rep'=> 1));
-            // echo $response;
-            //return '1';
             return response()->json(['response' => 'existe']);
         } else {
-            //echo json_encode(-1);
-            // echo '-1';
-            // return '-1';
             return response()->json(['response' => 'introuvable']);
         }
     }
@@ -207,6 +202,67 @@ class ModelisationController extends Controller
 
         }
     }
+
+    /**
+     * Réupère les plantes d'un projet
+     * 
+     * @return JSON plantes se trouvant dans le projet
+     */
+    public function getPlantes()
+    {
+        if (DB::table('projet_plante')->where('id_projet', $_GET['idProjet'])->exists()) {
+            $plantes = DB::table('projet_plante')->where('id_projet', $_GET['idProjet'])->get();
+            return response()->json(['plantes' => $plantes]);
+        } else {
+            return response()->json(['plantes' => '']);
+        }
+    }
+
+    /**
+     * Récupère les décorations d'un projet
+     * 
+     * @return JSON décorations se trouvant dans le projet
+     */
+    public function getDecos()
+    {
+        if (DB::table('projet_decoration')->where('id_projet', $_GET['idProjet'])->exists()) {
+            $decos = DB::table('projet_decoration')->where('id_projet', $_GET['idProjet'])->get();
+            return response()->json(['decos' => $decos]);
+        } else {
+            return response()->json(['decos' => '']);
+        }
+    }
+
+    /**
+     * Récupère le nom du fichier de la plante
+     * 
+     * @return JSON nom du fichier de la plante
+     */
+    public function getCheminPlante()
+    {
+        if (DB::table('plantes')->where('id_plante', $_GET['idPlante'])->exists()) {
+            $chemin = DB::table('plantes')->where('id_plante', $_GET['idPlante'])->value('nom_photo');
+            return response()->json(['chemin' => $chemin]);
+        } else {
+            return response()->json(['chemin' => '']);
+        }
+    }
+
+    /**
+     * Récupère le nom du fichier de la décoration
+     * 
+     * @return JSON nom du fichier de la décoration
+     */
+    public function getCheminDeco()
+    {
+        if (DB::table('decorations')->where('id_decoration', $_GET['idDeco'])->exists()) {
+            $chemin = DB::table('decorations')->where('id_decoration', $_GET['idDeco'])->value('nom_photo');
+            return response()->json(['chemin' => $chemin]);
+        } else {
+            return response()->json(['chemin' => '']);
+        }
+    }
+
 }
 
 ?>
