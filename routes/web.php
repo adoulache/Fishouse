@@ -15,11 +15,6 @@ use App\Http\Controllers\ModelisationController;
 |
 */
 
-// HomeController page d'accueil
-Route::get('/testHome', [HomeController::class, 'index']);
-// HomeController test Ajax
-Route::get('/testHome/ajax', [HomeController::class, 'exempleAjax']);
-
 // Route vers la page d'accueil:
 Route::get('/', function () {
     return view('home');
@@ -64,16 +59,16 @@ Route::get('/forum', function () {
 // Route vers inscription:
 Route::get('/inscription', function () {
     return view('auth.register');
-})->name('inscription');
+})->name('sign-up');
 
 // Route vers connexion:
 Route::get('/connexion', function () {
     return view('auth.login');
-})->name('connexion');
+})->name('sign-in');
 
-// Route vers le dashboard si utilisateur est bien connecté:
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route vers le test Drag And Drop
+Route::get('/testDrag', function () {
+    return view('testDragAndDrop');
+})->name('test-drag');
 
 
