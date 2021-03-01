@@ -16,6 +16,7 @@ class CreateDecorationsTable extends Migration
         Schema::create('decorations', function (Blueprint $table) {
             $table->increments('id_decoration');
             $table->string('nom');
+            $table->string('titre');
             $table->string('description');
             $table->string('nom_photo');
             $table->string('tag');
@@ -27,6 +28,7 @@ class CreateDecorationsTable extends Migration
         // Décoration 1 : bois 
         DB::table('decorations')->insert(array(
             'nom' => 'bois',
+            'titre' => 'Morceau de bois',
             'description' => "Morceau de bois pour aquarium.",
             'nom_photo' => 'bois.png',
             'tag' => 'bois',
@@ -36,7 +38,8 @@ class CreateDecorationsTable extends Migration
 
         // Décoration 2 : bois usé
         DB::table('decorations')->insert(array(
-            'nom' => 'bois usé',
+            'nom' => 'bois_use',
+            'titre' => 'Bois usé',
             'description' => "Morceau de bois usé pour aquarium.",
             'nom_photo' => 'boisUse.png',
             'tag' => 'bois',
@@ -47,7 +50,8 @@ class CreateDecorationsTable extends Migration
     
         // Décoration 3 : bois lisse 
         DB::table('decorations')->insert(array(
-            'nom' => 'bois lisse',
+            'nom' => 'bois_lisse',
+            'titre' => 'Bois lisse',
             'description' => "Morceau de bois lisse pour aquarium.",
             'nom_photo' => 'boisLisse.png',
             'tag' => 'bois',
@@ -58,6 +62,7 @@ class CreateDecorationsTable extends Migration
         // Décoration 4 : tonneau
         DB::table('decorations')->insert(array(
             'nom' => 'tonneau',
+            'titre' => 'Tonneau',
             'description' => "Tonneau pour aquarium.",
             'nom_photo' => 'tonneau.png',
             'tag' => 'tonneau',
@@ -68,6 +73,7 @@ class CreateDecorationsTable extends Migration
         // Décoration 5 : petite île
         DB::table('decorations')->insert(array(
             'nom' => 'ile',
+            'titre' => 'Ile',
             'description' => "Petite île pour aquarium.",
             'nom_photo' => 'ile.png',
             'tag' => 'ile',
@@ -78,6 +84,7 @@ class CreateDecorationsTable extends Migration
         // Décoration 6 : chaussure usée avec fleur et escargot 
         DB::table('decorations')->insert(array(
             'nom' => 'chaussure',
+            'titre' => 'Chaussure',
             'description' => "Chaussure pour aquarium.",
             'nom_photo' => 'chaussure.png',
             'tag' => 'chaussure',
@@ -88,6 +95,7 @@ class CreateDecorationsTable extends Migration
         // Décoration 7 : petit pont 
         DB::table('decorations')->insert(array(
             'nom' => 'pont',
+            'titre' => 'Pont',
             'description' => "Pont pour aquarium.",
             'nom_photo' => 'pont.png',
             'tag' => 'pont',

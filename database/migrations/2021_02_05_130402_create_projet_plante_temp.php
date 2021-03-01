@@ -19,6 +19,7 @@ class CreateProjetPlanteTemp extends Migration
             $table->integer('coordx');
             $table->integer('coordy');
             $table->integer('coordz');
+            $table->integer('rotation');
         });
     }
 

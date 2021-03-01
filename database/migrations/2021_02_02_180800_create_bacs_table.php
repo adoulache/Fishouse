@@ -16,6 +16,7 @@ class CreateBacsTable extends Migration
         Schema::create('bacs', function (Blueprint $table) {
             $table->increments('id_bac');
             $table->string('nom');
+            $table->string('titre');
             $table->string('description');
             $table->string('nom_photo');
             $table->float('prix');
@@ -25,16 +26,18 @@ class CreateBacsTable extends Migration
         DB::table('bacs')->insert(array(
             
             'nom' => 'bac_rond',
-            'description' => "Bac aquarium rond.",
+            'titre' => 'Bac rond',
+            'description' => "Bac aquarium de forme ronde.",
             'nom_photo' => 'aquariumRond.png',
             'prix' => 50,
-            'taille' => "25x22"
+            'taille' => "50x60"
         ));
     
         DB::table('bacs')->insert(array(
             
             'nom' => 'bac_rectangle',
-            'description' => "Bac aquarium rectangle.",
+            'titre' => 'Bac rectangulaire',
+            'description' => "Bac aquarium rectangulaire.",
             'nom_photo' => 'aquariumRectangle.png',
             'prix' => 100,
             'taille' => "120x140x50"
