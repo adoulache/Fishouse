@@ -11,7 +11,7 @@
             <hr class="hrModelisation">
 
             <div>
-                <a href="{{ route('modelisation') }}" class="modelisation">Modélise ton aquarium !</a>
+                <a href="{{ route('projet') }}" class="modelisation">Modélise ton aquarium !</a>
             </div>
 
         </div>
