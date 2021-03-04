@@ -97,11 +97,17 @@ class ModelisationController extends Controller
     public function postReinitProjet() 
     {
         $idProjet = $_POST['idProjet'];
-        if (DB::table('projet_plante')->where('id_projet', $idProjet)->exists()) {
+        /*if (DB::table('projet_plante')->where('id_projet', $idProjet)->exists()) {
             DB::table('projet_plante')->where('id_projet', $idProjet)->delete();
+        };*/
+        if (DB::table('projet_plante_temp')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projet_plante_temp')->where('id_projet', $idProjet)->delete();
         };
-        if (DB::table('projet_decoration')->where('id_projet', $idProjet)->exists()) {
+        /*if (DB::table('projet_decoration')->where('id_projet', $idProjet)->exists()) {
             DB::table('projet_decoration')->where('id_projet', $idProjet)->delete();
+        };*/
+        if (DB::table('projet_decoration_temp')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projet_decoration_temp')->where('id_projet', $idProjet)->delete();
         };
     }
 

@@ -62,6 +62,35 @@
             <!--<button type="button" class="btn btn-dark" id="boutonReinit" onclick="reinitProjet('essai');"></button>-->
             <button type="button" class="btn btn-dark" id="boutonReinit">bouton test reinitialisation</button>
         </div>
+        <!-- Modal de confirmation réinitialisation du projet -->
+        <div class="modal fade" id="modalReinitProjet" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Réinitialisation du projet</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"> 
+                            <!--<div class="form-group">
+                                <label for="nom-projet" class="col-form-label">Quel nom veux-tu donner à ton projet ?</label>
+                                <input type="text" class="champ" id="nom-projet">
+                            </div>
+                            <div id="sauveOk" class="d-none" style="color:green;">Sauvegarde effectuée !</div>
+                        class="h3 text-center hidden"-->
+                        <div>Es-tu sûr de vouloir réinitialiser ton projet ?</div><br>
+                        <div>Attention, après sauvegarde, tous les éléments de ton aquarium seront définitivement supprimés.</div>
+                        <div id="reinitOk" class="d-none" style="color:green;">Réinitialisation effectuée !</div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-dark" id="validReinit">Réinitialiser</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <!-- Bouton pour la sauvegarde du projet -->

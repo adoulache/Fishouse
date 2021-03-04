@@ -6,27 +6,39 @@ const idProjet = 123 // A RECUPERER DEPUIS LA PAGE QUAND SERA DISPO
 $(function(){
     /* Réinitialisation du projet*/
     $('#boutonReinit').on('click', function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            url: 'modelisation4',
-            type:'POST',
-            data: 'idProjet=' + idProjet,
-            async : false,
-            success: function (data) {
-                //console.log(data);
-                console.log('success');
-            },
-            error : function(data){
-                console.log('error');
-                //console.log(data);
-            }
+        console.log('on va demander confirmation pour la réinitisalisation')
+
+        /* Affichage modal de confirmation */
+        $('#modalReinitProjet').modal('show');
+
+        /* Confirmation de l'utilisateur */
+        $('#validReinit').on('click', function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: 'modelisation4',
+                type:'POST',
+                data: 'idProjet=' + idProjet,
+                async : false,
+                success: function (data) {
+                    console.log('success');
+                    messageValidation();
+                },
+                error : function(data){
+                    console.log('error');
+                    console.log(data);
+                }
+            });
         });
     });
 });
+/* Affichage message uilisateur */
+function messageValidation(){
+    $("#reinitOk").removeClass("d-none");
+};
 
 
 /* PARTIE SAUVEGARDE D'UN PROJET */
