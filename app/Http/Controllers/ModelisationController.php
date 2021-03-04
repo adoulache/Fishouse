@@ -94,7 +94,7 @@ class ModelisationController extends Controller
     /**
      * Réinitialise un projet.
      */
-    public function postReinitProjet()
+    public function postReinitProjet() 
     {
         $idProjet = $_POST['idProjet'];
         if (DB::table('projet_plante')->where('id_projet', $idProjet)->exists()) {
@@ -161,7 +161,7 @@ class ModelisationController extends Controller
 
             foreach ($valPlante as $plante) {
                 DB::table('projet_plante')
-                    ->insert(['id_projet' => $plante->id_projet, 'id_plante' => $plante->id_plante, 'coordx' => $plante->coordx, 'coordy' => $plante->coordy, 'coordz' => $plante->coordz]);
+                    ->insert(['id_projet' => $plante->id_projet, 'id_plante' => $plante->id_plante, 'coordx' => $plante->coordx, 'coordy' => $plante->coordy, 'coordz' => $plante->coordz, 'rotation'=> $plante->rotation]);
             };
 
             //table temporaire des projet_plante (suppression)
@@ -177,7 +177,7 @@ class ModelisationController extends Controller
 
             foreach ($valDeco as $deco) {
                 DB::table('projet_decoration')
-                    ->insert(['id_projet' => $deco->id_projet, 'id_decoration' => $deco->id_decoration, 'coordx' => $deco->coordx, 'coordy' => $deco->coordy, 'coordz' => $deco->coordz]);
+                    ->insert(['id_projet' => $deco->id_projet, 'id_decoration' => $deco->id_decoration, 'coordx' => $deco->coordx, 'coordy' => $deco->coordy, 'coordz' => $deco->coordz, 'rotation' => $deco->rotation]);
             };
 
             //table temporaire des projet_deoration (suppression)

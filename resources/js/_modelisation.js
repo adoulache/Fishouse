@@ -32,9 +32,9 @@ $(function(){
 /* PARTIE SAUVEGARDE D'UN PROJET */
 $(function(){
     $('#boutonSauve').on('click', function() {
-        //console.log('clic sur le bouton sauvegarde');
+        console.log('on rentre dans la fonction de sauvegarde');
         var exist='';
-
+        console.log(idProjet);
         /* Vérification si l'id du projet existe dans la base */
         var retour = $.ajax({
             url: 'modelisation1',
@@ -44,11 +44,11 @@ $(function(){
             dataType: 'JSON',
             success: function (data) {
                 console.log('success getProjet');
-                //console.log(data);
+                console.log(data);
             },
             error : function(text){
                 console.log('error getProjet');
-                // console.log(text);
+                console.log(text);
             }
         });
         var exist = JSON.parse(retour.responseText);
@@ -56,7 +56,7 @@ $(function(){
 
         // CAS OU LE PROJET N EXISTE PAS ENCORE
         if(exist.response == "introuvable"){
-            //console.log('le projet n existe pas encore');
+            console.log('le projet n existe pas encore, on va demander son nom');
 
             /* Affichage modal demande du nom du projet */
             $('#modalNomProjet').modal('show');
@@ -64,7 +64,7 @@ $(function(){
             $('#sauvegarde').click(function(event){
                 event.preventDefault();
                 var nomProjet = $('#nom-projet').val();
-                //console.log(nomProjet);
+                console.log(nomProjet);
                 /* insertion du nom du projet dans la base temporaire*/
                 $.ajaxSetup({
                     headers: {
@@ -81,6 +81,7 @@ $(function(){
                     },
                     error : function(text){
                         console.log('error postNom');
+                        console.log(text);
                     }
                 });
 
@@ -107,7 +108,7 @@ $(function(){
 
         }else{
         // CAS OU LE PROJET EXISTE
-            //console.log('projet existe déjà');
+            console.log('Le projet existe, on va le sauvegarder');
 
             /* sauvegarde du projet dans la base */
             $.ajaxSetup({
@@ -122,10 +123,11 @@ $(function(){
                 data : {'idProjet':idProjet},
                 success: function (data) {
                     console.log('success postSauveProjet');
-                    $("#sauveFaite").removeClass("hidden");
+                    $("#sauveFaite").removeClass("d-none");
                 },
                 error : function(data){
                     console.log('error postSauveProjet');
+                    console.log(data)
                 }
             });
         }
@@ -144,7 +146,7 @@ function submitForm(){
 };
 /* Affichage message uilisateur */
 function formSuccess(){
-     $("#sauveOk").removeClass("hidden");
+     $("#sauveOk").removeClass("d-none");
 };
 
 
@@ -321,7 +323,7 @@ function ajoutImageFond(ind, objetsAquarium, ctx){
         var y = 270 - hauteurImage;
     };
 
-    // Si jamais l'image sort de l'aquarium, on la remet dedans
+    // Si jamais l'image sort de l'aquarium, on la remet dedans 
     if (x + largeurImage > largeurCanvas - margeDroiteLong){
         x = largeurCanvas - margeDroiteLong - largeurImage;
     }else if(x < margeGaucheLong){

@@ -59,7 +59,6 @@
 
         <!-- Bouton pour la réinitialisation du projet -->
         <div>
-            <p id=idProjetTest>test</p>
             <!--<button type="button" class="btn btn-dark" id="boutonReinit" onclick="reinitProjet('essai');"></button>-->
             <button type="button" class="btn btn-dark" id="boutonReinit">bouton test reinitialisation</button>
         </div>
@@ -68,7 +67,7 @@
         <!-- Bouton pour la sauvegarde du projet -->
         <div>
             <button type="button" class="btn btn-dark" id="boutonSauve">bouton test sauvegarde</button>
-            <div id="sauveFaite" class="hidden" style="color:green;">Sauvegarde effectuée !</div>
+            <div id="sauveFaite" class="d-none" style="color:green;">Sauvegarde effectuée !</div>
         </div>
         <!-- Modal de demande du nom du projet -->
         <div class="modal fade" id="modalNomProjet" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -81,13 +80,13 @@
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body"> 
                             <div class="form-group">
                                 <label for="nom-projet" class="col-form-label">Quel nom veux-tu donner à ton projet ?</label>
                                 <!--<input type="text" class="form-control" id="nom-projet">-->
                                 <input type="text" class="champ" id="nom-projet">
                             </div>
-                            <div id="sauveOk" class="hidden" style="color:green;">Sauvegarde effectuée !</div>
+                            <div id="sauveOk" class="d-none" style="color:green;">Sauvegarde effectuée !</div>
                         <!--class="h3 text-center hidden"-->
                     </div>
                     <div class="modal-footer">
