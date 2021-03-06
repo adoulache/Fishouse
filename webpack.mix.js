@@ -11,9 +11,13 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.sass('resources/css/app.scss', 'public/css');
-mix.js('resources/js/app.js', 'public/js');
-mix.js('resources/images/*', 'public/images');
+mix.js('resources/js/app.js', 'public/js')
+    .js('resources/images/*', 'public/images')
+    .postCss('resources/css/app.css', 'public/css', [
+        require('postcss-import'),
+        require('tailwindcss'),
+        require('autoprefixer'),
+    ]);
 
 if (mix.inProduction()) {
     mix.version();
