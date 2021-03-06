@@ -127,6 +127,20 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/sanctum" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel-lang/lang" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/brick/math" />
+      <excludeFolder url="file://$MODULE_DIR$/public/css" />
+      <excludeFolder url="file://$MODULE_DIR$/public/images" />
+      <excludeFolder url="file://$MODULE_DIR$/public/js" />
+      <excludeFolder url="file://$MODULE_DIR$/public/storage" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/public/uploads" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/0a" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/6a" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/6d" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/31" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/40" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/cf" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/d7" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/f8" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
