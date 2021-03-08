@@ -49,7 +49,7 @@ class ModelisationController extends Controller
         //Données de l'aquarium, relatif au projet existant
         if (DB::table('projet_decoration')->where('id_projet', $id) ->exists()) {
             $ProjetDecoration = DB::table('projet_decoration')
-                ->select(['id_projet', 'id_decoration', 'coordx', 'coordy', 'coordz'])
+                ->select(['id_projet', 'id_decoration', 'coordx', 'coordy', 'coordz', 'rotation'])
                 ->where('id_projet', $id)
                 ->get();
 
@@ -60,14 +60,15 @@ class ModelisationController extends Controller
                     'id_decoration' => $ProjetDecoration[0]->id_decoration,
                     'coordx' => $ProjetDecoration[0]->coordx,
                     'coordy' => $ProjetDecoration[0]->coordy,
-                    'coordz' => $ProjetDecoration[0]->coordz
+                    'coordz' => $ProjetDecoration[0]->coordz,
+                    'rotation' => $ProjetDecoration[0]->rotation
             ]);
         };
 
         //Données de l'aquarium, relatif au projet existant
         if (DB::table('projet_plante')->where('id_projet', $id) ->exists()) {
             $ProjetPlante = DB::table('projet_plante')
-                ->select(['id_projet', 'id_plante', 'coordx', 'coordy', 'coordz'])
+                ->select(['id_projet', 'id_plante', 'coordx', 'coordy', 'coordz', 'rotation'])
                 ->where('id_projet', $id)
                 ->get();
 
@@ -78,7 +79,8 @@ class ModelisationController extends Controller
                     'id_plante' => $ProjetPlante[0]->id_plante,
                     'coordx' => $ProjetPlante[0]->coordx,
                     'coordy' => $ProjetPlante[0]->coordy,
-                    'coordz' => $ProjetPlante[0]->coordz
+                    'coordz' => $ProjetPlante[0]->coordz,
+                    'rotation' => $ProjetPlante[0]->rotation
             ]);
         };
 

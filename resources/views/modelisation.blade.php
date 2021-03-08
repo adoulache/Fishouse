@@ -26,7 +26,7 @@
                 <hr class="hrBlocRecherche">
             </div>
             <div class="col-md-9 col-sm-9" style="margin-top: 20px;" id="contrainer">
-                <script src="js/three.js"></script>
+                <!-- <script src="js/three.js"></script>
                 <script>
                     const scene = new THREE.Scene();
                     const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.05, 1000 );
@@ -52,7 +52,7 @@
                         renderer.render( scene, camera );
                     }
                     animate();
-                </script>
+                </script> -->
             </div>
         </div>
 

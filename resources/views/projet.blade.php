@@ -153,19 +153,21 @@
                                 @foreach ($listeBacs as $listeBac)
                                     <form method="post" action="{{ route('ajoutProjet') }}">
                                         {{ csrf_field() }}
-                                        <div class="row">
+                                        <div class="row newAquariumBloc">
                                             <!-- CARTE D'UN AQUARIUM -->
-                                            <div class="col-lg-12 newAquarium">
+                                            <div class="col-lg-9 newAquarium">
                                                 <img src="{{ asset('../images/'.$listeBac->nom_photo) }}" class="newAquariumPicture">
-                                                <p class="font-weight-bold newAquariumTitle"> {{ $listeBac->nom }} </p>
-                                                <hr class="newAquariumHr">
-                                                <ul class="list-unstyled">
-                                                    <li> {{ $listeBac->description }} </li>
-                                                    <li> Taille (en cm) : {{ $listeBac->taille }} </li>
-                                                    <li> Prix (en €) : {{ $listeBac->prix }} </li>
-                                                </ul>
-                                                <input id="idBack" name="idBack" type="hidden" value="{{ $listeBac->id_bac }}">
-                                                <button type="submit" class="btn btn-dark boutonChoix ajouterProjet"> Choisir </button>
+                                                <div class="newAquariumDescription">
+                                                    <p class="font-weight-bold"> {{ $listeBac->titre }} </p>
+                                                    <hr class="newAquariumHr">
+                                                    <ul class="list-unstyled">
+                                                        <li> {{ $listeBac->description }} </li>
+                                                        <li> Taille (en cm) : {{ $listeBac->taille }} </li>
+                                                        <li> Prix (en €) : {{ $listeBac->prix }} </li>
+                                                    </ul>
+                                                    <input id="idBack" name="idBack" type="hidden" value="{{ $listeBac->id_bac }}">
+                                                    <button type="submit" class="btn btn-dark boutonChoix ajouterProjet"> Choisir </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>

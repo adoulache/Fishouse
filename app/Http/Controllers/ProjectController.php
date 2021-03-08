@@ -22,12 +22,12 @@ class ProjectController extends Controller
         //Liste des projets existants
         $listeProjets = DB::table('projets')
             ->select(['id_projet', 'id_bac', 'id_user', 'nom_projet', 'partage'])
-            ->where('id_user', 1) //remettre au propre avec $idUser
+            ->where('id_user', $idUser) //remettre au propre avec $idUser
             ->get();
 
         //Images des bacs
         $listeBacs = DB::table('bacs')
-            ->select(['description', 'nom_photo', 'prix', 'taille', 'nom', 'id_bac'])
+            ->select(['description', 'titre', 'nom_photo', 'prix', 'taille', 'nom', 'id_bac'])
             ->get();
 
         return view('projet', ['listeBacs' => $listeBacs, 'listeProjets' => $listeProjets]);
@@ -88,7 +88,7 @@ class ProjectController extends Controller
             ->insert([
                 'id_projet' => $idNewProjet,
                 'id_bac' => $idBac,
-                'id_user' => 1, //Après le merge il faut remplacer le 1 par $idUser
+                'id_user' => $idUser, //Après le merge il faut remplacer le 1 par $idUser
                 'nom_projet' => "projet_".$idNewProjet,
                 'partage' => false
         ]);
