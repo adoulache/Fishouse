@@ -38,9 +38,9 @@ Route::get('/modelisation8', [ModelisationController::class, 'getCheminDeco']);
 
 // Route vers la page modelisation: (Peut-être qu'il sert plus à rien, A VERIFIER)
 Route::get('/modelisation/{id}/{name}', [ModelisationController::class, 'openProject'])->name('openProjet');
-//Route::get('/modelisation', function () {
-//    return view('modelisation');
-//})->name('modelisation');
+// Route::get('/modelisation', function () {
+//     return view('modelisation');
+// })->name('modelisation');
 
 // Route vers la page projet:
 Route::post('/projets2', [ProjectController::class, 'addProject'])->name('ajoutProjet'); //Si jamais, changé nom en modelisation

@@ -25,6 +25,7 @@
                 </div> -->
                 <hr class="hrBlocRecherche">
             </div>
+            <!--
             <div class="col-md-9 col-sm-9" style="margin-top: 20px;" id="contrainer">
                 <script src="js/three.js"></script>
                 <script>
@@ -53,7 +54,7 @@
                     }
                     animate();
                 </script>
-            </div>
+            </div>-->
         </div>
 
 
@@ -72,13 +73,7 @@
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body"> 
-                            <!--<div class="form-group">
-                                <label for="nom-projet" class="col-form-label">Quel nom veux-tu donner à ton projet ?</label>
-                                <input type="text" class="champ" id="nom-projet">
-                            </div>
-                            <div id="sauveOk" class="d-none" style="color:green;">Sauvegarde effectuée !</div>
-                        class="h3 text-center hidden"-->
+                    <div class="modal-body">
                         <div>Es-tu sûr de vouloir réinitialiser ton projet ?</div><br>
                         <div>Attention, après sauvegarde, tous les éléments de ton aquarium seront définitivement supprimés.</div>
                         <div id="reinitOk" class="d-none" style="color:green;">Réinitialisation effectuée !</div>
@@ -143,8 +138,14 @@
                 <img src="{{ asset('../images/droite.png') }}" style="width:50px;">
             </button>
         </div>
-        <div >
-            <canvas id="mod2D" width="600px" height="400px">Eh ben non !</canvas>
+        <div>Canvas</div>
+        <div>
+            <canvas id="mod2D-test">Eh ben non !</canvas>
+            <div class="d-none" id="divImg"></div>
+            <!--<canvas id="canvas" width=300 height=300></canvas>-->
         </div>
+        <!--<div >
+            <canvas id="mod2D" width="600px" height="400px">Eh ben non !</canvas>
+        </div>-->
     </div>
 @endsection
