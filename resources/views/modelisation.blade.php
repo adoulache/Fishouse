@@ -139,9 +139,9 @@
             </button>
         </div>
         <div>Canvas</div>
-        <div>
-            <canvas id="mod2D-test">Eh ben non !</canvas>
-            <div class="d-none" id="divImg"></div>
+        <div id="avantMod2D">
+            <div id="mod2D-test" style="z-index:auto;"></div>
+            <!--<div class="d-none" id="divImg"></div>-->
             <!--<canvas id="canvas" width=300 height=300></canvas>-->
         </div>
         <!--<div >

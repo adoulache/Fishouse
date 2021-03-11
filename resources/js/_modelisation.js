@@ -199,22 +199,23 @@ $(function(){
     };
 
     // Création du canvas
-    can = $('#mod2D-test').get(0);
+    //can = $('#mod2D-test').get(0);
     //can.width = 2*marge + dimensions[0];
     //can.height = 2*marge + dimensions[2];
     const larCanvas = 2*marge + longPetit;
     const hautCanvas = 2*marge + hautPetit;
-    can.width = larCanvas;
-    can.height = hautCanvas;
-    ctx2 = can.getContext("2d");
+    //can.width = larCanvas;
+    //can.height = hautCanvas;
+    //ctx2 = can.getContext("2d");
 
     // Affichage de face initial
-    //traceContour(ctx2, can, dimensions[0], dimensions[2]);
-    traceContour(ctx2, can, longPetit, hautPetit);
+    //traceContour(ctx2, can, longPetit, hautPetit);
     let objetsAquarium = recupObjets2();
-    afficheContenu(objetsAquarium, 'face', ctx2);
+    //afficheContenu(objetsAquarium, 'face', ctx2);
+    afficheContenu(objetsAquarium, 'face');
 
-    function afficheContenu(obj, vue, ctx2){
+    //function afficheContenu(obj, vue, ctx2){
+    function afficheContenu(obj, vue){
         // On ajoute les images selon l'ordre de profondeur
         
         // Récupère une liste triée en fonction de la profondeur
@@ -222,7 +223,8 @@ $(function(){
         console.log(objetsTries);
 
         // Ajoute les images au canva
-        rempliCanvas(objetsTries, vue, ctx2);
+        //rempliCanvas(objetsTries, vue, ctx2);
+        rempliCanvas(objetsTries, vue);
     }; 
 
     /*
@@ -326,8 +328,8 @@ $(function(){
     function trieObjetsAquarium(obj, vue){
         // On classe les objets de l'aquarium dans l'ordre de la profondeur
         // en fonction de la vue souhaitée
-        if (vue == "face"){
-            // Dans une vue de face, les objets les plus proches ont
+        if (vue == "fond"){
+            // Dans une vue de fond, les objets les plus loins ont
             // un y le plus petit
             let objetsTries=[];
             while (obj.length > 0){
@@ -346,8 +348,8 @@ $(function(){
                 obj.splice(ind,1);
             };
             return objetsTries;
-        }else if(vue == "fond"){
-            // Dans une vue de fond, les objets les plus proches ont
+        }else if(vue == "face"){
+            // Dans une vue de face, les objets les plus loins ont
             // un y le plus grand
             let objetsTries=[];
             while (obj.length > 0){
@@ -366,8 +368,8 @@ $(function(){
                 obj.splice(ind,1);
             };
             return objetsTries;
-        }else if(vue == "droite"){
-            // Dans une vue de droite, les objets les plus proches ont
+        }else if(vue == "gauche"){
+            // Dans une vue de gauche, les objets les plus loins ont
             // un x le plus grand
             let objetsTries=[];
             while (obj.length > 0){
@@ -386,8 +388,8 @@ $(function(){
                 obj.splice(ind,1);
             };
             return objetsTries;
-        }else if(vue == "gauche"){
-            // Dans une vue de gauche, les objets les plus proches ont
+        }else if(vue == "droite"){
+            // Dans une vue de droite, les objets les plus loins ont
             // un x le plus petit
             let objetsTries=[];
             while (obj.length > 0){
@@ -409,7 +411,14 @@ $(function(){
         };
     };
 
-    function rempliCanvas(obj, vue, ctx2){
+    function rempliCanvas(obj, vue){
+        document.getElementById("avantMod2D").removeChild(document.getElementById("mod2D-test"));
+        let mod2D = document.createElement("div");
+        mod2D.id="mod2D-test";
+        mod2D.style.zIndex="auto";
+        document.getElementById("avantMod2D").appendChild(mod2D);
+
+        let curseur = 0;
         obj.forEach(o => {
             var image = new Image();
             image.src = '../images/'+o[3];
@@ -468,32 +477,52 @@ $(function(){
                     y = marge;
                 };
             
-                ctx2.globalCompositeOperation="destination-over";
-                ctx2.drawImage(this, x, y, largeur, hauteur);//,largeurImage, hauteurImage);
+                //ctx2.globalCompositeOperation="destination-over";
+                //ctx2.drawImage(this, x, y, largeur, hauteur);//,largeurImage, hauteurImage);
+                let div = document.createElement('div');
+                div.id=curseur;
+                div.style.zIndex=curseur;
+                div.style.width=largeur+"px";
+                div.style.height=hauteur+ "px";
+                div.style.position="absolute";
+                div.style.top=y+"px";
+                div.style.left=x+"px";
+                document.getElementById("mod2D-test").appendChild(div);
+                //$("#mod2D-test").appendChild(image);//.appendChild(image));
+                image.width=largeur;
+                image.height=hauteur;
+                document.getElementById(curseur).appendChild(image);
+                curseur+=1;
                 
             };
+            
+
         });
     };
 
     $('#aqFace').on('click', function() {
-        traceContour(ctx2, can, longPetit, hautPetit);
+        //traceContour(ctx2, can, longPetit, hautPetit);
         let objetsAquarium = recupObjets2();
-        afficheContenu(objetsAquarium, 'face', ctx2);
+        //afficheContenu(objetsAquarium, 'face', ctx2);
+        afficheContenu(objetsAquarium, 'face');
     });
     $('#aqFond').on('click', function() {
-        traceContour(ctx2, can, longPetit, hautPetit);
+        //traceContour(ctx2, can, longPetit, hautPetit);
         let objetsAquarium = recupObjets2();
-        afficheContenu(objetsAquarium, 'fond', ctx2);
+        //afficheContenu(objetsAquarium, 'fond', ctx2);
+        afficheContenu(objetsAquarium, 'fond');
     });
     $('#aqGauche').on('click', function() {
-        traceContour(ctx2, can, profPetit, hautPetit);
+        //traceContour(ctx2, can, profPetit, hautPetit);
         let objetsAquarium = recupObjets2();
-        afficheContenu(objetsAquarium, 'gauche', ctx2);
+        //afficheContenu(objetsAquarium, 'gauche', ctx2);
+        afficheContenu(objetsAquarium, 'gauche');
     });
     $('#aqDroite').on('click', function() {
-        traceContour(ctx2, can, profPetit, hautPetit);
+        //traceContour(ctx2, can, profPetit, hautPetit);
         let objetsAquarium = recupObjets2();
-        afficheContenu(objetsAquarium, 'droite', ctx2);
+        //afficheContenu(objetsAquarium, 'droite', ctx2);
+        afficheContenu(objetsAquarium, 'droite');
     });
 
 
@@ -502,12 +531,13 @@ $(function(){
     // Affiche / démasque une div en lui donnant un emplacement (à calculer)
     // Mettre l'image dans la div, la superposer au canvas
     // Afficher canvas sans objet
-    $('#mod2D-test').on('click', function(){
+    
+    /*$('#mod2D-test').on('click', function(){
         $("#divImg").removeClass("d-none")
         let objet;
         $("#divImg").append("<img src='"+objet[3]+".png'/>");
-        
-    });
+
+    });*/
 
 
     // Fonction 2
