@@ -138,9 +138,8 @@
                 <img src="{{ asset('../images/droite.png') }}" style="width:50px;">
             </button>
         </div>
-        <div>Canvas</div>
-        <div id="avantMod2D">
-            <div id="mod2D-test" style="z-index:auto;"></div>
+        <div id="avantMod2D" style="width:600px;height:300px;position:abolute;">
+            <div id="mod2D-test" style="z-index:auto;width:600px;height:300px;"></div>
             <!--<div class="d-none" id="divImg"></div>-->
             <!--<canvas id="canvas" width=300 height=300></canvas>-->
         </div>
