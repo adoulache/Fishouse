@@ -25,34 +25,30 @@
                 </div> -->
                 <hr class="hrBlocRecherche">
             </div>
-            <div class="col-md-9 col-sm-9" style="margin-top: 20px;" id="contrainer">
-                <script src="js/three.js"></script>
-                <script>
-                    const scene = new THREE.Scene();
-                    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.05, 1000 );
+            <div class="col-md-9 col-sm-9" style="margin-top: 20px;" id="container">
+            <!-- Site des sources js : https://cdn.jsdelivr.net/npm/three@0.115.0/ -->
 
-                    const renderer = new THREE.WebGLRenderer();
-                    renderer.setSize( window.innerWidth, window.innerHeight );
-                    document.body.appendChild( renderer.domElement );
+                <!-- Sources build -->
+                <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/104/three.js"></script> -->
+                <!-- <script src = "https://threejs.org/build/three.js "></script> -->
 
-                    const geometry = new THREE.BoxGeometry(1,0.5,0.5);
-                    const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-                    const cube = new THREE.Mesh( geometry, material );
-                    scene.add( cube );
+                <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.min.js"></script>
+                <!-- <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.module.js"></script> -->
 
-                    //Plus le chiffre est grand, plus on est loin
-                    camera.position.z = 10;
+                <!-- Sources des fonctions dont on a besoin : examples / js / controls -->
+                <script src="https://cdn.jsdelivr.net/npm/three@0.115/examples/js/controls/DragControls.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/three@0.115/examples/js/controls/TransformControls.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/controls/OrbitControls.js"></script>
 
-                    
+                <!-- Autres sources (utiles pour certaines fonctions) -->
+                <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/libs/inflate.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/FBXLoader.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/jsm/libs/stats.module.js"></script>
 
-                    function animate() {
-                        requestAnimationFrame( animate );
-                        cube.rotation.x += 0.01;
-                        cube.rotation.y += 0.01;
-                        renderer.render( scene, camera );
-                    }
-                    animate();
-                </script>
+
+                <!-- Script pour gérer la modélisation 3D -->
+                <script src="../js/_modelisation3D.js"></script> <!--Script Clara modélisation 3D dans public/js -->
             </div>
         </div>
 

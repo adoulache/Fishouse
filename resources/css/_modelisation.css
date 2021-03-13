@@ -22,3 +22,6 @@
     margin-top:2px;
 }
 
+.as-console {
+    display: none !important;
+  }
