@@ -1,3 +1,8 @@
+.AccessDenied{
+    text-align: center;
+    font-size: x-large;
+}
+
 .projectText {
     position: relative;
     font-size: 3rem;
@@ -64,42 +69,49 @@
     margin-left: 10px;
 }
 
-.newAquarium{
+/*.newAquarium{
     border-radius: 7%;
     background-color: rgba(239, 235, 233, 0.5);
     height: 200px;
     padding: 10px;
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}*/
+
+.newAquariumContent {
+    position: relative;
+}
+
+.newAquariumCard {
+    height: 380px;
+    width: 300px;
+    background-color: rgba(239, 235, 233, 0.5);
+    border-radius: 7%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+}
+
+.newAquariumDescription {
+    text-align: center;
+    padding: 10px 20px;
 }
 
 .newAquariumPicture {
-    float:left;
-    width: 70%;
-    height: 100%;
-    border-radius: 5%;
-    align-self: center;
-    position: static;
-}
-
-/* .description-right{
-    margin-left: 100px;
-    align-self: auto;
-} */
-
-.newAquariumTitle{
-    margin-left: auto;
+    /*max-width: 80%;*/
+	max-height: 175px;
     text-align: center;
+    position: static;
 }
 
 .newAquariumHr{
     background-color: rgb(7, 7, 7);
-    width: 30%;
+    width: 80%;
     height: 2px;
-    margin-left: auto;
 }
 
 .boutonChoix{
-    position:relative;
-    align-items: center;
-    margin-top: 5px;
+    margin-bottom: 10px;
 }

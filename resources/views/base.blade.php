@@ -20,7 +20,7 @@
 <header class="header">
     <div class="buttonHeader">
     @if (Auth::check())
-        <a class="btn btn-dark" href="{{ route('profile.show') }}">Mon Compte</a>
+        <a class="btn btn-dark" href="{{ route('profile.show') }}">Mon compte</a>
         <a class="btn btn-dark" href="{{ route('logout') }}">Déconnexion</a>
     @else
         <a class="btn btn-dark" href="{{ route('sign-in') }}">Connexion</a>
