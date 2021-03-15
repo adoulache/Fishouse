@@ -1,5 +1,8 @@
+/.idea
 /node_modules
 /public
+/public/mix-manifest.json
+mix-manifest.json
 /storage/*.key
 /vendor
 .env.backup
