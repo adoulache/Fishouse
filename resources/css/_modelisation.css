@@ -1,14 +1,26 @@
-/* DEBUT BLOCK MODELISATION */
+.AccessDenied{
+    text-align: center;
+    font-size: x-large;
+}
 
+/* ONGLETS */
+.nav-link{
+    color:#148F77;
+}
+
+/* DEBUT BLOCK MODELISATION */
 .blocRecherche{
     border:solid 10px white;
-    border-radius: 5%;
+    border-radius: 7%;
     background-color: rgba(239, 235, 233, 0.5);
 }
 
-.h3BlocRecherche{
+.titreBlocRecherche{
     color:black;
-    font-size: medium;
+    font-size: large;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 .hrBlocRecherche{
@@ -20,5 +32,38 @@
 
 .dropdown {
     margin-top:2px;
+}
+
+/* CARTES DES OBJETS (décorations + plantes) */
+.newObjectCard{
+    height: 150px;
+    width: 150px;
+    background-color: rgba(239, 235, 233, 0.5); 
+    border-radius: 7%;
+    margin-right: 3px;
+    margin-left: 3px;
+    margin-bottom: 5px;
+}
+
+.newObjectPicture{
+    max-height: 75px;
+    text-align: center;
+    position: static;
+}
+
+.newObjectDescription {
+    text-align: center;
+    padding: 10px 20px;
+}
+
+/* BLOC DE MODELISATION */
+.blocModelisation{
+    background-color: thistle;
+    border:solid 10px white;
+}
+
+.boutonsProjet{
+    margin-top:10px;
+    position:absolute;
 }
 

@@ -1,6 +1,24 @@
 
 const idProjet = 123 // A RECUPERER DEPUIS LA PAGE QUAND SERA DISPO
 
+$(function(){
+    $.ajax({
+        url: 'ma_modelisation',
+        type: 'GET',
+        async: false,
+        success: function(data) {
+            console.log('SUCCES dans la récupération des decorations et des plantes pour catalogue');
+        },
+        error: function(data) {
+            console.log('ERREUR dans la récupération des decorations et des plantes pour catalogue')
+        }
+    });
+});
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
+
 
 /* PARTIE REINITIALISATION D'UN PROJET*/
 $(function(){

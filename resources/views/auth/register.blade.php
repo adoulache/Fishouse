@@ -4,7 +4,7 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <img class="connexion-logo" src="{{ asset('./images/logoFixe.png') }}" alt="Logo Fishouse">
+            <img class="connexion-logo" src="{{ asset('..\images\inscription.png') }}" alt="Logo Fishouse">
         </x-slot>
 
         <x-jet-validation-errors class="mb-4"/>

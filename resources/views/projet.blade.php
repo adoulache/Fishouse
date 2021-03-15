@@ -2,6 +2,7 @@
 
 <!--Fonctionnalité principale : projet-->
 @section('content')
+    @if (Auth::check())
     <div class="projectText">
         Mes projets de modélisation
         <hr class="projectHr mx-auto">
@@ -149,13 +150,13 @@
                                     <i class="fa fa-search"></i>
                                 </span>
                             </div>
-                            <div class="container">
-                                @foreach ($listeBacs as $listeBac)
-                                    <form method="post" action="{{ route('ajoutProjet') }}">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    @foreach ($listeBacs as $listeBac)
+                                        <form method="post" action="{{ route('ajoutProjet') }}">
                                         {{ csrf_field() }}
-                                        <div class="row newAquariumBloc">
                                             <!-- CARTE D'UN AQUARIUM -->
-                                            <div class="col-lg-9 newAquarium">
+                                            <div class="newAquariumCard row justify-content-center align-items-center">
                                                 <img src="{{ asset('../images/'.$listeBac->nom_photo) }}" class="newAquariumPicture">
                                                 <div class="newAquariumDescription">
                                                     <p class="font-weight-bold"> {{ $listeBac->titre }} </p>
@@ -169,9 +170,9 @@
                                                     <button type="submit" class="btn btn-dark boutonChoix ajouterProjet"> Choisir </button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                @endforeach
+                                        </form>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         <!-- Footer pop-up -->
@@ -184,5 +185,13 @@
             <!--FIN POP-UP -->
         </div>
     </div>
+    @else
+    <div class="AccessDenied"> 
+        <br>
+        <img src="{{ asset('../images/id-card.png') }}" style="width:150px;">
+        <p> Tu ne peux pas accéder à cette page, alors <br> <a class="btn btn-dark" href="{{ route('sign-in') }}">connecte-toi</a> ou <a class="btn btn-dark" href="{{ route('sign-up') }}">inscris-toi</a> !</p>
+        <br>
+    </div>
+    @endif
 
 @endsection

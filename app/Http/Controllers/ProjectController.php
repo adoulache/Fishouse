@@ -67,35 +67,6 @@ class ProjectController extends Controller
         return redirect()->route('projet');
     }
 
-    public function addProject(Request $request)
-    {
-        //Id de l'utilisateur courant
-        $idUser = Auth::id();
-
-        //Id du dernier projet existant
-        $idProjet = DB::table('projets') -> max('id_projet');
-        $idProjetTemp = DB::table('projets_temp') -> max('id_projet');
-        if (is_null($idProjet) && is_null($idProjetTemp)){
-            $idProjet = 0;
-        }
-
-        $idNewProjet = max($idProjet, $idProjetTemp) + 1;
-
-        $idBac = $request->idBack;
-
-        //Insertion dans la BDD
-        DB::table('projets_temp')
-            ->insert([
-                'id_projet' => $idNewProjet,
-                'id_bac' => $idBac,
-                'id_user' => $idUser, //Après le merge il faut remplacer le 1 par $idUser
-                'nom_projet' => "projet_".$idNewProjet,
-                'partage' => false
-        ]);
-
-        return view('modelisation', ['idProjet' => $idNewProjet, 'nomProjet' => "projet_".$idNewProjet]);
-    }
-
     /*public function shareProject($idProject)
     {
         $affected = DB::update(

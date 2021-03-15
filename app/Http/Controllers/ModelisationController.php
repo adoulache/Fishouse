@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use View;
 
 class ModelisationController extends Controller
@@ -84,13 +85,68 @@ class ModelisationController extends Controller
             ]);
         };
 
-        return view::make('modelisation');
+        $listeDecorations = DB::table('decorations')
+            ->select(['id_decoration', 'nom', 'titre', 'description', 'nom_photo', 'tag', 'prix', 'taille'])
+            ->get();
+        
+        $listePlantes = DB::table('plantes')
+            ->select(['id_plante', 'nom_latin', 'titre', 'titre_latin', 'description', 'nom_photo', 'tag', 'prix', 'taille'])
+            ->get();
+
+        $listeDecorations3D = DB::table('decorations_3d')
+            ->select(['id_decoration3d', 'nom', 'titre', 'description', 'nom_objet', 'tag', 'prix', 'taille'])
+            ->get();
+        
+        $listePlantes3D = DB::table('plantes_3d')
+            ->select(['id_plante3d', 'nom', 'titre', 'description', 'nom_objet', 'tag', 'prix', 'taille'])
+            ->get();
+
+        return view('modelisation', ['listeDecorations' => $listeDecorations, 'listePlantes' => $listePlantes, 'listeDecorations3D' => $listeDecorations3D, 'listePlantes3D' => $listePlantes3D]);
     }
 
-    public function catalogue(){
-        $Decorations = DB::table('decorations')
-            ->select(['id_decoration', 'nom', 'description', 'nom_photo', 'tag', 'prix', 'taille'])
+    public function addProject(Request $request)
+    {
+        //Id de l'utilisateur courant
+        $idUser = Auth::id();
+
+        //Id du dernier projet existant
+        $idProjet = DB::table('projets') -> max('id_projet');
+        $idProjetTemp = DB::table('projets_temp') -> max('id_projet');
+        if (is_null($idProjet) && is_null($idProjetTemp)){
+            $idProjet = 0;
+        }
+
+        $idNewProjet = max($idProjet, $idProjetTemp) + 1;
+
+        $idBac = $request->idBack;
+
+        //Insertion dans la BDD
+        DB::table('projets_temp')
+            ->insert([
+                'id_projet' => $idNewProjet,
+                'id_bac' => $idBac,
+                'id_user' => $idUser, //Après le merge il faut remplacer le 1 par $idUser
+                'nom_projet' => "projet_".$idNewProjet,
+                'partage' => false
+        ]);
+
+        $listeDecorations = DB::table('decorations')
+            ->select(['id_decoration', 'nom', 'titre', 'description', 'nom_photo', 'tag', 'prix', 'taille'])
             ->get();
+        
+        $listePlantes = DB::table('plantes')
+            ->select(['id_plante', 'nom_latin', 'titre', 'titre_latin', 'description', 'nom_photo', 'tag', 'prix', 'taille'])
+            ->get();
+        
+        $listeDecorations3D = DB::table('decorations_3d')
+            ->select(['id_decoration3d', 'nom', 'titre', 'description', 'nom_objet', 'tag', 'prix', 'taille'])
+            ->get();
+        
+        $listePlantes3D = DB::table('plantes_3d')
+            ->select(['id_plante3d', 'nom', 'titre', 'description', 'nom_objet', 'tag', 'prix', 'taille'])
+            ->get();
+
+        return view('modelisation', ['idProjet' => $idNewProjet, 'nomProjet' => "projet_".$idNewProjet, 'listeDecorations' => $listeDecorations, 'listePlantes' => $listePlantes, 'listeDecorations3D' => $listeDecorations3D, 'listePlantes3D' => $listePlantes3D]);
     }
 
     /**
