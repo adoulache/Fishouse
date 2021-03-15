@@ -48,7 +48,10 @@
 
 
                 <!-- Script pour gérer la modélisation 3D -->
-                <script src="../js/_modelisation3D.js"></script> <!--Script Clara modélisation 3D dans public/js -->
+                <!-- <script src="../js/_modelisation3D.js"></script> Script Clara modélisation 3D dans public/js -->
+                <script src="../js/_modelisation3D.js"></script>
+
+                <script src="../js/three.interaction.js"></script>
             </div>
         </div>
 
