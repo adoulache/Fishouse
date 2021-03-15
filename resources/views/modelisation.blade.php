@@ -141,7 +141,7 @@
                     <img src="{{ asset('../images/droite.png') }}" style="width:50px;">
                 </button>
             </div>
-            <div id="avantMod2D" style="width:600px;height:300px;position:abolute;">
+            <div id="avantMod2D" style="width:600px;height:300px;position:absolute;">
                 <div id="mod2D-test" style="z-index:auto;width:600px;height:300px;"></div>
             </div>
         </div>
@@ -192,7 +192,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-9 col-sm-9 blocModelisation">
+                <div class="col-md-9 col-sm-9 blocModelisation" id="container">
                     <!-- BOUTONS DU PROJET -->
                     <div class="boutonsProjet">
                         <!-- Bouton pour la réinitialisation du projet -->
@@ -254,6 +254,32 @@
                         </div>
                     </div>
                     <!-- ICI PARTIE CLARA -->
+                    <!-- Site des sources js : https://cdn.jsdelivr.net/npm/three@0.115.0/ -->
+
+                    <!-- Sources build -->
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/104/three.js"></script> -->
+                    <!-- <script src = "https://threejs.org/build/three.js "></script> -->
+
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.min.js"></script>
+                    <!-- <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.module.js"></script> -->
+
+                    <!-- Sources des fonctions dont on a besoin : examples / js / controls -->
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115/examples/js/controls/DragControls.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115/examples/js/controls/TransformControls.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/controls/OrbitControls.js"></script>
+
+                    <!-- Autres sources (utiles pour certaines fonctions) -->
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/libs/inflate.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/FBXLoader.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/jsm/libs/stats.module.js"></script>
+
+
+                    <!-- Script pour gérer la modélisation 3D -->
+                    <!-- <script src="../js/_modelisation3D.js"></script> Script Clara modélisation 3D dans public/js -->
+                    <script src="../js/_modelisation3D.js"></script>
+
+                    <script src="../js/three.interaction.js"></script>
                 </div>
             </div>
         </div>

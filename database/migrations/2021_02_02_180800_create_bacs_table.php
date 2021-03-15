@@ -25,12 +25,12 @@ class CreateBacsTable extends Migration
 
         DB::table('bacs')->insert(array(
             
-            'nom' => 'bac_rond',
-            'titre' => 'Bac rond',
-            'description' => "Bac aquarium de forme ronde.",
-            'nom_photo' => 'aquariumRond.png',
+            'nom' => 'bac_carre',
+            'titre' => 'Bac carré',
+            'description' => "Bac aquarium de forme carrée.",
+            'nom_photo' => 'aquariumCarre.png',
             'prix' => 50,
-            'taille' => "50x60"
+            'taille' => "50x50"
         ));
     
         DB::table('bacs')->insert(array(

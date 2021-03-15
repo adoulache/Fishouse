@@ -27,6 +27,7 @@
     "dependencies": {
         "cross-env": "^7.0.3",
         "interactjs": "^1.10.8",
-        "three": "^0.126.0"
+        "drag-controls": "^1.0.4",
+        "three": "^0.126.1"
     }
 }
