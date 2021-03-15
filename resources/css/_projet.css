@@ -25,11 +25,7 @@
     background-color: rgba(239, 235, 233, 0.5);
     height: 300px;
     width: 420px;
-
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px;
 }
 
 /**PROJETS EXISTANTS **/
@@ -69,29 +65,12 @@
     margin-left: 10px;
 }
 
-/*.newAquarium{
-    border-radius: 7%;
-    background-color: rgba(239, 235, 233, 0.5);
-    height: 200px;
-    padding: 10px;
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-}*/
-
-.newAquariumContent {
-    position: relative;
-}
-
 .newAquariumCard {
     height: 380px;
     width: 300px;
     background-color: rgba(239, 235, 233, 0.5);
     border-radius: 7%;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    margin-left: 15px;
-    margin-right: 10px;
+    margin: 10px 10px 10px 15px;
 }
 
 .newAquariumDescription {

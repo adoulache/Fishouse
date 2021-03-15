@@ -5,7 +5,7 @@
     @if (Auth::check())
     <div class="container" style="width:100%">
         <br>
-        <h3>Type de modélisation :</h3>
+        <p class="h3">Type de modélisation :</p>
         <ul class="nav nav-tabs nav-justified">
             <li class="nav-item">
                 <a class="nav-link active" href="#model2D" data-toggle="tab"> Modélisation 2D </a>
