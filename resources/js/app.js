@@ -1,8 +1,7 @@
 require('./bootstrap');
+require('alpinejs');
 require('./_register');
 require('./home');
 require('./_modelisation');
-
-require('alpinejs');
-
 require('./_projet');
+require('./_testDrag');

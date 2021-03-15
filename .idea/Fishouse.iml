@@ -141,6 +141,8 @@
       <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/d7" />
       <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/f8" />
       <excludeFolder url="file://$MODULE_DIR$/vendor" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/1e" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/8a" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

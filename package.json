@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "cross-env": "^7.0.3",
+        "interactjs": "^1.10.8",
         "three": "^0.126.0"
     }
 }
