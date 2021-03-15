@@ -38,14 +38,15 @@ Route::get('/modelisation8', [ModelisationController::class, 'getCheminDeco']);
 
 // Route vers la page modelisation: (Peut-être qu'il sert plus à rien, A VERIFIER)
 Route::get('/modelisation/{id}/{name}', [ModelisationController::class, 'openProject'])->name('openProjet');
+
 Route::get('/ma_modelisation', [ModelisationController::class, 'catalogues'])->name('catalogue');
-Route::post('/modelisation', [ModelisationController::class, 'addProject'])->name('ajoutProjet'); 
-//Route::get('/modelisation', function () {
-//    return view('modelisation');
-//})->name('modelisation');
+Route::post('/modelisation', [ModelisationController::class, 'addProject'])->name('ajoutProjet');
+
+// Route::get('/modelisation', function () {
+//     return view('modelisation');
+// })->name('modelisation');
 
 // Route vers la page projet:
-//Route::post('/mes_projets1', [ProjectController::class, 'deleteProject']);
 Route::post('/projets3', [ProjectController::class, 'deleteProject'])->name('suppProjet');
 Route::post('/projets4', [ProjectController::class, 'renameProject'])->name('renameProjet');
 Route::post('/projets5', [ProjectController::class, 'shareProject'])->name('shareProjet');

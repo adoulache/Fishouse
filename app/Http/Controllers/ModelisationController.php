@@ -43,7 +43,8 @@ class ModelisationController extends Controller
             DB::table('projet_aquarium_temp')
                 ->insert([
                     'id_projet' => $ProjetAquarium[0]->id_projet,
-                    'id_bac' => $ProjetAquarium[0]->id_bac,
+                    //'id_bac' => $ProjetAquarium[0]->id_bac,
+                    'id_aquarium' => $ProjetAquarium[0]->id_aquarium,
             ]);
         };
 
@@ -152,14 +153,20 @@ class ModelisationController extends Controller
     /**
      * Réinitialise un projet.
      */
-    public function postReinitProjet()
+    public function postReinitProjet() 
     {
         $idProjet = $_POST['idProjet'];
-        if (DB::table('projet_plante')->where('id_projet', $idProjet)->exists()) {
+        /*if (DB::table('projet_plante')->where('id_projet', $idProjet)->exists()) {
             DB::table('projet_plante')->where('id_projet', $idProjet)->delete();
+        };*/
+        if (DB::table('projet_plante_temp')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projet_plante_temp')->where('id_projet', $idProjet)->delete();
         };
-        if (DB::table('projet_decoration')->where('id_projet', $idProjet)->exists()) {
+        /*if (DB::table('projet_decoration')->where('id_projet', $idProjet)->exists()) {
             DB::table('projet_decoration')->where('id_projet', $idProjet)->delete();
+        };*/
+        if (DB::table('projet_decoration_temp')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projet_decoration_temp')->where('id_projet', $idProjet)->delete();
         };
     }
 
@@ -219,7 +226,7 @@ class ModelisationController extends Controller
 
             foreach ($valPlante as $plante) {
                 DB::table('projet_plante')
-                    ->insert(['id_projet' => $plante->id_projet, 'id_plante' => $plante->id_plante, 'coordx' => $plante->coordx, 'coordy' => $plante->coordy, 'coordz' => $plante->coordz]);
+                    ->insert(['id_projet' => $plante->id_projet, 'id_plante' => $plante->id_plante, 'coordx' => $plante->coordx, 'coordy' => $plante->coordy, 'coordz' => $plante->coordz, 'rotation'=> $plante->rotation]);
             };
 
             //table temporaire des projet_plante (suppression)
@@ -235,7 +242,7 @@ class ModelisationController extends Controller
 
             foreach ($valDeco as $deco) {
                 DB::table('projet_decoration')
-                    ->insert(['id_projet' => $deco->id_projet, 'id_decoration' => $deco->id_decoration, 'coordx' => $deco->coordx, 'coordy' => $deco->coordy, 'coordz' => $deco->coordz]);
+                    ->insert(['id_projet' => $deco->id_projet, 'id_decoration' => $deco->id_decoration, 'coordx' => $deco->coordx, 'coordy' => $deco->coordy, 'coordz' => $deco->coordz, 'rotation' => $deco->rotation]);
             };
 
             //table temporaire des projet_deoration (suppression)
@@ -268,8 +275,11 @@ class ModelisationController extends Controller
      */
     public function getPlantes()
     {
-        if (DB::table('projet_plante')->where('id_projet', $_GET['idProjet'])->exists()) {
-            $plantes = DB::table('projet_plante')->where('id_projet', $_GET['idProjet'])->get();
+        /* Modification : récupération des éléments dans les bases temporaires
+            (les bases fixes sont copiées dans les bases temporaires à l'ouverture du projet) */
+
+        if (DB::table('projet_plante_temp')->where('id_projet', $_GET['idProjet'])->exists()) {
+            $plantes = DB::table('projet_plante_temp')->where('id_projet', $_GET['idProjet'])->get();
             return response()->json(['plantes' => $plantes]);
         } else {
             return response()->json(['plantes' => '']);
@@ -283,8 +293,11 @@ class ModelisationController extends Controller
      */
     public function getDecos()
     {
-        if (DB::table('projet_decoration')->where('id_projet', $_GET['idProjet'])->exists()) {
-            $decos = DB::table('projet_decoration')->where('id_projet', $_GET['idProjet'])->get();
+        /* Modification : récupération des éléments dans les bases temporaires
+            (les bases fixes sont copiées dans les bases temporaires à l'ouverture du projet) */
+
+        if (DB::table('projet_decoration_temp')->where('id_projet', $_GET['idProjet'])->exists()) {
+            $decos = DB::table('projet_decoration_temp')->where('id_projet', $_GET['idProjet'])->get();
             return response()->json(['decos' => $decos]);
         } else {
             return response()->json(['decos' => '']);
