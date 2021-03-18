@@ -430,6 +430,9 @@ $(function(){
     };
 
     function rempliCanvas(obj, vue){
+        // if (document.getElementById("avantMod2D").hasChildNodes()){
+        //     document.getElementById("avantMod2D").removeChild(document.getElementById("mod2D-test"));
+        // }
         document.getElementById("avantMod2D").removeChild(document.getElementById("mod2D-test"));
         let mod2D = document.createElement("div");
         mod2D.id="mod2D-test";
@@ -440,9 +443,17 @@ $(function(){
         document.getElementById("avantMod2D").appendChild(mod2D);
 
         let curseur = 0;
+        console.log(obj);
         obj.forEach(o => {
             var image = new Image();
-            image.src = '../images/'+o[3];
+            if(vue == "face" || vue == "gauche"){
+                image.src = '../images/'+o[3];
+                console.log(image.src);
+            }else{
+                image.src = '../images/miroir_'+o[3];
+                console.log(image.src);
+            };
+            //image.src = '../images/'+o[3];
             image.onload = function(){
                 //img.height;
                 //img.width;
