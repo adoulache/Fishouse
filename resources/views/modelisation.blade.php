@@ -71,6 +71,7 @@
                     </div>
 
                     <div id="avantMod2D" class="col-md-9 col-sm-9 blocModelisation justify-content-center align-items-center">
+                        <div id="idProjetCache" class="d-none">{{ $idNewProjet }}</div>
                         <!-- BOUTONS DU PROJET -->
                         <div class="boutonsProjet">
                             <!-- Bouton pour la réinitialisation du projet -->
@@ -80,9 +81,24 @@
                             <button type="button" class="btn btn-dark" id="boutonSauve">Sauvegarder</button>
                             <div id="sauveFaite" class="d-none" style="color:green;">Sauvegarde effectuée !</div>
                         </div>
-
+                        
+                        <div>
+                            <button type="button" class="btn btn-light" id="aqFace">
+                                <img src="{{ asset('../images/face.png') }}" style="width:50px;">
+                            </button>
+                            <button type="button" class="btn btn-light" id="aqGauche">
+                                <img src="{{ asset('../images/gauche.png') }}" style="width:50px;">
+                            </button>
+                            <button type="button" class="btn btn-light" id="aqFond">
+                                <img src="{{ asset('../images/fond.png') }}" style="width:50px;">
+                            </button>
+                            <button type="button" class="btn btn-light" id="aqDroite">
+                                <img src="{{ asset('../images/droite.png') }}" style="width:50px;">
+                            </button>
+                        </div>
+                        
                         <div id="mod2D-test" class="dropzone" style="z-index:auto;width:1000px;height:500px;"></div>
-
+                        
                         <!-- Modal de demande du nom du projet -->
                         <div class="modal fade" id="modalNomProjet" tabindex="-1" role="dialog"
                              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -150,22 +166,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Modélisation 2D -->
-                    <div>
-                        <button type="button" class="btn btn-light" id="aqFace">
-                            <img src="{{ asset('../images/face.png') }}" style="width:50px;">
-                        </button>
-                        <button type="button" class="btn btn-light" id="aqGauche">
-                            <img src="{{ asset('../images/gauche.png') }}" style="width:50px;">
-                        </button>
-                        <button type="button" class="btn btn-light" id="aqFond">
-                            <img src="{{ asset('../images/fond.png') }}" style="width:50px;">
-                        </button>
-                        <button type="button" class="btn btn-light" id="aqDroite">
-                            <img src="{{ asset('../images/droite.png') }}" style="width:50px;">
-                        </button>
                     </div>
                 </div>
             </div>

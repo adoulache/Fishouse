@@ -32,6 +32,8 @@ class ModelisationController extends Controller
                 'partage' => $Projet[0]->partage
         ]);
 
+        $idNewProjet = $Projet[0]->id_projet;
+
         //Données de l'aquarium, relatif au projet existant
         if (DB::table('projet_aquarium')->where('id_projet', $id) ->exists()) {
             $ProjetAquarium = DB::table('projet_aquarium')
@@ -51,7 +53,7 @@ class ModelisationController extends Controller
         //Données de l'aquarium, relatif au projet existant
         if (DB::table('projet_decoration')->where('id_projet', $id) ->exists()) {
             $ProjetDecoration = DB::table('projet_decoration')
-                ->select(['id_projet', 'id_unique', 'id_decoration', 'coordx', 'coordy', 'coordz', 'rotation'])
+                ->select(['id_projet', 'id_decoration', 'coordx', 'coordy', 'coordz', 'rotation'])
                 ->where('id_projet', $id)
                 ->get();
 
@@ -59,7 +61,6 @@ class ModelisationController extends Controller
             DB::table('projet_decoration_temp')
                 ->insert([
                     'id_projet' => $ProjetDecoration[0]->id_projet,
-                    'id_unique'=> $ProjetDecoration[0]->id_unique,
                     'id_decoration' => $ProjetDecoration[0]->id_decoration,
                     'coordx' => $ProjetDecoration[0]->coordx,
                     'coordy' => $ProjetDecoration[0]->coordy,
@@ -71,7 +72,7 @@ class ModelisationController extends Controller
         //Données de l'aquarium, relatif au projet existant
         if (DB::table('projet_plante')->where('id_projet', $id) ->exists()) {
             $ProjetPlante = DB::table('projet_plante')
-                ->select(['id_projet', 'id_unique','id_plante', 'coordx', 'coordy', 'coordz', 'rotation'])
+                ->select(['id_projet', 'id_plante', 'coordx', 'coordy', 'coordz', 'rotation'])
                 ->where('id_projet', $id)
                 ->get();
 
@@ -79,7 +80,6 @@ class ModelisationController extends Controller
             DB::table('projet_plante_temp')
                 ->insert([
                     'id_projet' => $ProjetPlante[0]->id_projet,
-                    'id_unique' => $ProjetPlante->id_unique,
                     'id_plante' => $ProjetPlante[0]->id_plante,
                     'coordx' => $ProjetPlante[0]->coordx,
                     'coordy' => $ProjetPlante[0]->coordy,
@@ -104,7 +104,7 @@ class ModelisationController extends Controller
             ->select(['id_plante3d', 'nom', 'titre', 'description', 'nom_objet', 'tag', 'prix', 'taille'])
             ->get();
 
-        return view('modelisation', ['listeDecorations' => $listeDecorations, 'listePlantes' => $listePlantes, 'listeDecorations3D' => $listeDecorations3D, 'listePlantes3D' => $listePlantes3D]);
+        return view('modelisation', ['idNewProjet' => $idNewProjet, 'nomProjet' => "projet_".$idNewProjet,'listeDecorations' => $listeDecorations, 'listePlantes' => $listePlantes, 'listeDecorations3D' => $listeDecorations3D, 'listePlantes3D' => $listePlantes3D]);
     }
 
     public function addProject(Request $request)
@@ -149,7 +149,7 @@ class ModelisationController extends Controller
             ->select(['id_plante3d', 'nom', 'titre', 'description', 'nom_objet', 'tag', 'prix', 'taille'])
             ->get();
 
-        return view('modelisation', ['idProjet' => $idNewProjet, 'nomProjet' => "projet_".$idNewProjet, 'listeDecorations' => $listeDecorations, 'listePlantes' => $listePlantes, 'listeDecorations3D' => $listeDecorations3D, 'listePlantes3D' => $listePlantes3D]);
+        return view('modelisation', ['idNewProjet' => $idNewProjet, 'nomProjet' => "projet_".$idNewProjet, 'listeDecorations' => $listeDecorations, 'listePlantes' => $listePlantes, 'listeDecorations3D' => $listeDecorations3D, 'listePlantes3D' => $listePlantes3D]);
     }
 
     /**
@@ -170,6 +170,8 @@ class ModelisationController extends Controller
         if (DB::table('projet_decoration_temp')->where('id_projet', $idProjet)->exists()) {
             DB::table('projet_decoration_temp')->where('id_projet', $idProjet)->delete();
         };
+
+        //return $this->openProject($idProjet,'projet_'.$idProjet);
     }
 
     /**
@@ -216,7 +218,7 @@ class ModelisationController extends Controller
                 );
 
             //table temporaire des projets (suppression)
-            DB::table('projets_temp')->where('id_projet', $idProjet)->delete();
+            //DB::table('projets_temp')->where('id_projet', $idProjet)->delete();
         }
 
         if (DB::table('projet_plante_temp')->where('id_projet', $idProjet)->exists()) {
@@ -233,7 +235,11 @@ class ModelisationController extends Controller
             };
 
             //table temporaire des projet_plante (suppression)
-            DB::table('projet_plante_temp')->where('id_projet', $idProjet)->delete();
+            //DB::table('projet_plante_temp')->where('id_projet', $idProjet)->delete();
+        }else{
+            // S'il n'y a plus de plantes, on supprime simplement celels de la table fixe
+            //table projet_plante (suppression)
+            DB::table('projet_plante')->where('id_projet', $idProjet)->delete();
         }
 
         if (DB::table('projet_decoration_temp')->where('id_projet', $idProjet)->exists()) {
@@ -245,12 +251,16 @@ class ModelisationController extends Controller
 
             foreach ($valDeco as $deco) {
                 DB::table('projet_decoration')
-                    ->insert(['id_projet' => $deco->id_projet, 'id_unique'=> $plante->id_unique, 'id_decoration' => $deco->id_decoration, 'coordx' => $deco->coordx, 
+                    ->insert(['id_projet' => $deco->id_projet, 'id_unique'=> $deco->id_unique, 'id_decoration' => $deco->id_decoration, 'coordx' => $deco->coordx, 
                     'coordy' => $deco->coordy, 'coordz' => $deco->coordz, 'rotation' => $deco->rotation]);
             };
 
             //table temporaire des projet_deoration (suppression)
-            DB::table('projet_decoration_temp')->where('id_projet', $idProjet)->delete();
+            //DB::table('projet_decoration_temp')->where('id_projet', $idProjet)->delete();
+        }else{
+            // S'il n'y a plus de décorations, on supprime simplement celels de la table fixe
+            //table projet_decoration (suppression)
+            DB::table('projet_decoration')->where('id_projet', $idProjet)->delete();
         }
 
         if (DB::table('projet_aquarium_temp')->where('id_projet', $idProjet)->exists()) {
@@ -267,9 +277,9 @@ class ModelisationController extends Controller
             };
 
             //table temporaire des projet_bac (suppression)
-            DB::table('projet_aquarium_temp')->where('id_projet', $idProjet)->delete();
-
+            //DB::table('projet_aquarium_temp')->where('id_projet', $idProjet)->delete();
         }
+        //return $this->openProject($idProjet,'projet_'.$idProjet);
     }
 
     /**
