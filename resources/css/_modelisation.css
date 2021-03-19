@@ -57,10 +57,11 @@
 }
 
 /* BLOC DE MODELISATION */
-.blocModelisation{
+
+/* .blocModelisation{
     background-color: thistle;
-    border:solid 10px white;
-}
+    /border:solid 10px white;
+} */
 
 .boutonsProjet{
     margin-top:10px;
@@ -72,11 +73,12 @@
     background-color: #bfe4ff;
     border: 4px solid #29e;
     border-radius: 4px;
-    margin: 0px;
-    padding: 0px;
-    width: 600px;
-    height: 400px;
+    margin: 0;
+    padding: 0;
+    /* width: 1000px;
+    height: 500px; */
     transition: background-color 0.3s;
+    z-index: 1;
 }
 
 .drop-active {
@@ -116,11 +118,6 @@
 }
 
 .clonedItem{
-    position: absolute;
-    top: 4px !important;
-    left: 19px !important;
-    height: 100px;
-    width: 100px;
     border: 1px solid red;
 }
 

@@ -15,6 +15,7 @@ class CreateProjetDecorationTemp extends Migration
     {
         Schema::create('projet_decoration_temp', function (Blueprint $table) {
             $table->integer('id_projet');
+            $table->string('id_unique');
             $table->integer('id_decoration');
             $table->integer('coordx');
             $table->integer('coordy');

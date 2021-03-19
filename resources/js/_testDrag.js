@@ -7,9 +7,9 @@ $(function () {
 // enable draggables to be dropped into this
     interact('.dropzone').dropzone({
         // only accept elements matching this CSS selector
-        accept: '.yes-drop',
-        // Require a 100% element overlap for a drop to be possible
-        overlap: 1,
+        accept: '.clonedItem',
+        // Require a 80% element overlap for a drop to be possible
+        overlap: 0.8,
 
         // listen for drop related events:
 
@@ -34,12 +34,10 @@ $(function () {
         },
         ondrop: function (event) {
             let draggableElement = event.relatedTarget
-            $(draggableElement).appendTo( ".dropzone" );
+            $(draggableElement).appendTo(".dropzone");
 
-            draggableElement.style.borderColor = 'blue';
-            // keep the dragged position in the data-x/data-y attributes
-            console.log(parseInt(draggableElement.getAttribute('data-x')))
-            console.log(parseInt(draggableElement.getAttribute('data-y')))
+            console.log($(draggableElement).position().top);
+            console.log($(draggableElement).position().left);
 
         },
         ondropdeactivate: function (event) {
@@ -49,15 +47,29 @@ $(function () {
         }
     })
 
+    interact('.clonedItem')
+        .draggable({
+            inertia: true,
+            modifiers: [
+                interact.modifiers.restrictRect({
+                    restriction: '.tab-content',
+                    endOnly: true
+                })
+            ],
+            autoScroll: true,
+            // dragMoveListener from the dragging demo above
+            listeners: {move: dragMoveListener}
+        });
+
     interact('.yes-drop')
         .draggable({
             inertia: true,
-            /*modifiers: [
+            modifiers: [
                 interact.modifiers.restrictRect({
-                    restriction: '#mod2D',
+                    restriction: '.tab-content',
                     endOnly: true
                 })
-            ],*/
+            ],
             autoScroll: true,
             // dragMoveListener from the dragging demo above
             listeners: {move: dragMoveListener}
@@ -65,15 +77,15 @@ $(function () {
         let interaction = event.interaction;
         if (interaction.pointerIsDown && !interaction.interacting() && event.currentTarget.getAttribute('clonable') !== 'false') {
             let original = event.currentTarget;
-            let clone = original.childNodes[1].cloneNode(true);
-            clone.classList.add("yes-drop");
+            let clone = original.cloneNode(true);
+            clone.classList.remove("newObjectPicture");
+            clone.classList.remove("yes-drop");
             clone.classList.add("clonedItem");
-            //let x = clone.offsetLeft;
-            //let y = clone.offsetTop;
             clone.setAttribute('clonable', 'false');
-            //clone.style.position = "absolute";
-            //clone.style.left = original.offsetLeft + "px";
-            //clone.style.top = original.offsetTop + "px";
+            clone.style.position = "absolute";
+            clone.style.width = "200px";
+            clone.style.height = "200px";
+            clone.style.zIndex = "100";
             original.parentElement.appendChild(clone);
             interaction.start({name: 'drag'}, event.interactable, clone);
         }
