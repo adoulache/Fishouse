@@ -15,6 +15,7 @@ class CreateProjetPlanteTable extends Migration
     {
         Schema::create('projet_plante', function (Blueprint $table) {
             $table->integer('id_projet');
+            $table->string('id_unique');
             $table->integer('id_plante');
             $table->integer('coordx');
             $table->integer('coordy');
