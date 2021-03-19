@@ -66,14 +66,6 @@ class ProjectController extends Controller
 
         return redirect()->route('projet');
     }
-
-    /*public function shareProject($idProject)
-    {
-        $affected = DB::update(
-            'update projet set partage = ',true,' where name = ?',
-            [$idProject]
-        );
-    } */
 }
 
 ?>

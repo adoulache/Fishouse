@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Projets;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use View;
 
+use System;  
+use System\Collections\Generic;  
+use System\Linq;  
+use System\Web;  
+use System\Web\Mvc; 
+
 class ModelisationController extends Controller
 {
-
     //OUVERTURE D'UN PROJET EXISTANT (via bouton Modifier de la page des projets)
     public function openProject($id, $name)
     {
@@ -31,6 +37,8 @@ class ModelisationController extends Controller
                 'nom_projet' => $Projet[0]->nom_projet,
                 'partage' => $Projet[0]->partage
         ]);
+
+        $idNewProjet = $Projet[0]->id_projet;
 
         //Données de l'aquarium, relatif au projet existant
         if (DB::table('projet_aquarium')->where('id_projet', $id) ->exists()) {
@@ -102,7 +110,7 @@ class ModelisationController extends Controller
             ->select(['id_plante3d', 'nom', 'titre', 'description', 'nom_objet', 'tag', 'prix', 'taille'])
             ->get();
 
-        return view('modelisation', ['listeDecorations' => $listeDecorations, 'listePlantes' => $listePlantes, 'listeDecorations3D' => $listeDecorations3D, 'listePlantes3D' => $listePlantes3D]);
+        return view('modelisation', ['idNewProjet' => $idNewProjet, 'nomProjet' => "projet_".$idNewProjet,'listeDecorations' => $listeDecorations, 'listePlantes' => $listePlantes, 'listeDecorations3D' => $listeDecorations3D, 'listePlantes3D' => $listePlantes3D]);
     }
 
     public function addProject(Request $request)
@@ -147,7 +155,7 @@ class ModelisationController extends Controller
             ->select(['id_plante3d', 'nom', 'titre', 'description', 'nom_objet', 'tag', 'prix', 'taille'])
             ->get();
 
-        return view('modelisation', ['idProjet' => $idNewProjet, 'nomProjet' => "projet_".$idNewProjet, 'listeDecorations' => $listeDecorations, 'listePlantes' => $listePlantes, 'listeDecorations3D' => $listeDecorations3D, 'listePlantes3D' => $listePlantes3D]);
+        return view('modelisation', ['idNewProjet' => $idNewProjet, 'nomProjet' => "projet_".$idNewProjet, 'listeDecorations' => $listeDecorations, 'listePlantes' => $listePlantes, 'listeDecorations3D' => $listeDecorations3D, 'listePlantes3D' => $listePlantes3D]);
     }
 
     /**
@@ -269,7 +277,7 @@ class ModelisationController extends Controller
     }
 
     /**
-     * Réupère les plantes d'un projet
+     * Récupère les plantes d'un projet
      * 
      * @return JSON plantes se trouvant dans le projet
      */
@@ -334,6 +342,122 @@ class ModelisationController extends Controller
         }
     }
 
+    /**
+     * Sauvegarde d'un projet
+     */
+    public function saveProject3D(Request $request)
+    {
+        $idProjet = $request->idProjet3D;
+        $nomProjet = $request->nomProjet3D;
+
+        if (DB::table('projets_temp')->where('id_projet', $idProjet)->exists()) {
+            //table projets (insertion)
+            DB::table('projets_temp')
+                ->where('id_projet', $idProjet)
+                ->update(['nom_projet' => $nomProjet,
+                        'partage' => true]);
+            $val = DB::table('projets_temp')->where('id_projet', $idProjet)->first();
+
+            DB::table('projets')
+                ->updateOrInsert(
+                    ['id_projet' => $idProjet],
+                    ['id_bac' => $val->id_bac, 'id_user' => $val->id_user, 'nom_projet' => $nomProjet, 'partage' => $val->partage]
+                );
+
+            //table temporaire des projets (suppression)
+            DB::table('projets_temp')->where('id_projet', $idProjet)->delete();
+        }
+
+        if (DB::table('projet_plantes_3d_temp')->where('id_projet', $idProjet)->exists()) {
+            //table projet_plante (suppression)
+            DB::table('projet_plantes_3d')->where('id_projet', $idProjet)->delete();
+
+            //table projet_plante (insertion)
+            $valPlante = DB::table('projet_plantes_3d_temp')->where('id_projet', $idProjet)->get();
+
+            foreach ($valPlante as $plante) {
+                DB::table('projet_plantes_3d')
+                    ->insert([
+                        'id_projet' => $plante->id_projet, 
+                        'id_plante' => $plante->id_plante, 
+                        'coordx' => $plante->coordx, 
+                        'coordy' => $plante->coordy, 
+                        'coordz' => $plante->coordz, 
+                        'rotationx'=> $plante->rotationx,
+                        'rotationy'=> $plante->rotationy,
+                        'rotationz'=> $plante->rotationz
+                    ]);
+            };
+
+            //table temporaire des projet_plante (suppression)
+            DB::table('projet_plantes_3d_temp')->where('id_projet', $idProjet)->delete();
+        }
+
+        if (DB::table('projet_decorations_3d_temp')->where('id_projet', $idProjet)->exists()) {
+            //table projet_decoration (suppression)
+            DB::table('projet_decorations_3d')->where('id_projet', $idProjet)->delete();
+
+            //table projet_decoration (insertion)
+            $valDeco = DB::table('projet_decorations_3d_temp')->where('id_projet', $idProjet)->get();
+
+            foreach ($valDeco as $deco) {
+                DB::table('projet_decorations_3d')
+                    ->insert([
+                        'id_projet' => $deco->id_projet, 
+                        'id_decoration' => $deco->id_decoration, 
+                        'coordx' => $deco->coordx, 
+                        'coordy' => $deco->coordy, 
+                        'coordz' => $deco->coordz, 
+                        'rotationx' => $deco->rotationx,
+                        'rotationy' => $deco->rotationy,
+                        'rotationz' => $deco->rotationz
+                    ]);
+            };
+
+            //table temporaire des projet_deoration (suppression)
+            DB::table('projet_decorations_3d_temp')->where('id_projet', $idProjet)->delete();
+        }
+
+        if (DB::table('projet_aquarium_temp')->where('id_projet', $idProjet)->exists()) {
+
+            //table projet_bac (suppression)
+            DB::table('projet_aquarium')->where('id_projet', $idProjet)->delete();
+
+            //table projet_bac (insertion)
+            $valBac = DB::table('projet_aquarium_temp')->where('id_projet', $idProjet)->get();
+
+            foreach ($valBac as $bac) {
+                DB::table('projet_aquarium')
+                    ->insert(['id_projet' => $bac->id_projet, 'id_aquarium' => $bac->id_aquarium]);
+            };
+
+            //table temporaire des projet_bac (suppression)
+            DB::table('projet_aquarium_temp')->where('id_projet', $idProjet)->delete();
+
+        }
+        
+        return $this->openProject($idProjet,$nomProjet);
+    }
+        
+    /**
+     * Réinitialise un projet.
+     */
+    public function resetProject3D(Request $request) 
+    {
+        $idProjet = $request->idProjet3D;
+
+        if (DB::table('projet_plantes_3d_temp')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projet_plantes_3d_temp')->where('id_projet', $idProjet)->delete();
+        };
+        
+        if (DB::table('projet_decorations_3d_temp')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projet_decorations_3d_temp')->where('id_projet', $idProjet)->delete();
+        };
+
+        return $this->openProject($idProjet,'projet_'.$idProjet);
+    }
+
+    
 }
 
 ?>

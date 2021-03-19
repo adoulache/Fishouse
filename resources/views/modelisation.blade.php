@@ -195,43 +195,92 @@
                 <div class="col-md-9 col-sm-9 blocModelisation" id="container">
                     <!-- BOUTONS DU PROJET -->
                     <div class="boutonsProjet">
+                        <button type="button" class="btn btn-dark" href="#" data-toggle="modal" data-target="#help">
+                            <i class="fa fa-question"></i>
+                        </button>
                         <!-- Bouton pour la réinitialisation du projet -->
-                        <button type="button" class="btn btn-dark" id="boutonReinit">Réinitialiser</button>
+                        <button type="button" class="btn btn-dark btnName3D" id="boutonReinit3D" data-toggle="modal" data-target="#resetProject3D">Réinitialiser</button>
 
                         <!-- Bouton pour la sauvegarde du projet -->
-                        <button type="button" class="btn btn-dark" id="boutonSauve">Sauvegarder</button>
-                        <div id="sauveFaite" class="d-none" style="color:green;">Sauvegarde effectuée !</div>
+                        <button type="button" class="btn btn-dark" id="boutonSauve3D" data-toggle="modal" data-target="#nameProject3D">Sauvegarder</button>
+                        <div id="sauveFaite3D" class="d-none" style="color:green;">Sauvegarde effectuée !</div>
                     </div>
-                    <!-- Modal de demande du nom du projet -->
-                    <div class="modal fade" id="modalNomProjet" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <!--<form id="formulaire" role='form'>-->
+
+                    <!-- DEBUT POP-UP, aide -->
+                    <div id="help" class="modal fade">
+                        <div class="modal-dialog">
                             <div class="modal-content">
+                                <!-- Header pop-up -->
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Sauvegarde d'un nouveau projet</h5>
+                                    <p class="modal-title newprojectText"> Aide - touches raccourcis <span id="supprId"></span> </p>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="nom-projet" class="col-form-label">Quel nom veux-tu donner à ton projet ?</label>
-                                        <!--<input type="text" class="form-control" id="nom-projet">-->
-                                        <input type="text" class="champ" id="nom-projet">
-                                    </div>
-                                    <div id="sauveOk" class="d-none" style="color:green;">Sauvegarde effectuée !</div>
-                                    <!--class="h3 text-center hidden"-->
+                                <!-- Body pop-up -->
+                                <div class="modal-body container">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Raccourci</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>...</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>...</td>
+                                            </tr>
+                                            <tr>
+                                                <td>...</td>
+                                                <td>...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
+                                <!-- Footer pop-up -->
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                    <button type="submit" class="btn btn-dark" id="sauvegarde">Sauvegarder</button>
+                                    <button type="button" class="btn btn-dark" data-dismiss="modal">Fermer</button>
                                 </div>
                             </div>
-                            <!--</form>-->
+                        </div>
+                    </div>
+                    <!--FIN POP-UP -->
+
+                    <!-- Modal de demande du nom du projet 3D -->
+                    <div class="modal fade" id="nameProject3D" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <form method="post" action="{{ route('nameProjet3D') }}">
+                                {{ csrf_field() }}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Sauvegarde d'un nouveau projet</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="nom-projet-3D" class="col-form-label">Quel nom veux-tu donner à ton projet ?</label>
+                                            <input type="text" class="champ" name="nomProjet3D" id="nomProjet3D">
+                                        </div>
+                                        <div id="sauveOk3D" class="d-none" style="color:green;">Sauvegarde effectuée !</div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input id="idProjet3D" name="idProjet3D" type="hidden" value="{{ $idNewProjet }}">
+                                        <button type="submit" class="btn btn-dark boutonName3D" name="nameProjet3D">Valider et confirmer</button>
+                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <!-- Modal de confirmation réinitialisation du projet -->
-                    <div class="modal fade" id="modalReinitProjet" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal fade" id="resetProject3D" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -243,12 +292,22 @@
                                 <div class="modal-body">
                                     <div>Es-tu sûr de vouloir réinitialiser ton projet ?</div><br>
                                     <div>Attention, après sauvegarde, tous les éléments de ton aquarium seront définitivement supprimés.</div>
-                                    <div id="reinitOk" class="d-none" style="color:green;">Réinitialisation effectuée !</div>
-
+                                    @if (ViewBag.Message != null)  
+                                    {  
+                                        <script type="text/javascript">  
+                                            window.onload = function () {  
+                                                alert("@ViewBag.Message");  
+                                            };  
+                                        </script>  
+                                    } 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                    <button type="submit" class="btn btn-dark" id="validReinit">Réinitialiser</button>
+                                    <form method="post" action="{{ route('suppProjet') }}">
+                                        {{ csrf_field() }}
+                                        <input id="reinitIdHidden" name="idReinit" type="hidden" value="{{ $idNewProjet }}">
+                                        <button type="submit" class="btn btn-dark boutonReinit" name="reinitProjet3D">Valider et confirmer</button>
+                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -288,7 +347,7 @@
     @else
     <div class="AccessDenied">
         <br>
-        <img src="{{ asset('../images/id-card.png') }}" style="width:150px;">
+        <img src="{{ asset('../images/id-card.png') }}" style="width:150px;margin:auto">
         <p> Tu ne peux pas accéder à cette page, alors <br> <a class="btn btn-dark" href="{{ route('sign-in') }}">connecte-toi</a> ou <a class="btn btn-dark" href="{{ route('sign-up') }}">inscris-toi</a> !</p>
         <br>
     </div>
