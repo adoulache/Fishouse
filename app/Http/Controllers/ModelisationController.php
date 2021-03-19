@@ -51,7 +51,7 @@ class ModelisationController extends Controller
         //Données de l'aquarium, relatif au projet existant
         if (DB::table('projet_decoration')->where('id_projet', $id) ->exists()) {
             $ProjetDecoration = DB::table('projet_decoration')
-                ->select(['id_projet', 'id_decoration', 'coordx', 'coordy', 'coordz', 'rotation'])
+                ->select(['id_projet', 'id_unique', 'id_decoration', 'coordx', 'coordy', 'coordz', 'rotation'])
                 ->where('id_projet', $id)
                 ->get();
 
@@ -59,6 +59,7 @@ class ModelisationController extends Controller
             DB::table('projet_decoration_temp')
                 ->insert([
                     'id_projet' => $ProjetDecoration[0]->id_projet,
+                    'id_unique'=> $ProjetDecoration[0]->id_unique,
                     'id_decoration' => $ProjetDecoration[0]->id_decoration,
                     'coordx' => $ProjetDecoration[0]->coordx,
                     'coordy' => $ProjetDecoration[0]->coordy,
@@ -70,7 +71,7 @@ class ModelisationController extends Controller
         //Données de l'aquarium, relatif au projet existant
         if (DB::table('projet_plante')->where('id_projet', $id) ->exists()) {
             $ProjetPlante = DB::table('projet_plante')
-                ->select(['id_projet', 'id_plante', 'coordx', 'coordy', 'coordz', 'rotation'])
+                ->select(['id_projet', 'id_unique','id_plante', 'coordx', 'coordy', 'coordz', 'rotation'])
                 ->where('id_projet', $id)
                 ->get();
 
@@ -78,6 +79,7 @@ class ModelisationController extends Controller
             DB::table('projet_plante_temp')
                 ->insert([
                     'id_projet' => $ProjetPlante[0]->id_projet,
+                    'id_unique' => $ProjetPlante->id_unique,
                     'id_plante' => $ProjetPlante[0]->id_plante,
                     'coordx' => $ProjetPlante[0]->coordx,
                     'coordy' => $ProjetPlante[0]->coordy,
@@ -226,7 +228,8 @@ class ModelisationController extends Controller
 
             foreach ($valPlante as $plante) {
                 DB::table('projet_plante')
-                    ->insert(['id_projet' => $plante->id_projet, 'id_plante' => $plante->id_plante, 'coordx' => $plante->coordx, 'coordy' => $plante->coordy, 'coordz' => $plante->coordz, 'rotation'=> $plante->rotation]);
+                    ->insert(['id_projet' => $plante->id_projet, 'id_unique'=> $plante->id_unique, 'id_plante' => $plante->id_plante, 'coordx' => $plante->coordx, 
+                    'coordy' => $plante->coordy, 'coordz' => $plante->coordz, 'rotation'=> $plante->rotation]);
             };
 
             //table temporaire des projet_plante (suppression)
@@ -242,7 +245,8 @@ class ModelisationController extends Controller
 
             foreach ($valDeco as $deco) {
                 DB::table('projet_decoration')
-                    ->insert(['id_projet' => $deco->id_projet, 'id_decoration' => $deco->id_decoration, 'coordx' => $deco->coordx, 'coordy' => $deco->coordy, 'coordz' => $deco->coordz, 'rotation' => $deco->rotation]);
+                    ->insert(['id_projet' => $deco->id_projet, 'id_unique'=> $plante->id_unique, 'id_decoration' => $deco->id_decoration, 'coordx' => $deco->coordx, 
+                    'coordy' => $deco->coordy, 'coordz' => $deco->coordz, 'rotation' => $deco->rotation]);
             };
 
             //table temporaire des projet_deoration (suppression)

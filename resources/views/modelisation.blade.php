@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9 col-sm-9 blocModelisation">
+                <div class="col-md-9 col-sm-9 blocModelisation" id="avantMod2D">
                     <!-- BOUTONS DU PROJET -->
                     <div class="boutonsProjet">
                         <!-- Bouton pour la réinitialisation du projet -->
@@ -72,6 +72,11 @@
                         <button type="button" class="btn btn-dark" id="boutonSauve">Sauvegarder</button>
                         <div id="sauveFaite" class="d-none" style="color:green;">Sauvegarde effectuée !</div>
                     </div>
+                    
+                    <!--<div id="avantMod2D" style="width:600px;height:300px;position:absolute;">-->
+                        <div id="mod2D-test" style="z-index:auto;width:600px;height:300px;"></div>
+                    <!--</div>-->
+                    
                     <!-- Modal de demande du nom du projet -->
                     <div class="modal fade" id="modalNomProjet" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -140,9 +145,6 @@
                 <button type="button" class="btn btn-light" id="aqDroite">
                     <img src="{{ asset('../images/droite.png') }}" style="width:50px;">
                 </button>
-            </div>
-            <div id="avantMod2D" style="width:600px;height:300px;position:absolute;">
-                <div id="mod2D-test" style="z-index:auto;width:600px;height:300px;"></div>
             </div>
         </div>
 

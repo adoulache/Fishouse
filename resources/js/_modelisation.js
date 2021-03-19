@@ -24,6 +24,7 @@ $(function () {
 $(function(){
     /* Réinitialisation du projet*/
     $('#boutonReinit').on('click', function() {
+        $("#reinitOk").addClass("d-none")
         console.log('on va demander confirmation pour la réinitisalisation')
 
         /* Affichage modal de confirmation */
@@ -62,6 +63,8 @@ function messageValidation(){
 /* PARTIE SAUVEGARDE D'UN PROJET */
 $(function(){
     $('#boutonSauve').on('click', function() {
+        $("#sauveOk").addClass("d-none");
+        $("#sauveFaite").addClass("d-none")
         console.log('on rentre dans la fonction de sauvegarde');
         var exist='';
         console.log(idProjet);
@@ -154,6 +157,7 @@ $(function(){
                 success: function (data) {
                     console.log('success postSauveProjet');
                     $("#sauveFaite").removeClass("d-none");
+                    setTimeout(function(){$("#sauveFaite").addClass("d-none");}, 3000);
                 },
                 error : function(data){
                     console.log('error postSauveProjet');
@@ -193,7 +197,7 @@ $(function(){
     /* Adaptation de la taille de l'aquarium en fonction 
     de la taille de la fenêtre */
 
-    const marge = 10; // marge de 10 pixels autour de l'aquarium
+    const marge = 0;//10; // marge de 10 pixels autour de l'aquarium
 
     // Taille du "grand" aquarium
     const longGrand = 800;
@@ -201,9 +205,12 @@ $(function(){
     const hautGrand = 400;
 
     // Taille du "petit" aquarium
-    const longPetit = 600;
+    /*const longPetit = 600;
     const profPetit = 200;
-    const hautPetit = 300;
+    const hautPetit = 300;*/
+    const longPetit = 1000;
+    const profPetit = 333;
+    const hautPetit = 500;
 
     let dimensions; // longueur, profondeur, hauteur
     let can;
@@ -297,7 +304,7 @@ $(function(){
                     }
                 });
                 var parseChemin = JSON.parse(retourChemin.responseText);
-                plantesAquarium.push([item.coordx, item.coordy, item.coordz, parseChemin.chemin]);
+                plantesAquarium.push([item.coordx, item.coordy, item.coordz, parseChemin.chemin, item.ADE]);
             });
         };
 
@@ -334,7 +341,7 @@ $(function(){
                     }
                 });
                 var parseCheminDeco = JSON.parse(retourCheminDeco.responseText);
-                decosAquarium.push([item.coordx, item.coordy, item.coordz, parseCheminDeco.chemin]);
+                decosAquarium.push([item.coordx, item.coordy, item.coordz, parseCheminDeco.chemin, item.ADE]);
             });
         };
 
@@ -435,15 +442,31 @@ $(function(){
         // }
         document.getElementById("avantMod2D").removeChild(document.getElementById("mod2D-test"));
         let mod2D = document.createElement("div");
+        /*
         mod2D.id="mod2D-test";
         mod2D.style.zIndex="auto";
         mod2D.style.width="600px";
         mod2D.style.height="300px";
         mod2D.style.position="absolute";
         document.getElementById("avantMod2D").appendChild(mod2D);
+        */
+        mod2D.id="mod2D-test";
+        mod2D.classList.add("dropzone");
+        mod2D.style.zIndex="auto";
+        mod2D.style.position="absolute";
+        mod2D.style.border = "1px solid red";
+        document.getElementById("avantMod2D").appendChild(mod2D);
+
+        if (vue == "fond" || vue == "face") {
+            $('#mod2D-test').width(longPetit);//"1000px";
+            $('#mod2D-test').height(hautPetit);//"500px";
+        }else{
+            $('#mod2D-test').width(profPetit);
+            $('#mod2D-test').height(hautPetit);
+        }
 
         let curseur = 0;
-        console.log(obj);
+        //console.log(obj);
         obj.forEach(o => {
             var image = new Image();
             if(vue == "face" || vue == "gauche"){
@@ -454,10 +477,12 @@ $(function(){
                 console.log(image.src);
             };
             //image.src = '../images/'+o[3];
+            image.classList.add('clonedItem');
             image.onload = function(){
                 //img.height;
                 //img.width;
 
+                /*
                 let largeur = image.width/1.5;
                 let hauteur = image.height/1.5;
                 if (hauteur >= hautPetit){
@@ -472,6 +497,11 @@ $(function(){
                         largeur = newlargeur;
                     };
                 };
+                */
+
+                let coord = tailleImage(image);
+                let hauteur = coord[0];
+                let largeur = coord[1];
 
                 let x;
                 let y;
@@ -511,7 +541,8 @@ $(function(){
             
                 //ctx2.globalCompositeOperation="destination-over";
                 //ctx2.drawImage(this, x, y, largeur, hauteur);//,largeurImage, hauteurImage);
-                let div = document.createElement('div');
+                
+                /*let div = document.createElement('div');
                 div.id=curseur;
                 div.style.zIndex=curseur;
                 div.style.width=largeur+"px";
@@ -523,7 +554,17 @@ $(function(){
                 //$("#mod2D-test").appendChild(image);//.appendChild(image));
                 image.width=largeur;
                 image.height=hauteur;
-                document.getElementById(curseur).appendChild(image);
+                document.getElementById(curseur).appendChild(image);*/
+                
+                image.style.zIndex=curseur;
+                image.style.position="absolute";
+                image.style.top=y+"px";
+                image.style.left=x+"px";
+                image.width=largeur;
+                image.height=hauteur;
+                // ICI, ajouter la value : se trouve dans o[4] normalement
+                document.getElementById("mod2D-test").appendChild(image);
+                
                 curseur+=1;
                 
             };
@@ -557,29 +598,22 @@ $(function(){
         afficheContenu(objetsAquarium, 'droite');
     });
 
-
-    // Fonction 1
-    // Quand clique sur canvas
-    // Affiche / démasque une div en lui donnant un emplacement (à calculer)
-    // Mettre l'image dans la div, la superposer au canvas
-    // Afficher canvas sans objet
-    
-    /*$('#mod2D-test').on('click', function(){
-        $("#divImg").removeClass("d-none")
-        let objet;
-        $("#divImg").append("<img src='"+objet[3]+".png'/>");
-
-    });*/
-
-
-    // Fonction 2
-    // Quand déselectionne div
-    // Récupère emplacement objet et objet
-    // Affiche canvas avec tous les objets
-    // Enlève image de la div
-    // Cache la div
-
-    // A quoi correspondent les coordonnées qui sont récupérées ?
-
+    function tailleImage(img){
+        let largeur = img.width/1.5;
+        let hauteur = img.height/1.5;
+        if (hauteur >= hautPetit){
+            let newhauteur = hautPetit - 5;
+            largeur = largeur * (newhauteur / hauteur); // toujours proportionnel
+            hauteur = newhauteur;
+        }
+        if ($('#mod2D-test').width() <= profPetit){
+            if (largeur >= profPetit){
+                let newlargeur = profPetit - 5;
+                hauteur = hauteur * (newlargeur / largeur);
+                largeur = newlargeur;
+            }
+        }
+        return [hauteur, largeur];
+    }
 
 });
