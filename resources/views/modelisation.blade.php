@@ -5,6 +5,12 @@
     @if (Auth::check())
     <div class="container" style="width:100%">
         <br>
+        @if (session('alert'))
+            <div class="alert alert-success">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                {{ session('alert') }}
+            </div>
+        @endif
         <p class="h3">Type de modélisation :</p>
         <ul class="nav nav-tabs nav-justified">
             <li class="nav-item">
@@ -172,6 +178,7 @@
                     <!-- CATALOGUE -->
                     <div class="container-fluid">
                         <div class="row">
+                            <!-- Catalogue décorations -->
                             @foreach($listeDecorations3D as $listeDecoration3D)
                             <div class="newObjectCard row justify-content-center align-items-center" data-toggle="tooltip" data-placement="top" title="{{$listeDecoration3D->description}}">
                                 <img src="{{ asset('../images/'.$listeDecoration3D->nom_objet.'.png') }}" class="newObjectPicture">
@@ -180,6 +187,7 @@
                                 </div>
                             </div>
                             @endforeach
+                            <!-- Catalogue plantes -->
                             @foreach($listePlantes3D as $listePlante3D)
                             <div class="newObjectCard row justify-content-center align-items-center" data-toggle="tooltip" data-placement="top" title="{{$listePlante3D->description}}">
                                 <img src="{{ asset('../images/'.$listePlante3D->nom_objet.'.png') }}" class="newObjectPicture">
@@ -199,11 +207,20 @@
                             <i class="fa fa-question"></i>
                         </button>
                         <!-- Bouton pour la réinitialisation du projet -->
-                        <button type="button" class="btn btn-dark btnName3D" id="boutonReinit3D" data-toggle="modal" data-target="#resetProject3D">Réinitialiser</button>
+                        <button type="button" class="btn btn-dark btnReini3D" id="boutonReinit3D" data-toggle="modal" data-target="#resetProject3D">Réinitialiser</button>
 
+                        <!-- Le nom d'un projet, par défaut, est 'projet_' + id -->
+                        <!-- Si ce nom est différent, alors le nom a déjà été modifié et ce n'est pas nécessaire de le redemander -->
+                        @if (strpos($nomProjet, 'projet_') !== false)
                         <!-- Bouton pour la sauvegarde du projet -->
                         <button type="button" class="btn btn-dark" id="boutonSauve3D" data-toggle="modal" data-target="#nameProject3D">Sauvegarder</button>
-                        <div id="sauveFaite3D" class="d-none" style="color:green;">Sauvegarde effectuée !</div>
+                        @else
+                        <form method="post" action="{{ route('nameProjet3D') }}">
+                            <input id="nomProjet3D" name="nomProjet3D" type="hidden" value="{{ $nomProjet }}">
+                            <input id="idProjet3D" name="idProjet3D" type="hidden" value="{{ $idNewProjet }}">
+                            <button type="submit" class="btn btn-dark boutonName3D" name="nameProjet3D">Sauvegarder</button>
+                        </form>
+                        @endif
                     </div>
 
                     <!-- DEBUT POP-UP, aide -->
@@ -228,16 +245,24 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>...</td>
-                                                <td>...</td>
+                                                <td>Touche "w"</td>
+                                                <td>Affichage des axes de déplacement</td>
                                             </tr>
                                             <tr>
-                                                <td>...</td>
-                                                <td>...</td>
+                                                <td>Touche "e"</td>
+                                                <td>Affichage des axes de rotation</td>
                                             </tr>
                                             <tr>
-                                                <td>...</td>
-                                                <td>...</td>
+                                                <td>Touche "r"</td>
+                                                <td>Affichage des axes de redimensionnement</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Touche "+"</td>
+                                                <td>Augmente la taille des axes</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Touche "-"</td>
+                                                <td>Diminue la taille des axes</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -251,7 +276,7 @@
                     </div>
                     <!--FIN POP-UP -->
 
-                    <!-- Modal de demande du nom du projet 3D -->
+                    <!-- DEBUT POP-UP, demande du nom du projet 3D -->
                     <div class="modal fade" id="nameProject3D" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <form method="post" action="{{ route('nameProjet3D') }}">
@@ -268,7 +293,6 @@
                                             <label for="nom-projet-3D" class="col-form-label">Quel nom veux-tu donner à ton projet ?</label>
                                             <input type="text" class="champ" name="nomProjet3D" id="nomProjet3D">
                                         </div>
-                                        <div id="sauveOk3D" class="d-none" style="color:green;">Sauvegarde effectuée !</div>
                                     </div>
                                     <div class="modal-footer">
                                         <input id="idProjet3D" name="idProjet3D" type="hidden" value="{{ $idNewProjet }}">
@@ -279,7 +303,9 @@
                             </form>
                         </div>
                     </div>
-                    <!-- Modal de confirmation réinitialisation du projet -->
+                    <!--FIN POP-UP -->
+
+                    <!-- DEBUT POP-UP, confirmation réinitialisation du projet -->
                     <div class="modal fade" id="resetProject3D" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -292,14 +318,6 @@
                                 <div class="modal-body">
                                     <div>Es-tu sûr de vouloir réinitialiser ton projet ?</div><br>
                                     <div>Attention, après sauvegarde, tous les éléments de ton aquarium seront définitivement supprimés.</div>
-                                    @if (ViewBag.Message != null)  
-                                    {  
-                                        <script type="text/javascript">  
-                                            window.onload = function () {  
-                                                alert("@ViewBag.Message");  
-                                            };  
-                                        </script>  
-                                    } 
                                 </div>
                                 <div class="modal-footer">
                                     <form method="post" action="{{ route('suppProjet') }}">
@@ -312,6 +330,8 @@
                             </div>
                         </div>
                     </div>
+                    <!--FIN POP-UP -->
+
                     <!-- ICI PARTIE CLARA -->
                     <!-- Site des sources js : https://cdn.jsdelivr.net/npm/three@0.115.0/ -->
 
@@ -322,6 +342,9 @@
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.js"></script>
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.min.js"></script>
                     <!-- <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.module.js"></script> -->
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/src/scenes/FogExp2.js"></script>
+                    <script src="js/THREEx.WindowResize.js"></script>
+
 
                     <!-- Sources des fonctions dont on a besoin : examples / js / controls -->
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115/examples/js/controls/DragControls.js"></script>
@@ -331,7 +354,14 @@
                     <!-- Autres sources (utiles pour certaines fonctions) -->
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/libs/inflate.min.js"></script>
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/FBXLoader.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/OBJLoader.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/MTLLoader.js"></script> 
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/GLTFLoader.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/JSONLoader.js"></script>
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/jsm/libs/stats.module.js"></script>
+
+                    <!-- Rendere -->
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/renderers/Projector.js"></script>
 
 
                     <!-- Script pour gérer la modélisation 3D -->
@@ -344,6 +374,8 @@
         </div>
     </div>
 
+    <!-- Page accessible uniquement si utilisateur connecté -->
+    <!-- Affichage d'un message de refus d'accès, nécessité de s'inscrire ou se connecter -->
     @else
     <div class="AccessDenied">
         <br>

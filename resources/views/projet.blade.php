@@ -185,6 +185,9 @@
             <!--FIN POP-UP -->
         </div>
     </div>
+
+    <!-- Page accessible uniquement si utilisateur connecté -->
+    <!-- Affichage d'un message de refus d'accès, nécessité de s'inscrire ou se connecter -->
     @else
     <div class="AccessDenied"> 
         <br>

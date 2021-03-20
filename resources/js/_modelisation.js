@@ -179,9 +179,7 @@ function formSuccess(){
      $("#sauveOk").removeClass("d-none");
 };
 
-/*______________PARTIE 3D______________/
-
-
+/*______________PARTIE 3D______________*/
 
 
 /* PARTIE MODELISATION 2D */

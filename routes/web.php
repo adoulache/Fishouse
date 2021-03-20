@@ -61,6 +61,11 @@ Route::get('/forum', function () {
     return view('forum');
 })->name('forum');
 
+// Route vers la page About us:
+Route::get('/contact', function () {
+    return view('aboutus');
+})->name('contact');
+
 // Route vers inscription:
 Route::get('/inscription', function () {
     return view('auth.register');

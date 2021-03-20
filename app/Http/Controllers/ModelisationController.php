@@ -8,12 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use View;
 
-use System;  
-use System\Collections\Generic;  
-use System\Linq;  
-use System\Web;  
-use System\Web\Mvc; 
-
 class ModelisationController extends Controller
 {
     //OUVERTURE D'UN PROJET EXISTANT (via bouton Modifier de la page des projets)
@@ -39,6 +33,7 @@ class ModelisationController extends Controller
         ]);
 
         $idNewProjet = $Projet[0]->id_projet;
+        $nomProjet = $Projet[0]->nom_projet;
 
         //Données de l'aquarium, relatif au projet existant
         if (DB::table('projet_aquarium')->where('id_projet', $id) ->exists()) {
@@ -110,7 +105,7 @@ class ModelisationController extends Controller
             ->select(['id_plante3d', 'nom', 'titre', 'description', 'nom_objet', 'tag', 'prix', 'taille'])
             ->get();
 
-        return view('modelisation', ['idNewProjet' => $idNewProjet, 'nomProjet' => "projet_".$idNewProjet,'listeDecorations' => $listeDecorations, 'listePlantes' => $listePlantes, 'listeDecorations3D' => $listeDecorations3D, 'listePlantes3D' => $listePlantes3D]);
+        return view('modelisation', ['idNewProjet' => $idNewProjet, 'nomProjet' => $nomProjet,'listeDecorations' => $listeDecorations, 'listePlantes' => $listePlantes, 'listeDecorations3D' => $listeDecorations3D, 'listePlantes3D' => $listePlantes3D]);
     }
 
     public function addProject(Request $request)
@@ -436,7 +431,8 @@ class ModelisationController extends Controller
 
         }
         
-        return $this->openProject($idProjet,$nomProjet);
+        //return $this->openProject($idProjet,$nomProjet);
+        return redirect()->back()->with('alert', 'Sauvegarde réussie !');
     }
         
     /**
@@ -454,10 +450,9 @@ class ModelisationController extends Controller
             DB::table('projet_decorations_3d_temp')->where('id_projet', $idProjet)->delete();
         };
 
-        return $this->openProject($idProjet,'projet_'.$idProjet);
+        //return $this->openProject($idProjet,'projet_'.$idProjet);
+        return redirect()->back()->with('alert', 'Réinitialisation réussie !');
     }
-
-    
 }
 
 ?>
