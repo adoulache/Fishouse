@@ -147,7 +147,7 @@ class ModelisationController extends Controller
             ->select(['id_plante3d', 'nom', 'titre', 'description', 'nom_objet', 'tag', 'prix', 'taille'])
             ->get();
 
-        return view('modelisation', ['idProjet' => $idNewProjet, 'nomProjet' => "projet_".$idNewProjet, 'listeDecorations' => $listeDecorations, 'listePlantes' => $listePlantes, 'listeDecorations3D' => $listeDecorations3D, 'listePlantes3D' => $listePlantes3D]);
+        return view('modelisation', ['idNewProjet' => $idNewProjet, 'nomProjet' => "projet_".$idNewProjet, 'listeDecorations' => $listeDecorations, 'listePlantes' => $listePlantes, 'listeDecorations3D' => $listeDecorations3D, 'listePlantes3D' => $listePlantes3D]);
     }
 
     /**
@@ -332,6 +332,32 @@ class ModelisationController extends Controller
         } else {
             return response()->json(['chemin' => '']);
         }
+    }
+
+    /**
+     * Permet de mettre dans la table temporaire l'objet ajouté
+     */
+    public function insertObject3D(Request $request)
+    {
+        $idProjet = $_POST['idProjet'];
+        $nomObjet = $_POST['nomObjet'];
+
+        $idDeco = DB::table('decorations_3d')
+                ->select(['id_decoration3d'])
+                ->where('nom_objet', $nomObjet)
+                ->get();
+        
+        DB::table('projet_decorations_3d_temp')
+                ->insert([
+                        'id_projet' => $idProjet, 
+                        'id_decoration3d' => $idDeco[0]->id_decoration3d, 
+                        'coordx' => 1, 
+                        'coordy' => 1, 
+                        'coordz' => 1, 
+                        'rotationx' => -1.57,
+                        'rotationy' => 0,
+                        'rotationz' => 0
+                    ]);
     }
 
 }

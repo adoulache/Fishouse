@@ -177,6 +177,8 @@
                                 <img src="{{ asset('../images/'.$listeDecoration3D->nom_objet.'.png') }}" class="newObjectPicture">
                                 <div class="newObjectDescription">
                                     <p> {{ $listeDecoration3D->titre }} </p>
+                                    <a class="btn btn-dark btnAjoutObjet" id="{{ $listeDecoration3D->nom_objet }}">Ajouter</a>
+                                    <input id="idProjet3D" name="idProjet3D" type="hidden" value="{{ $idNewProjet }}">      
                                 </div>
                             </div>
                             @endforeach
@@ -253,7 +255,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- ICI PARTIE CLARA -->
+                </div>
+                <!-- ICI PARTIE CLARA -->
                     <!-- Site des sources js : https://cdn.jsdelivr.net/npm/three@0.115.0/ -->
 
                     <!-- Sources build -->
@@ -272,7 +275,17 @@
                     <!-- Autres sources (utiles pour certaines fonctions) -->
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/libs/inflate.min.js"></script>
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/FBXLoader.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/OBJLoader.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/MTLLoader.js"></script> 
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/GLTFLoader.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/JSONLoader.js"></script>
+
+                    <!-- Stats -->
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/jsm/libs/stats.module.js"></script>
+                    <script src='//mrdoob.github.io/stats.js/build/stats.min.js'></script>
+
+                    <!-- Renderer -->
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/renderers/Projector.js"></script>
 
 
                     <!-- Script pour gérer la modélisation 3D -->
@@ -280,7 +293,6 @@
                     <script src="../js/_modelisation3D.js"></script>
 
                     <script src="../js/three.interaction.js"></script>
-                </div>
             </div>
         </div>
     </div>

@@ -19,9 +19,9 @@ class CreateProjetPlantes3d extends Migration
             $table->integer('coordx');
             $table->integer('coordy');
             $table->integer('coordz');
-            $table->integer('rotationx');
-            $table->integer('rotationy');
-            $table->integer('rotationz');
+            $table->float('rotationx');
+            $table->float('rotationy');
+            $table->float('rotationz');
         });
     }
 
