@@ -124,3 +124,15 @@
 .as-console {
     display: none !important;
 }
+
+/* Cadre de modélisation 2D*/
+.cadreMod2D{
+    z-index: "auto";
+    position:"absolute";
+    border:"1px solid red";
+}
+
+/* Messages de validation */
+.msgValide{
+    color:green;
+}

@@ -1,9 +1,5 @@
 $(function(){
-    //const idProjet = 123 // A RECUPERER DEPUIS LA PAGE QUAND SERA DISPO
     const idProjet = $('#idProjetCache').text();
-    console.log('identifiant du projet : ');
-    console.log(idProjet);
-
 
     $(function(){
         $.ajax({
@@ -29,7 +25,7 @@ $(function(){
         /* Réinitialisation du projet*/
         $('#boutonReinit').on('click', function() {
             $("#reinitOk").addClass("d-none")
-            console.log('on va demander confirmation pour la réinitisalisation')
+            //console.log('on va demander confirmation pour la réinitisalisation')
 
             /* Affichage modal de confirmation */
             $('#modalReinitProjet').modal('show');
@@ -47,11 +43,11 @@ $(function(){
                     data: 'idProjet=' + idProjet,
                     async : false,
                     success: function (data) {
-                        console.log('success');
+                        console.log('succès réinitialisation du projet');
                         messageValidation();
                     },
                     error : function(data){
-                        console.log('error');
+                        console.log('erreur réinitialisation du projet');
                         console.log(data);
                     }
                 });
@@ -69,7 +65,7 @@ $(function(){
         $('#boutonSauve').on('click', function() {
             $("#sauveOk").addClass("d-none");
             $("#sauveFaite").addClass("d-none")
-            console.log('on rentre dans la fonction de sauvegarde');
+            //console.log('on rentre dans la fonction de sauvegarde');
             var exist='';
             console.log(idProjet);
             /* Vérification si l'id du projet existe dans la base */
@@ -81,11 +77,11 @@ $(function(){
                 dataType: 'JSON',
                 success: function (data) {
                     console.log('success getProjet');
-                    console.log(data);
+                    //console.log(data);
                 },
                 error : function(text){
                     console.log('error getProjet');
-                    console.log(text);
+                    //console.log(text);
                 }
             });
             var exist = JSON.parse(retour.responseText);
@@ -93,7 +89,7 @@ $(function(){
 
             // CAS OU LE PROJET N EXISTE PAS ENCORE
             if(exist.response == "introuvable"){
-                console.log('le projet n existe pas encore, on va demander son nom');
+                //console.log('le projet n existe pas encore, on va demander son nom');
 
                 /* Affichage modal demande du nom du projet */
                 $('#modalNomProjet').modal('show');
@@ -101,7 +97,7 @@ $(function(){
                 $('#sauvegarde').click(function(event){
                     event.preventDefault();
                     var nomProjet = $('#nom-projet').val();
-                    console.log(nomProjet);
+                    //console.log(nomProjet);
                     /* insertion du nom du projet dans la base temporaire*/
                     $.ajaxSetup({
                         headers: {
@@ -216,9 +212,11 @@ $(function(){
         const profPetit = 333;
         const hautPetit = 500;
 
+        /* Plus utile puisque plus de canvas
         let dimensions; // longueur, profondeur, hauteur
         let can;
         let ctx2;
+        */
 
         //valeur abberantes car on n'utilisera que le petit
         if (largeurFenetre < 150000 && hauteurFenetre < 750000 ){ 
@@ -260,6 +258,7 @@ $(function(){
             Pour les affichages de face ou de fond : ctx, can, longueur, hauteur
             Pour les affichages de côté : ctx, can, profondeur, hauteur
         */
+       /* Plus utile car plus de canvas
         function traceContour(ctx2, can, dimx, hauteur){
             ctx2.clearRect(0, 0, can.width, can.height);
             ctx2.beginPath();
@@ -271,11 +270,12 @@ $(function(){
             ctx2.closePath();
             ctx2.lineWidth = 2; 
             ctx2.stroke();
-        };
+        };*/
 
         /* Récupère les objets présents dans l'aquarium depuis la base de données */
         function recupObjets2(){
             /* PLANTES */
+            console.log(idProjet);
             var retour = $.ajax({
                 url: 'modelisation5',
                 type: 'GET',
@@ -308,7 +308,7 @@ $(function(){
                         }
                     });
                     var parseChemin = JSON.parse(retourChemin.responseText);
-                    plantesAquarium.push([item.coordx, item.coordy, item.coordz, parseChemin.chemin, item.ADE]);
+                    plantesAquarium.push([item.coordx, item.coordy, item.coordz, parseChemin.chemin, item.id_unique]);
                 });
             };
 
@@ -345,7 +345,7 @@ $(function(){
                         }
                     });
                     var parseCheminDeco = JSON.parse(retourCheminDeco.responseText);
-                    decosAquarium.push([item.coordx, item.coordy, item.coordz, parseCheminDeco.chemin, item.ADE]);
+                    decosAquarium.push([item.coordx, item.coordy, item.coordz, parseCheminDeco.chemin, item.id_unique]);
                 });
             };
 
@@ -456,9 +456,10 @@ $(function(){
             */
             mod2D.id="mod2D-test";
             mod2D.classList.add("dropzone");
-            mod2D.style.zIndex="auto";
-            mod2D.style.position="absolute";
-            mod2D.style.border = "1px solid red";
+            mod2D.classList.add("cadreMod2D");
+            // mod2D.style.zIndex="auto";
+            // mod2D.style.position="absolute";
+            // mod2D.style.border = "1px solid red";
             document.getElementById("avantMod2D").appendChild(mod2D);
 
             if (vue == "fond" || vue == "face") {
@@ -566,7 +567,6 @@ $(function(){
                     image.style.left=x+"px";
                     image.width=largeur;
                     image.height=hauteur;
-                    // ICI, ajouter la value : se trouve dans o[4] normalement
                     document.getElementById("mod2D-test").appendChild(image);
                     
                     curseur+=1;
