@@ -67,7 +67,7 @@ $(function(){
             $("#sauveFaite").addClass("d-none")
             //console.log('on rentre dans la fonction de sauvegarde');
             var exist='';
-            console.log(idProjet);
+            //console.log(idProjet);
             /* Vérification si l'id du projet existe dans la base */
             var retour = $.ajax({
                 url: 'modelisation1',
@@ -85,7 +85,7 @@ $(function(){
                 }
             });
             var exist = JSON.parse(retour.responseText);
-            console.log(exist.response);
+            //console.log(exist.response);
 
             // CAS OU LE PROJET N EXISTE PAS ENCORE
             if(exist.response == "introuvable"){
@@ -141,7 +141,7 @@ $(function(){
 
             }else{
             // CAS OU LE PROJET EXISTE
-                console.log('Le projet existe, on va le sauvegarder');
+                //console.log('Le projet existe, on va le sauvegarder');
 
                 /* sauvegarde du projet dans la base */
                 $.ajaxSetup({
@@ -247,7 +247,7 @@ $(function(){
             
             // Récupère une liste triée en fonction de la profondeur
             let objetsTries = trieObjetsAquarium(obj, vue);
-            console.log(objetsTries);
+            //console.log(objetsTries);
 
             // Ajoute les images au canva
             //rempliCanvas(objetsTries, vue, ctx2);
@@ -275,7 +275,7 @@ $(function(){
         /* Récupère les objets présents dans l'aquarium depuis la base de données */
         function recupObjets2(){
             /* PLANTES */
-            console.log(idProjet);
+            //console.log(idProjet);
             var retour = $.ajax({
                 url: 'modelisation5',
                 type: 'GET',
@@ -476,10 +476,10 @@ $(function(){
                 var image = new Image();
                 if(vue == "face" || vue == "gauche"){
                     image.src = '../images/'+o[3];
-                    console.log(image.src);
+                    //console.log(image.src);
                 }else{
                     image.src = '../images/miroir_'+o[3];
-                    console.log(image.src);
+                    //console.log(image.src);
                 };
                 //image.src = '../images/'+o[3];
                 image.classList.add('clonedItem');
