@@ -185,10 +185,13 @@
             <!--FIN POP-UP -->
         </div>
     </div>
+
+    <!-- Page accessible uniquement si utilisateur connecté -->
+    <!-- Affichage d'un message de refus d'accès, nécessité de s'inscrire ou se connecter -->
     @else
     <div class="AccessDenied"> 
         <br>
-        <img src="{{ asset('../images/id-card.png') }}" style="width:150px;">
+        <img src="{{ asset('../images/id-card.png') }}" style="width:150px;margin:auto">
         <p> Tu ne peux pas accéder à cette page, alors <br> <a class="btn btn-dark" href="{{ route('sign-in') }}">connecte-toi</a> ou <a class="btn btn-dark" href="{{ route('sign-up') }}">inscris-toi</a> !</p>
         <br>
     </div>

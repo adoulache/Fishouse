@@ -35,8 +35,12 @@ Route::get('/modelisation6', [ModelisationController::class, 'getDecos']);
 Route::get('/modelisation7', [ModelisationController::class, 'getCheminPlante']);
 Route::get('/modelisation8', [ModelisationController::class, 'getCheminDeco']);
 
-Route::post('/modelisation3D3', [ModelisationController::class, 'insertObject3D'])->name('insertObject3D');
 
+
+// Route page modélisation - boutons 3D
+Route::post('/modelisation3D1', [ModelisationController::class, 'saveProject3D'])->name('nameProjet3D');
+Route::post('/modelisation3D2', [ModelisationController::class, 'resetProject3D'])->name('reinitProjet3D');
+Route::post('/modelisation3D3', [ModelisationController::class, 'insertObject3D'])->name('insertObject3D');
 
 // Route vers la page modelisation: (Peut-être qu'il sert plus à rien, A VERIFIER)
 Route::get('/modelisation/{id}/{name}', [ModelisationController::class, 'openProject'])->name('openProjet');
@@ -59,6 +63,11 @@ Route::get('/mes_projets', [ProjectController::class, 'Aquarium'])->name('projet
 Route::get('/forum', function () {
     return view('forum');
 })->name('forum');
+
+// Route vers la page About us:
+Route::get('/contact', function () {
+    return view('aboutus');
+})->name('contact');
 
 // Route vers inscription:
 Route::get('/inscription', function () {

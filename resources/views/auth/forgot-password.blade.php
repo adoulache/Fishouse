@@ -1,11 +1,11 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <img class="connexion-logo" src="{{ asset('..\images\lock.png') }}" alt="Logo Fishouse" style="width:60%;margin:auto">
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+            {{ __('Tu as oublié ton mot de passe ? Pas de soucis. Indiques-nous ton adresse email et nous pourrons envoyer un email avec un lien de réinitialisation de ton mot de passe.') }}
         </div>
 
         @if (session('status'))
@@ -26,7 +26,7 @@
 
             <div class="flex items-center justify-end mt-4">
                 <x-jet-button>
-                    {{ __('Email Password Reset Link') }}
+                    {{ __('Lien de réinitialisation du mot de passe') }}
                 </x-jet-button>
             </div>
         </form>

@@ -171,10 +171,10 @@ $(function () {
         });
     });
 
-    /* Affichage message uilisateur */
-    function formSuccess() {
-        $("#sauveOk").removeClass("d-none");
-    };
+/* Affichage message uilisateur */
+function formSuccess(){
+     $("#sauveOk").removeClass("d-none");
+};
 
     /* PARTIE MODELISATION 2D */
 

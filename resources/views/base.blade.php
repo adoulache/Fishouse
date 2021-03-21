@@ -56,7 +56,7 @@
                 <a class="nav-link" href="{{ route('fiches') }}">Fiches techniques</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Aide / Contact</a>
+                <a class="nav-link" href="{{ route('contact') }}">Aide / Contact</a>
             </li>
         </ul>
     </div>
