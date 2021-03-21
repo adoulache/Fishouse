@@ -184,6 +184,7 @@
                                 <img src="{{ asset('../images/'.$listeDecoration3D->nom_objet.'.png') }}" class="newObjectPicture">
                                 <div class="newObjectDescription">
                                     <p> {{ $listeDecoration3D->titre }} </p>
+                                    <button type="submit" class="btn btn-dark boutonChoixObjet ajouterObjet"> Ajouter </button>
                                 </div>
                             </div>
                             @endforeach
@@ -200,6 +201,7 @@
 
                     </div>
                 </div>
+                <!-- BLOC DE MODELISATION -->
                 <div class="col-md-9 col-sm-9 blocModelisation" id="container">
                     <!-- BOUTONS DU PROJET -->
                     <div class="boutonsProjet">
@@ -215,6 +217,7 @@
                         <!-- Bouton pour la sauvegarde du projet -->
                         <button type="button" class="btn btn-dark" id="boutonSauve3D" data-toggle="modal" data-target="#nameProject3D">Sauvegarder</button>
                         @else
+                        <br>
                         <form method="post" action="{{ route('nameProjet3D') }}">
                             <input id="nomProjet3D" name="nomProjet3D" type="hidden" value="{{ $nomProjet }}">
                             <input id="idProjet3D" name="idProjet3D" type="hidden" value="{{ $idNewProjet }}">
@@ -342,9 +345,6 @@
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.js"></script>
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.min.js"></script>
                     <!-- <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.module.js"></script> -->
-                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/src/scenes/FogExp2.js"></script>
-                    <script src="js/THREEx.WindowResize.js"></script>
-
 
                     <!-- Sources des fonctions dont on a besoin : examples / js / controls -->
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115/examples/js/controls/DragControls.js"></script>
@@ -357,7 +357,7 @@
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/OBJLoader.js"></script>
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/MTLLoader.js"></script> 
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/GLTFLoader.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/JSONLoader.js"></script>
+                    <!-- <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/JSONLoader.js"></script> -->
                     <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/jsm/libs/stats.module.js"></script>
 
                     <!-- Rendere -->

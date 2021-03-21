@@ -431,7 +431,6 @@ class ModelisationController extends Controller
 
         }
         
-        //return $this->openProject($idProjet,$nomProjet);
         return redirect()->back()->with('alert', 'Sauvegarde réussie !');
     }
         
@@ -450,7 +449,6 @@ class ModelisationController extends Controller
             DB::table('projet_decorations_3d_temp')->where('id_projet', $idProjet)->delete();
         };
 
-        //return $this->openProject($idProjet,'projet_'.$idProjet);
         return redirect()->back()->with('alert', 'Réinitialisation réussie !');
     }
 }
