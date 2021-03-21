@@ -25,7 +25,7 @@ Route::get('/fiches', function () {
     return view('fiches');
 })->name('fiches');
 
-// Route vers la page modelisation:
+// Routes vers la page modelisation:
 Route::get('/modelisation1', [ModelisationController::class, 'getProjet']);
 Route::post('/modelisation2', [ModelisationController::class, 'postNom']);
 Route::post('/modelisation3', [ModelisationController::class, 'postSauveProjet']);
@@ -34,6 +34,8 @@ Route::get('/modelisation5', [ModelisationController::class, 'getPlantes']);
 Route::get('/modelisation6', [ModelisationController::class, 'getDecos']);
 Route::get('/modelisation7', [ModelisationController::class, 'getCheminPlante']);
 Route::get('/modelisation8', [ModelisationController::class, 'getCheminDeco']);
+
+Route::post('/modelisation3D3', [ModelisationController::class, 'insertObject3D'])->name('insertObject3D');
 
 
 // Route vers la page modelisation: (Peut-être qu'il sert plus à rien, A VERIFIER)

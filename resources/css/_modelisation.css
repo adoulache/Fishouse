@@ -57,11 +57,10 @@
 }
 
 /* BLOC DE MODELISATION */
-
-/* .blocModelisation{
-    background-color: thistle;
-    /border:solid 10px white;
-} */
+.blocModelisation{
+    /* background-color: thistle; */
+    border:solid 10px white;
+}
 
 .boutonsProjet{
     margin-top:10px;

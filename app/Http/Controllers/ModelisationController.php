@@ -349,6 +349,7 @@ class ModelisationController extends Controller
         }
     }
 
+
     public function addOrUpdateElementToTmp()
     {
 
@@ -428,6 +429,31 @@ class ModelisationController extends Controller
                 ->delete();
 
         }
+    }
+    /**
+     * Permet de mettre dans la table temporaire l'objet ajouté
+     */
+    public function insertObject3D()
+    {
+        $idProjet = $_POST['idProjet'];
+        $nomObjet = $_POST['nomObjet'];
+
+        $idDeco = DB::table('decorations_3d')
+                ->select(['id_decoration3d'])
+                ->where('nom_objet', $nomObjet)
+                ->get();
+
+        DB::table('projet_decorations_3d_temp')
+                ->insert([
+                        'id_projet' => $idProjet,
+                        'id_decoration3d' => $idDeco[0]->id_decoration3d,
+                        'coordx' => 1,
+                        'coordy' => 1,
+                        'coordz' => 1,
+                        'rotationx' => -1.57,
+                        'rotationy' => 0,
+                        'rotationz' => 0
+                    ]);
     }
 
 }

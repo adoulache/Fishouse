@@ -81,7 +81,7 @@
                             <button type="button" class="btn btn-dark" id="boutonSauve">Sauvegarder</button>
                             <div id="sauveFaite" class="d-none msgValide">Sauvegarde effectuée !</div>
                         </div>
-                        
+
                         <div>
                             <button type="button" class="btn btn-light" id="aqFace">
                                 <img src="{{ asset('../images/face.png') }}" style="width:50px;">
@@ -98,10 +98,10 @@
                         </div>
                         <div id="avantMod2D">
                             <div id="mod2D-test" class="dropzone cadreMod2D" style="width:1000px;height:500px;"></div>
-                            
+
                         </div>
                         <!-- style="z-index:auto;width:1000px;height:500px;"></div>-->
-                        
+
                         <!-- Modal de demande du nom du projet -->
                         <div class="modal fade" id="modalNomProjet" tabindex="-1" role="dialog"
                              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -186,44 +186,37 @@
                             <i class="fa fa-search"></i>
                         </span>
                         </div>
-                        <!-- <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Filtrer par
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div> -->
                         <hr class="hrBlocRecherche">
                         <!-- CATALOGUE -->
                         <div class="container-fluid">
-                            <div class="row">
-                                @foreach($listeDecorations3D as $listeDecoration3D)
-                                    <div class="newObjectCard row justify-content-center align-items-center"
-                                         data-toggle="tooltip" data-placement="top"
-                                         title="{{$listeDecoration3D->description}}">
-                                        <img src="{{ asset('../images/'.$listeDecoration3D->nom_objet.'.png') }}"
-                                             class="newObjectPicture">
-                                        <div class="newObjectDescription">
-                                            <p> {{ $listeDecoration3D->titre }} </p>
+                            <hr class="hrBlocRecherche">
+                            <!-- CATALOGUE -->
+                            <div class="container-fluid">
+                                <div class="row">
+                                    @foreach($listeDecorations3D as $listeDecoration3D)
+                                        <div class="newObjectCard row justify-content-center align-items-center" data-toggle="tooltip" data-placement="top" title="{{$listeDecoration3D->description}}">
+                                            <img src="{{ asset('../images/'.$listeDecoration3D->nom_objet.'.png') }}" class="newObjectPicture">
+                                            <div class="newObjectDescription">
+                                                <p> {{ $listeDecoration3D->titre }} </p>
+                                                <a class="btn btn-dark btnAjoutObjet" id="{{ $listeDecoration3D->nom_objet }}">Ajouter</a>
+                                                <input id="idProjet3D" name="idProjet3D" type="hidden" value="{{ $idNewProjet }}">
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                                @foreach($listePlantes3D as $listePlante3D)
-                                    <div class="newObjectCard row justify-content-center align-items-center"
-                                         data-toggle="tooltip" data-placement="top"
-                                         title="{{$listePlante3D->description}}">
-                                        <img src="{{ asset('../images/'.$listePlante3D->nom_objet.'.png') }}"
-                                             class="newObjectPicture">
-                                        <div class="newObjectDescription">
-                                            <p> {{ $listePlante3D->titre }} </p>
+                                    @endforeach
+                                    @foreach($listePlantes3D as $listePlante3D)
+                                        <div class="newObjectCard row justify-content-center align-items-center"
+                                             data-toggle="tooltip" data-placement="top"
+                                             title="{{$listePlante3D->description}}">
+                                            <img src="{{ asset('../images/'.$listePlante3D->nom_objet.'.png') }}"
+                                                 class="newObjectPicture">
+                                            <div class="newObjectDescription">
+                                                <p> {{ $listePlante3D->titre }} </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                            </div>
+                                    @endforeach
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-9 blocModelisation" id="container">
@@ -299,42 +292,45 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- ICI PARTIE CLARA -->
-                        <!-- Site des sources js : https://cdn.jsdelivr.net/npm/three@0.115.0/ -->
 
-                        <!-- Sources build -->
-                        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/104/three.js"></script> -->
-                        <!-- <script src = "https://threejs.org/build/three.js "></script> -->
-
-                        <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.js"></script>
-                        <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.min.js"></script>
-                        <!-- <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.module.js"></script> -->
-
-                        <!-- Sources des fonctions dont on a besoin : examples / js / controls -->
-                        <script
-                            src="https://cdn.jsdelivr.net/npm/three@0.115/examples/js/controls/DragControls.js"></script>
-                        <script
-                            src="https://cdn.jsdelivr.net/npm/three@0.115/examples/js/controls/TransformControls.js"></script>
-                        <script
-                            src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/controls/OrbitControls.js"></script>
-
-                        <!-- Autres sources (utiles pour certaines fonctions) -->
-                        <script
-                            src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/libs/inflate.min.js"></script>
-                        <script
-                            src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/FBXLoader.js"></script>
-                        <script
-                            src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/jsm/libs/stats.module.js"></script>
-
-
-                        <!-- Script pour gérer la modélisation 3D -->
-                        <!-- <script src="../js/_modelisation3D.js"></script> Script Clara modélisation 3D dans public/js -->
-                        <script src="../js/_modelisation3D.js"></script>
-
-                        <script src="../js/three.interaction.js"></script>
                     </div>
                 </div>
-            </div>
+                <!-- ICI PARTIE CLARA -->
+                    <!-- Site des sources js : https://cdn.jsdelivr.net/npm/three@0.115.0/ -->
+
+                    <!-- Sources build -->
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/104/three.js"></script> -->
+                    <!-- <script src = "https://threejs.org/build/three.js "></script> -->
+
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/build/three.min.js"></script>
+
+                    <!-- Sources des fonctions dont on a besoin : examples / js / controls -->
+                    <script
+                        src="https://cdn.jsdelivr.net/npm/three@0.115/examples/js/controls/DragControls.js"></script>
+                    <script
+                        src="https://cdn.jsdelivr.net/npm/three@0.115/examples/js/controls/TransformControls.js"></script>
+                    <script
+                        src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/controls/OrbitControls.js"></script>
+
+                    <!-- Autres sources (utiles pour certaines fonctions) -->
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/libs/inflate.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/OBJLoader.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/loaders/MTLLoader.js"></script>
+
+                    <!-- Stats -->
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/jsm/libs/stats.module.js"></script>
+                    <script src='//mrdoob.github.io/stats.js/build/stats.min.js'></script>
+
+                    <!-- Renderer -->
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.115.0/examples/js/renderers/Projector.js"></script>
+
+                    <!-- Script pour gérer la modélisation 3D -->
+                    <!-- <script src="../js/_modelisation3D.js"></script> Script Clara modélisation 3D dans public/js -->
+                    <script src="../js/_modelisation3D.js"></script>
+
+                    <script src="../js/three.interaction.js"></script>
+             </div>
         </div>
 
     @else
