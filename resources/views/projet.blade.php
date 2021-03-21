@@ -15,14 +15,18 @@
             <div class="projectBloc row justify-content-center align-items-center">
                 <h2 class="projectTitle"> {{ $listeProjet->nom_projet }} </h2>
                 <img src="{{ asset('../images/aquarium.jpg') }}" class="imageProjetExistant" id="projetExistant"/>
-                <div class="buttonProjetsExistants">            
-                    <a class="btn btn-dark" href="{{ route('openProjet',['id'=>$listeProjet->id_projet, 'name'=>$listeProjet->nom_projet]) }}">Modifier</a>
-                    <a class="btn btn-dark btnSupprimer" id="{{ $listeProjet->id_projet }}" href="#contact" data-toggle="modal" data-target="#delete">Supprimer</a>
-                    <a class="btn btn-dark fa fa-ellipsis-h" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item btn-dark btnRenommer" id="{{ $listeProjet->id_projet }}" href="#" data-toggle="modal" data-target="#rename">Renommer</a>
-                        <a class="dropdown-item btn-dark btnPartager" id="{{ $listeProjet->id_projet }}" href="#" data-toggle="modal" data-target="#share">Partager</a>
-                    </div>
+                <div class="buttonProjetsExistants">
+                    <form method="post" action="{{ route('openProjet') }}">
+                        {{ csrf_field() }}
+                        <input id="idProjet" name="idProjet" type="hidden" value="{{ $listeProjet->id_projet }}">
+                        <button type="submit" class="btn btn-dark openProjetExis" name="openProjet">Modifier</button>
+                        <a class="btn btn-dark btnSupprimer" id="{{ $listeProjet->id_projet }}" href="#contact" data-toggle="modal" data-target="#delete">Supprimer</a>
+                        <a class="btn btn-dark fa fa-ellipsis-h" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item btn-dark btnRenommer" id="{{ $listeProjet->id_projet }}" href="#" data-toggle="modal" data-target="#rename">Renommer</a>
+                            <a class="dropdown-item btn-dark btnPartager" id="{{ $listeProjet->id_projet }}" href="#" data-toggle="modal" data-target="#share">Partager</a>
+                        </div>
+                    </form>
                 </div>
             </div>
             @endforeach
@@ -189,7 +193,7 @@
     <!-- Page accessible uniquement si utilisateur connecté -->
     <!-- Affichage d'un message de refus d'accès, nécessité de s'inscrire ou se connecter -->
     @else
-    <div class="AccessDenied"> 
+    <div class="AccessDenied">
         <br>
         <img src="{{ asset('../images/id-card.png') }}" style="width:150px;margin:auto">
         <p> Tu ne peux pas accéder à cette page, alors <br> <a class="btn btn-dark" href="{{ route('sign-in') }}">connecte-toi</a> ou <a class="btn btn-dark" href="{{ route('sign-up') }}">inscris-toi</a> !</p>

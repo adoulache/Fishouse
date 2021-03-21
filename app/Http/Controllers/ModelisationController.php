@@ -10,15 +10,16 @@ use View;
 class ModelisationController extends Controller
 {
     //OUVERTURE D'UN PROJET EXISTANT (via bouton Modifier de la page des projets)
-    public function openProject($id, $name)
+    public function openProject(Request $request)
     {
         //Id de l'utilisateur courant
         $idUser = Auth::id();
+        $idProjet = $request->idProjet;
 
         //Données du projet existant
         $Projet = DB::table('projets')
             ->select(['id_projet', 'id_bac', 'id_user', 'nom_projet', 'partage'])
-            ->where('id_projet', $id)
+            ->where('id_projet', $idProjet)
             ->get();
 
         //Copie des données du projet dans la table temporaire des projets
@@ -35,10 +36,10 @@ class ModelisationController extends Controller
         $nomProjet = $Projet[0]->nom_projet;
 
         //Données de l'aquarium, relatif au projet existant
-        if (DB::table('projet_aquarium')->where('id_projet', $id)->exists()) {
+        if (DB::table('projet_aquarium')->where('id_projet', $idProjet)->exists()) {
             $ProjetAquarium = DB::table('projet_aquarium')
                 ->select(['id_projet', 'id_aquarium'])
-                ->where('id_projet', $id)
+                ->where('id_projet', $idProjet)
                 ->get();
 
             //Copie des données du projet dans la table temporaire des projets
@@ -50,10 +51,10 @@ class ModelisationController extends Controller
         };
 
         //Données de l'aquarium, relatif au projet existant
-        if (DB::table('projet_decoration')->where('id_projet', $id)->exists()) {
+        if (DB::table('projet_decoration')->where('id_projet', $idProjet)->exists()) {
             $ProjetDecoration = DB::table('projet_decoration')
-                ->select(['id_projet', 'id_decoration', 'coordx', 'coordy', 'coordz', 'rotation'])
-                ->where('id_projet', $id)
+                ->select(['id_projet', 'id_unique', 'id_decoration', 'coordx', 'coordy', 'coordz', 'rotation'])
+                ->where('id_projet', $idProjet)
                 ->get();
 
             //Copie des données du projet dans la table temporaire des projets
@@ -70,16 +71,17 @@ class ModelisationController extends Controller
         };
 
         //Données de l'aquarium, relatif au projet existant
-        if (DB::table('projet_plante')->where('id_projet', $id)->exists()) {
+        if (DB::table('projet_plante')->where('id_projet', $idProjet)->exists()) {
             $ProjetPlante = DB::table('projet_plante')
                 ->select(['id_projet', 'id_unique', 'id_plante', 'coordx', 'coordy', 'coordz', 'rotation'])
-                ->where('id_projet', $id)
+                ->where('id_projet', $idProjet)
                 ->get();
 
             //Copie des données du projet dans la table temporaire des projets
             DB::table('projet_plante_temp')
                 ->insert([
                     'id_projet' => $ProjetPlante[0]->id_projet,
+                    'id_unique' => $ProjetPlante[0]->id_unique,
                     'id_plante' => $ProjetPlante[0]->id_plante,
                     'coordx' => $ProjetPlante[0]->coordx,
                     'coordy' => $ProjetPlante[0]->coordy,
@@ -548,7 +550,7 @@ class ModelisationController extends Controller
 
         }
 
-        return redirect()->back()->with('alert', 'Sauvegarde réussie !');
+        return redirect()->route('openProjet',array('id' => $idProjet,'name' => $nomProjet))->with('alert', 'Sauvegarde réussie !');
     }
 
     /**
@@ -566,7 +568,7 @@ class ModelisationController extends Controller
             DB::table('projet_decorations_3d_temp')->where('id_projet', $idProjet)->delete();
         };
 
-        return redirect()->back()->with('alert', 'Réinitialisation réussie !');
+        return redirect()->route('openProjet',array('id' => $idProjet,'name' => 'projet_'.$idProjet))->with('alert', 'Réinitialisation réussie !');
     }
 }
 

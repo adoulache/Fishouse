@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use View;
 
 header('Content-Type: text/html; charset=ISO-8859-15');
@@ -35,10 +33,31 @@ class ProjectController extends Controller
 
     public function deleteProject(Request $request)
     {
+
         $idProjet = $request->idSuppresion;
 
         if (DB::table('projets')->where('id_projet', $idProjet)->exists()) {
             DB::table('projets')->where('id_projet', $idProjet)->delete();
+        };
+
+        if (DB::table('projet_aquarium')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projet_aquarium')->where('id_projet', $idProjet)->delete();
+        };
+
+        if (DB::table('projet_decoration')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projet_decoration')->where('id_projet', $idProjet)->delete();
+        };
+
+        if (DB::table('projet_plante')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projet_plante')->where('id_projet', $idProjet)->delete();
+        };
+
+        if (DB::table('projet_decorations_3d')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projet_decorations_3d')->where('id_projet', $idProjet)->delete();
+        };
+
+        if (DB::table('projet_plantes_3d')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projet_plantes_3d')->where('id_projet', $idProjet)->delete();
         };
 
         return redirect()->route('projet');

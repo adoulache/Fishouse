@@ -78,7 +78,7 @@
                     <div class="col-md-9 col-sm-9 blocModelisation justify-content-center align-items-center">
                         <div id="idProjetCache" class="d-none">{{ $idNewProjet }}</div>
                         <!-- BOUTONS DU PROJET -->
-                        <div class="boutonsProjet">
+                        <div class="boutonsProjet row">
                             <!-- Bouton pour la réinitialisation du projet -->
                             <button type="button" class="btn btn-dark" id="boutonReinit">Reinitialiser</button>
 
@@ -87,7 +87,7 @@
                             <div id="sauveFaite" class="d-none msgValide">Sauvegarde effectuée !</div>
                         </div>
 
-                        <div>
+                        <div style="text-align: right">
                             <button type="button" class="btn btn-light" id="aqFace">
                                 <img src="{{ asset('../images/face.png') }}" style="width:50px;">
                             </button>
@@ -191,7 +191,6 @@
                             <i class="fa fa-search"></i>
                         </span>
                         </div>
-                        <hr class="hrBlocRecherche">
                         <!-- CATALOGUE -->
                         <div class="container-fluid">
                             <hr class="hrBlocRecherche">

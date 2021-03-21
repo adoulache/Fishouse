@@ -1,9 +1,11 @@
-const interact = require('interactjs')
-const idProjet = 123 // A RECUPERER DEPUIS LA PAGE QUAND SERA DISPO
-
 /* The dragging code for '.draggable' from the demo above
  * applies to this demo as well so it doesn't have to be repeated. */
 $(function () {
+
+    const interact = require('interactjs')
+    const idProjet = $('#idProjetCache').text();
+    console.log('id_projet _testDrag.js ' + idProjet);
+
 
 // enable draggables to be dropped into this
     interact('.dropzone').dropzone({
@@ -163,7 +165,7 @@ $(function () {
 
             // Hide it
             $(".custom-menu").hide(100);
-            $('.clonedItem').each(function (index){
+            $('.clonedItem').each(function (index) {
                 $(this)[0].classList.remove('clonedItemSelected')
             });
         }

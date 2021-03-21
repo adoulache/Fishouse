@@ -43,7 +43,7 @@ Route::post('/modelisation3D2', [ModelisationController::class, 'resetProject3D'
 Route::post('/modelisation3D3', [ModelisationController::class, 'insertObject3D'])->name('insertObject3D');
 
 // Route vers la page modelisation: (Peut-être qu'il sert plus à rien, A VERIFIER)
-Route::get('/modelisation/{id}/{name}', [ModelisationController::class, 'openProject'])->name('openProjet');
+Route::post('/modelisationExistante', [ModelisationController::class, 'openProject'])->name('openProjet');
 
 Route::get('/ma_modelisation', [ModelisationController::class, 'catalogues'])->name('catalogue');
 Route::post('/modelisation', [ModelisationController::class, 'addProject'])->name('ajoutProjet');

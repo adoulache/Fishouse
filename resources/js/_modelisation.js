@@ -1,5 +1,6 @@
 $(function () {
     const idProjet = $('#idProjetCache').text();
+    console.log('id_projet _modelisation.js ' + idProjet);
 
     $(function () {
         $.ajax({
