@@ -194,7 +194,7 @@ $(function(){
     //console.log(largeurFenetre);
     //console.log(hauteurFenetre);
 
-    /* Adaptation de la taille de l'aquarium en fonction 
+    /* Adaptation de la taille de l'aquarium en fonction
     de la taille de la fenêtre */
 
     const marge = 0;//10; // marge de 10 pixels autour de l'aquarium
@@ -217,8 +217,8 @@ $(function(){
     let ctx2;
 
     //valeur abberantes car on n'utilisera que le petit
-    if (largeurFenetre < 150000 && hauteurFenetre < 750000 ){ 
-        dimensions = [longPetit, profPetit, hautPetit]; 
+    if (largeurFenetre < 150000 && hauteurFenetre < 750000 ){
+        dimensions = [longPetit, profPetit, hautPetit];
     }else{
         dimensions = [longGrand, profGrand, hautGrand];
     };
@@ -242,7 +242,7 @@ $(function(){
     //function afficheContenu(obj, vue, ctx2){
     function afficheContenu(obj, vue){
         // On ajoute les images selon l'ordre de profondeur
-        
+
         // Récupère une liste triée en fonction de la profondeur
         let objetsTries = trieObjetsAquarium(obj, vue);
         console.log(objetsTries);
@@ -250,7 +250,7 @@ $(function(){
         // Ajoute les images au canva
         //rempliCanvas(objetsTries, vue, ctx2);
         rempliCanvas(objetsTries, vue);
-    }; 
+    };
 
     /*
         Pour les affichages de face ou de fond : ctx, can, longueur, hauteur
@@ -265,7 +265,7 @@ $(function(){
         ctx2.lineTo(marge,marge + hauteur);
         ctx2.lineTo(marge,marge);
         ctx2.closePath();
-        ctx2.lineWidth = 2; 
+        ctx2.lineWidth = 2;
         ctx2.stroke();
     };
 
@@ -304,7 +304,7 @@ $(function(){
                     }
                 });
                 var parseChemin = JSON.parse(retourChemin.responseText);
-                plantesAquarium.push([item.coordx, item.coordy, item.coordz, parseChemin.chemin, item.ADE]);
+                plantesAquarium.push([item.coordx, item.coordy, item.coordz, parseChemin.chemin, item.id_unique]);
             });
         };
 
@@ -341,7 +341,7 @@ $(function(){
                     }
                 });
                 var parseCheminDeco = JSON.parse(retourCheminDeco.responseText);
-                decosAquarium.push([item.coordx, item.coordy, item.coordz, parseCheminDeco.chemin, item.ADE]);
+                decosAquarium.push([item.coordx, item.coordy, item.coordz, parseCheminDeco.chemin, item.id_unique]);
             });
         };
 
@@ -470,10 +470,12 @@ $(function(){
         obj.forEach(o => {
             var image = new Image();
             if(vue == "face" || vue == "gauche"){
-                image.src = '../images/'+o[3];
+                image.src = 'http://127.0.0.1:8000/../images/'+o[3];
+                image.setAttribute('value', o[4]);
                 console.log(image.src);
             }else{
-                image.src = '../images/miroir_'+o[3];
+                image.src = 'http://127.0.0.1:8000/../images/miroir_'+o[3];
+                image.setAttribute('value', o[4]);
                 console.log(image.src);
             };
             //image.src = '../images/'+o[3];
@@ -518,7 +520,7 @@ $(function(){
                     x = larCanvas - marge - (longPetit - profPetit) - o[1] - largeur;
                     y = hautCanvas - marge - o[2] - hauteur;
                 }
-                // Si jamais l'image sort de l'aquarium, on la remet dedans 
+                // Si jamais l'image sort de l'aquarium, on la remet dedans
                 //if (x + largeurImage > largeurCanvas - margeDroiteLong){
                 if (vue == "droite" || vue == "gauche"){
                     if (x + largeur > marge +  profPetit){
@@ -538,10 +540,10 @@ $(function(){
                 }else if(y < marge){
                     y = marge;
                 };
-            
+
                 //ctx2.globalCompositeOperation="destination-over";
                 //ctx2.drawImage(this, x, y, largeur, hauteur);//,largeurImage, hauteurImage);
-                
+
                 /*let div = document.createElement('div');
                 div.id=curseur;
                 div.style.zIndex=curseur;
@@ -555,20 +557,19 @@ $(function(){
                 image.width=largeur;
                 image.height=hauteur;
                 document.getElementById(curseur).appendChild(image);*/
-                
+
                 image.style.zIndex=curseur;
                 image.style.position="absolute";
                 image.style.top=y+"px";
                 image.style.left=x+"px";
                 image.width=largeur;
                 image.height=hauteur;
-                // ICI, ajouter la value : se trouve dans o[4] normalement
                 document.getElementById("mod2D-test").appendChild(image);
-                
+
                 curseur+=1;
-                
+
             };
-            
+
 
         });
     };

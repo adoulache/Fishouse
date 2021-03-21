@@ -1,4 +1,5 @@
 const interact = require('interactjs')
+const idProjet = 123 // A RECUPERER DEPUIS LA PAGE QUAND SERA DISPO
 
 /* The dragging code for '.draggable' from the demo above
  * applies to this demo as well so it doesn't have to be repeated. */
@@ -34,10 +35,31 @@ $(function () {
         },
         ondrop: function (event) {
             let draggableElement = event.relatedTarget
+            let dropzoneElement = event.target
             $(draggableElement).appendTo(".dropzone");
 
-            console.log($(draggableElement).position().top);
-            console.log($(draggableElement).position().left);
+            $(draggableElement)[0].classList.add('clonedItemSelected');
+            let id_unique = $(draggableElement).attr('value');
+            let imageName = $(draggableElement).attr('src').split('/')[5];
+            let posX = $(draggableElement).position().left;
+            let posZ = $(draggableElement).position().top;
+            let hauteurAquarium = $(dropzoneElement).height();
+            let posZBdd = hauteurAquarium - posZ - $(draggableElement).height();
+
+            $.ajax({
+                url: 'ajoutDeco',
+                type: 'GET',
+                data: 'idProjet=' + idProjet + '&imageName=' + imageName + '&idUnique=' + id_unique + '&posX=' + posX + '&posZ=' + posZBdd,
+                async: false,
+                success: function (data) {
+                    console.log('success');
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log('error');
+                    console.log(data);
+                }
+            });
 
         },
         ondropdeactivate: function (event) {
@@ -82,10 +104,11 @@ $(function () {
             clone.classList.remove("yes-drop");
             clone.classList.add("clonedItem");
             clone.setAttribute('clonable', 'false');
+            clone.setAttribute('value', generateRandomString());
             clone.style.position = "absolute";
             clone.style.width = "200px";
             clone.style.height = "200px";
-            clone.style.zIndex = "100";
+            //$(".blocRecherche")[0].classList.add("onScrollBlockRecherche") ;
             original.parentElement.appendChild(clone);
             interaction.start({name: 'drag'}, event.interactable, clone);
         }
@@ -109,5 +132,82 @@ $(function () {
 
     // this function is used later in the resizing and gesture demos
     window.dragMoveListener = dragMoveListener
+
+    const generateRandomString = function (length = 6) {
+        return Math.random().toString(20).substr(2, length)
+    }
+
+    $('.clonedItem').bind("contextmenu", function (event) {
+
+        // Avoid the real one
+        event.preventDefault();
+
+        $(this)[0].classList.add('clonedItemSelected');
+
+        // Show contextmenu
+        $(".custom-menu").finish().toggle(100).
+
+            // In the right position (the mouse)
+            css({
+                top: event.pageY + "px",
+                left: event.pageX + "px"
+            });
+    });
+
+
+    // If the document is clicked somewhere
+    $(document).bind("mousedown", function (e) {
+
+        // If the clicked element is not the menu
+        if (!$(e.target).parents(".custom-menu").length > 0) {
+
+            // Hide it
+            $(".custom-menu").hide(100);
+            $('.clonedItem').each(function (index){
+                $(this)[0].classList.remove('clonedItemSelected')
+            });
+        }
+    });
+
+
+    // If the menu element is clicked
+    $(".custom-menu li").click(function () {
+
+        // Get the unique ID of the selected Image
+        let selectedImg = $('.clonedItemSelected')[0];
+        let id_unique = $('.clonedItemSelected').attr('value');
+
+        // This is the triggered action name
+        switch ($(this).attr("data-action")) {
+
+            // A case for each action. Your actions here
+            case "delete":
+                $.ajax({
+                    url: 'deleteDeco',
+                    type: 'GET',
+                    data: 'idProjet=' + idProjet + '&idUnique=' + id_unique,
+                    async: false,
+                    success: function (data) {
+                        console.log('delete success');
+                        console.log(data);
+                        selectedImg.remove();
+                    },
+                    error: function (data) {
+                        console.log('delete error');
+                        console.log(data);
+                    }
+                });
+                break;
+            case "action1":
+                alert("action 1");
+                break;
+            case "action2":
+                alert("action 2");
+                break;
+        }
+
+        // Hide it AFTER the action was triggered
+        $(".custom-menu").hide(100);
+    });
 
 });

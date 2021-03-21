@@ -73,4 +73,10 @@ Route::get('/testDrag', function () {
     return view('testDragAndDrop');
 })->name('test-drag');
 
+// Route Ajax ajout decoration :
+Route::get('/ajoutDeco', [ModelisationController::class, 'addOrUpdateElementToTmp'])->name('add-deco');
+
+// Route Ajax suppression decoration :
+Route::get('/deleteDeco', [ModelisationController::class, 'deleteElementFromTmp'])->name('delete-deco');
+
 

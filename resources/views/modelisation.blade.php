@@ -49,7 +49,7 @@
                                          data-toggle="tooltip" data-placement="top"
                                          title="{{$listeDecoration->description}}">
                                         <img src="{{ asset('../images/'.$listeDecoration->nom_photo) }}"
-                                             class="newObjectPicture yes-drop">
+                                             class="newObjectPicture yes-drop" value="">
                                         <div class="newObjectDescription">
                                             <p> {{ $listeDecoration->titre }} </p>
                                         </div>
@@ -60,7 +60,7 @@
                                          data-toggle="tooltip" data-placement="top"
                                          title="{{$listePlante->description}}">
                                         <img src="{{ asset('../images/'.$listePlante->nom_photo) }}"
-                                             class="newObjectPicture yes-drop">
+                                             class="newObjectPicture yes-drop" value="">
                                         <div class="newObjectDescription">
                                             <p> {{ $listePlante->titre }} </p>
                                         </div>
@@ -343,4 +343,10 @@
             <br>
         </div>
     @endif
+
+    <ul class='custom-menu'>
+        <li data-action="delete">Supprimer</li>
+        <li data-action="action1">Action 1</li>
+        <li data-action="action2">Action 2</li>
+    </ul>
 @endsection
