@@ -47,7 +47,7 @@ Route::get('/modelisation3D6', [ModelisationController::class, 'getCheminPlante3
 Route::get('/modelisation3D7', [ModelisationController::class, 'getCheminDeco3D']);
 
 // Route vers la page modelisation: (Peut-être qu'il sert plus à rien, A VERIFIER)
-Route::get('/modelisationExistante', [ModelisationController::class, 'openProject'])->name('openProjet');
+Route::any('/modelisationExistante', [ModelisationController::class, 'openProject'])->name('openProjet');
 
 Route::get('/ma_modelisation', [ModelisationController::class, 'catalogues'])->name('catalogue');
 Route::post('/modelisation', [ModelisationController::class, 'addProject'])->name('ajoutProjet');

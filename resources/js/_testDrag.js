@@ -42,7 +42,7 @@ $(function () {
 
             $(draggableElement)[0].classList.add('clonedItemSelected');
             let id_unique = $(draggableElement).attr('value');
-            let imageName = $(draggableElement).attr('src').split('/')[5];
+            //let imageName = $(draggableElement).attr('src').split('/')[5];
 
              //let posX = $(draggableElement).position().left;
              let posZ = $(draggableElement).position().top;
@@ -55,8 +55,16 @@ $(function () {
              }else if(posZBdd < 0){
                  posZBdd = 0;
              };
- 
+
              let nomFace = $('#nomFaceCache').text();
+             let imageName;
+             
+             if (nomFace == "face" ||nomFace == "gauche"){
+                imageName = $(draggableElement).attr('src').split('/')[5];
+             }else{
+                imageName = ($(draggableElement).attr('src').split('/')[5]).substr(7);
+             };
+
              if (nomFace == "face" || nomFace == "fond"){
                  let posX;
                  if (nomFace == "face"){

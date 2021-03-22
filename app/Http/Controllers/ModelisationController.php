@@ -9,8 +9,6 @@ use View;
 
 class ModelisationController extends Controller
 {
-    const idProjetTest = null;
-
     //OUVERTURE D'UN PROJET EXISTANT (via bouton Modifier de la page des projets)
     public function openProject(Request $request)
     {
@@ -479,7 +477,6 @@ class ModelisationController extends Controller
                 ->select('id_plante')
                 ->where('nom_photo', $_POST['imageName'])
                 ->get();
-            
 
             if (DB::table('projet_plante_temp')->where('id_unique', $_POST['idUnique'])->exists()) {
 
@@ -501,7 +498,6 @@ class ModelisationController extends Controller
                         'rotation' => 0
                     ]);
             }
-            
 
         } elseif (DB::table('decorations')->where('nom_photo', $_POST['imageName'])->exists()) {
 
