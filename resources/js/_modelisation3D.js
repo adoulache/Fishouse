@@ -180,9 +180,9 @@ function objectScene(pathMTL,pathOBJ, scene, objects,
             // Rotation 
             root.rotation.x = root.rotation.x - 1.57; //mesure en radian pour mettre l'object 3D perpandiculaire à la grille (besoin d'enlever 90°, soit 1.57 radian)
 
-            console.log('root.rotation.x', root.rotation.x);
-            console.log('root.rotation.y', root.rotation.y);
-            console.log('root.rotation.z', root.rotation.z);
+            //console.log('root.rotation.x', root.rotation.x);
+            //console.log('root.rotation.y', root.rotation.y);
+            //console.log('root.rotation.z', root.rotation.z);
 
             scene.add(root);
             objects.push(root);
@@ -288,17 +288,17 @@ function recupObjets3D(idProjet) {
         async: false,
         dataType: 'JSON',
         success: function (data) {
-            console.log('success getDecos');
+            console.log('success getDecos3D');
         },
         error: function (text) {
-            console.log('error getDecos');
+            console.log('error getDecos3D');
         }
     });
     var reponseDeco = JSON.parse(retourDeco.responseText);
-    console.log(reponseDeco);
+    //console.log(reponseDeco);
     
     if (reponseDeco != null) {
-        reponseDeco.decos3D.forEach((item) => {
+        reponseDeco.forEach((item) => {
             /* Récupération du chemin de la décoration */
             var retourCheminDeco = $.ajax({
                 url: 'modelisation3D7',
@@ -307,15 +307,16 @@ function recupObjets3D(idProjet) {
                 async: false,
                 dataType: 'JSON',
                 success: function (data) {
-                    console.log('success getCheminDeco');
+                    console.log('success getCheminDeco3D');
                 },
                 error: function (text) {
-                    console.log('error getCheminDeco');
+                    console.log('error getCheminDeco3D');
                 }
             });
             var parseCheminDeco = JSON.parse(retourCheminDeco.responseText);
+            console.log(parseCheminDeco);
             
-            if (parseCheminDeco == "Aquarium_Castle"){
+            if (parseCheminDeco.chemin3D == "Aquarium_Castle"){
                 objectScene('./object/Aquarium_Castle/Aquarium_Castle.mtl','./object/Aquarium_Castle/Aquarium_Castle.obj', scene, objects);
         
             } else {
