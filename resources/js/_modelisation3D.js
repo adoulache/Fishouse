@@ -1,5 +1,5 @@
 let scene, cameraPersp, renderer, cameraOrtho, currentCamera, width, canvas; 
-let startColor, orbitControls, stats, transformControls, objects = [];
+let startColor, orbitControls, stats, transformControls, objects = [], currentObject;
 
 init();
 render();
@@ -75,72 +75,49 @@ function init() {
 
 // Correspond aux différentes actions possibles sur l'objet 
 function keydown(event){
-        switch(event.key){
-            case "q":
-                transformControls.setSpace(transformControls.space=="local" ? "world" : "local");
-                break;
-            case "Shift":
-                transformControls.setTranslationSnap(100);
-                transformControls.setRotationSnap(THREE.MathUtils.degToRad(15));
-                transformControls.setScaleSnap(0.25);
-                break;
-            case "w":
-                transformControls.setMode("translate");
-                break;
-            case "e":
-                transformControls.setMode("rotate");
-                break;
-            case "r":
-                transformControls.setMode("scale");
-                break;
-            case "c":
-                const position = currentCamera.position.clone();
-
-                currentCamera = currentCamera.isPerspectiveCamera ? cameraOrtho : cameraPersp;
-                currentCamera.position.copy(position);
-
-                orbitControls.object = currentCamera;
-                transformControls.camera = currentCamera;
-
-                currentCamera.lookAt(orbitControls.target.x, orbitControls.target.y, orbitControls.target.z);
-                onWindowResize();
-                break;
-            case "v":
-                const randomFoV = Math.random() + 0.1;
-                const randomZoom = Math.random() + 0.1;
-
-                cameraPersp.fov = randomFoV * 160;
-                cameraOrtho.bottom = - randomFoV * 500;
-                cameraOrtho.top = randomFoV * 500;
-
-                cameraPersp.zoom = randomZoom * 5;
-                cameraOrtho.zoom = randomZoom * 5;
-
-                onWindowResize();
-                break;
-            case "=":
-                transformControls.setSize(transformControls.size + 0.1);
-                break;
-            case "-":
-                transformControls.setSize(Math.max(transformControls.size - 0.1, 0.1));
-                break;
-            case "x":
-                transformControls.showX = !transformControls.showX;
-                break;
-            case "y":
-                transformControls.showY = !transformControls.showY;
-                break;
-            case "z":
-                transformControls.showZ = !transformControls.showZ;
-                break;
-            case " ":
-                transformControls.enabled = !transformControls.enabled;
-                break;
-        }
+    switch(event.key){
+        case "w": // Activer les axes de positionnement de l'objet 
+            transformControls.setMode("translate");
+            break;
+        case "e": // Activer les axes de rotation de l'objet 
+            transformControls.setMode("rotate");
+            break;
+        case "r": // Activer les axes pour changer la taille de l'objet 
+            transformControls.setMode("scale");
+            break;
+        case "c": // Changer de caméra et par conséquent, changer de vue
+            const position = currentCamera.position.clone();
+            currentCamera = currentCamera.isPerspectiveCamera ? cameraOrtho : cameraPersp;
+            currentCamera.position.copy(position);
+            orbitControls.object = currentCamera;
+            transformControls.camera = currentCamera;
+            currentCamera.lookAt(orbitControls.target.x, orbitControls.target.y, orbitControls.target.z);
+            onWindowResize();
+            break;
+        case "=": // Augmenter la taille des axes 
+            transformControls.setSize(transformControls.size + 0.1);
+            break;
+        case "-": // Diminuer la tailler des axes 
+            transformControls.setSize(Math.max(transformControls.size - 0.1, 0.1));
+            break;
+        case "x": // Cacher l'axe x
+            transformControls.showX = !transformControls.showX;
+            break;
+        case "y": // Cacher l'axe y
+            transformControls.showY = !transformControls.showY;
+            break;
+        case "z": // Cacher l'axe z 
+            transformControls.showZ = !transformControls.showZ;
+            break;
+        case " ": // Activer ou désactiver le contrôle
+            transformControls.enabled = !transformControls.enabled;
+            break;
+        case "d": //Supprimer l'objet
+            deleteObject();
+    }
 }
 
 /*AJOUT D'UN OBJET */
-
 $(function(){
     $('.btnAjoutObjet').on('click', function(){
 
@@ -215,6 +192,140 @@ function objectScene(pathMTL,pathOBJ, scene, objects,
     
 }
 
+/*SUPPRESSION D'UN OBJET*/
+function deleteObject(){
+    var selectedObject = currentObject;
+    transformControls.detach(currentObject);
+    selectedObject.parent.remove( selectedObject );
+    
+    // var idObjet;
+
+    // if(currentObject.name === "13020_Aquarium_Castle"){
+    //     idObjet = 1;
+    // }else{
+    //     idObjet = 2;
+    // }
+
+    // var idProjet = 0;// ???
+
+    // $(function(){
+    //     $.ajaxSetup({
+    //         headers:{
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+    //     $.ajax({
+    //         url : 'modelisation3D4',
+    //         type : 'POST',
+    //         data : 'idProjet=' + idProjet + '&idObjet=' + idObjet,
+    //         async : false,
+    //         success : function(data){
+    //             console.log("SUCCES dans la suppresion de la déco");
+    //         },
+    //         error : function(error){
+    //             console.log("ERROR dans la suppresion de la déco");
+    //             console.log(error);
+    //         }
+    //     });
+    // });
+}
+
+/*SUPPRESSION D'UN PROJET */
+$(function(){
+    $('.btnOnglet3D').on('click', function(){
+        let id = $(this).attr('id');
+        recupObjets3D(id);
+    });
+});
+
+/* Récupère les objets présents dans l'aquarium depuis la base de données */
+function recupObjets3D(idProjet) {
+    /* PLANTES */
+    //console.log(idProjet);
+    // var retour = $.ajax({
+    //     url: 'modelisation3D4',
+    //     type: 'GET',
+    //     data: 'idProjet=' + idProjet,
+    //     async: false,
+    //     dataType: 'JSON',
+    //     success: function (data) {
+    //         console.log('success getPlantes');
+    //     },
+    //     error: function (text) {
+    //         console.log('error getPlantes');
+    //     }
+    // });
+    // var reponsePlante = JSON.parse(retour.responseText);
+    // var plantesAquarium = [];
+    // if (reponsePlante.plantes.length > 0) {
+    //     reponsePlante.plantes.forEach((item) => {
+    //         /* Récupération du chemin de la plante */
+    //         var retourChemin = $.ajax({
+    //             url: 'modelisation3D6',
+    //             type: 'GET',
+    //             data: 'idPlante=' + item.id_plante,
+    //             async: false,
+    //             dataType: 'JSON',
+    //             success: function (data) {
+    //                 console.log('success getCheminPlantes');
+    //             },
+    //             error: function (text) {
+    //                 console.log('error getCheminPlantes');
+    //             }
+    //         });
+    //         var parseChemin = JSON.parse(retourChemin.responseText);
+    //         plantesAquarium.push([item.coordx, item.coordy, item.coordz, parseChemin.chemin, item.id_unique]);
+    //     });
+    // }
+    // ;
+
+    /* DECORATIONS */
+    console.log("idProjet : " + idProjet);
+    var retourDeco = $.ajax({
+        url: 'modelisation3D5',
+        type: 'GET',
+        data: 'idProjet=' + idProjet,
+        async: false,
+        dataType: 'JSON',
+        success: function (data) {
+            console.log('success getDecos');
+        },
+        error: function (text) {
+            console.log('error getDecos');
+        }
+    });
+    var reponseDeco = JSON.parse(retourDeco.responseText);
+    console.log(reponseDeco);
+    
+    if (reponseDeco != null) {
+        reponseDeco.decos3D.forEach((item) => {
+            /* Récupération du chemin de la décoration */
+            var retourCheminDeco = $.ajax({
+                url: 'modelisation3D7',
+                type: 'GET',
+                data: 'idDeco=' + item.id_decoration3d,
+                async: false,
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log('success getCheminDeco');
+                },
+                error: function (text) {
+                    console.log('error getCheminDeco');
+                }
+            });
+            var parseCheminDeco = JSON.parse(retourCheminDeco.responseText);
+            
+            if (parseCheminDeco == "Aquarium_Castle"){
+                objectScene('./object/Aquarium_Castle/Aquarium_Castle.mtl','./object/Aquarium_Castle/Aquarium_Castle.obj', scene, objects);
+        
+            } else {
+                objectScene('./object/Aquarium_Deep_Sea_Diver_v1_L1.123c12f9d350-3d3e-4e72-a6f1-47d702f1dcd0/Aquarium_Deep_Sea_Diver.mtl',
+                './object/Aquarium_Deep_Sea_Diver_v1_L1.123c12f9d350-3d3e-4e72-a6f1-47d702f1dcd0/Aquarium_Deep_Sea_Diver.obj', scene, objects);
+            };
+        });
+    };
+};
+
 
 // Fonction qui permet d'adapter la scene selon la taille de la fenêtre sans devoir tout raffraîchir (et garder les éléments au milieu)
 function onWindowResize() {
@@ -243,6 +354,8 @@ function dragStartCallback(event) {
     
     transformControls.attach(event.object);
     scene.add(transformControls);
+
+    currentObject = event.object;
 }
 
 // Fonctions de base pour l'animation 
