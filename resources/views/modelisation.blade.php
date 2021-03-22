@@ -365,7 +365,7 @@
                                 <div class="modal-footer">
                                     <form method="POST" action="{{ route('reinitProjet3D') }}">
                                         {{ csrf_field() }}
-                                        <input id="reinitIdHidden" name="idReinit" type="hidden" value="{{ $idNewProjet }}">
+                                        <input id="idProjet3D" name="idProjet3D" type="hidden" value="{{ $idNewProjet }}">
                                         <button type="submit" class="btn btn-dark boutonReinit" name="reinitProjet3D">Valider et confirmer</button>
                                         <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
                                     </form>

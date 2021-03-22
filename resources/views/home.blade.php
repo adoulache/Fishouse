@@ -30,7 +30,7 @@
     <!--Pas alternées-->
     <div class="card-group">
         <div class="card mb-3">
-            <img src="{{ asset('../images/Modélisation2.png') }}" class="card-img-top" alt="fonctionnalité modélisation">
+            <a href="{{ route('projet') }}"><img src="{{ asset('../images/Modélisation2.png') }}" class="card-img-top" alt="fonctionnalité modélisation"></a>
             <div class="card-body">
                 <p class="card-text">La fonctionnalité "modélisation" te permet de créer et de simuler ton propre aquarium.</p>
                 <p class="card-text"><small class="text-muted">Fais le test en cliquant sur le bouton MODELISER, juste au-dessus
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="card mb-3">
-            <img src="{{ asset('../images/Catalogue2.png') }}" class="card-img-bottom" alt="fonctionnalité catalogue">
+            <a href="#"><img src="{{ asset('../images/Catalogue2.png') }}" class="card-img-bottom" alt="fonctionnalité catalogue"></a>
             <div class="card-body">
                 <p class="card-text">Le catalogue contient tous les éléments que tu recherches. Parcours-le et regarde ce que tu
                     aimerais pour ton aquarium !</p>
@@ -47,7 +47,7 @@
         </div>
 
         <div class="card mb-3">
-            <img src="{{ asset('../images/Forum2.png') }}" class="card-img-top" alt="fonctionnalité forum">
+            <a href="{{ route('forum') }}"><img src="{{ asset('../images/Forum2.png') }}" class="card-img-top" alt="fonctionnalité forum"></a>
             <div class="card-body">
                 <p class="card-text">Un souci ? Viens poser ta question et obtiens une réponse claire de passionnés, voire même
                     de professionnels !</p>
@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="card mb-3">
-            <img src="{{ asset('../images/Fiches2.png') }}" class="card-img-bottom" alt="fonctionnalité fiches techniques">
+            <a href="{{ route('fiches') }}"><img src="{{ asset('../images/Fiches2.png') }}" class="card-img-bottom" alt="fonctionnalité fiches techniques"></a>
             <div class="card-body">
                 <p class="card-text">Retrouve tous les éléments techniques dont tu as besoin, sur les plantes ou les poissons.
                 </p>

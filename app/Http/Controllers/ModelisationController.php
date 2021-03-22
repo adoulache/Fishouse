@@ -752,6 +752,14 @@ class ModelisationController extends Controller
             DB::table('projet_decorations_3d_temp')->where('id_projet', $idProjet)->delete();
         };
 
+        if (DB::table('projet_plantes_3d')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projet_plantes_3d')->where('id_projet', $idProjet)->delete();
+        };
+
+        if (DB::table('projet_decorations_3d')->where('id_projet', $idProjet)->exists()) {
+            DB::table('projet_decorations_3d')->where('id_projet', $idProjet)->delete();
+        };
+
         return redirect()->route('projet')->with('alert', 'Réinitialisation réussie !');
     }
 
@@ -767,9 +775,11 @@ class ModelisationController extends Controller
 
         if (DB::table('projet_plantes_3d_temp')->where('id_projet', $_GET['idProjet'])->exists()) {
             $plantes3D = DB::table('projet_plantes_3d_temp')->where('id_projet', $_GET['idProjet'])->get();
-            return response()->json(['plantes3D' => $plantes3D]);
+            //return response()->json(['plantes3D' => $plantes3D]);
+            return($plantes3D);
         } else {
-            return response()->json(['plantes3D' => '']);
+            //return response()->json(['plantes3D' => '']);
+            return('');
         }
     }
 
@@ -785,9 +795,11 @@ class ModelisationController extends Controller
 
         if (DB::table('projet_decorations_3d_temp')->where('id_projet', $_GET['idProjet'])->exists()) {
             $decos3D = DB::table('projet_decorations_3d_temp')->where('id_projet', $_GET['idProjet'])->get();
-            return response()->json(['decos3D' => $decos3D]);
+            //return response()->json(['decos3D' => $decos3D]);
+            return ($decos3D);
         } else {
-            return response()->json(['decos3D' => '']);
+            //return response()->json(['decos3D' => '']);
+            return('');
         }
     }
 
@@ -800,9 +812,11 @@ class ModelisationController extends Controller
     {
         if (DB::table('plantes_3d')->where('id_plante3d', $_GET['idPlante'])->exists()) {
             $chemin3D = DB::table('plantes_3d')->where('id_plante3d', $_GET['idPlante'])->value('nom_objet');
-            return response()->json(['chemin3D' => $chemin3D]);
+            //return response()->json(['chemin3D' => $chemin3D]);
+            return ($chemin3D);
         } else {
-            return response()->json(['chemin3D' => '']);
+            //return response()->json(['chemin3D' => '']);
+            return('');
         }
     }
 
@@ -815,9 +829,11 @@ class ModelisationController extends Controller
     {
         if (DB::table('decorations_3d')->where('id_decoration3d', $_GET['idDeco'])->exists()) {
             $chemin3D = DB::table('decorations_3d')->where('id_decoration3d', $_GET['idDeco'])->value('nom_objet');
-            return response()->json(['chemin3D' => $chemin3D]);
+            //return response()->json(['chemin3D' => $chemin3D]);
+            return($chemin3D);
         } else {
-            return response()->json(['chemin3D' => '']);
+            //return response()->json(['chemin3D' => '']);
+            return('');
         }
     }
 }
