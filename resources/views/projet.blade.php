@@ -10,9 +10,9 @@
             {{ session('alert') }}
         </div>
     @endif
-    <div class="projectText">
+    <div class="forumText">
         Mes projets de modélisation
-        <hr class="projectHr mx-auto">
+        <hr class="forumHr mx-auto">
     </div>
 
     <div class="container-fluid">

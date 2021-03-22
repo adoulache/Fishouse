@@ -1,9 +1,11 @@
 @extends('base')
 
 @section('content')
-    <h1 class="titleForum">Le forum
-        <hr class='hrForum'>
-    </h1>
+    <div class="projectText">
+        Le forum
+        <hr class="projectHr mx-auto">
+    </div>
+    <br>
 
     <div class="container">
         <form action="/recherche/" method="get">

@@ -1,9 +1,19 @@
-.titleForum{
+.forumText {
+    position: relative;
     font-size: 3rem;
-    font-family: Verdana, Tahoma, sans-serif;
-    color: #000;
-    text-transform: uppercase;
+    top: auto;
     text-align: center;
+    font-family: 'Palatino Linotype';
+    align-content: center;
+    color: rgb(3, 3, 3);
+    margin-top: 10px;
+}
+
+.forumHr {
+    background-color: rgb(7, 7, 7);
+    width: 3%;
+    height: 2px;
+    margin: auto;
 }
 
 .card-group{
