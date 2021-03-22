@@ -11,6 +11,11 @@ La nouvelle base de données se nomme "fishouse" et est encodée en "utf8mb4_gen
 **Il faut ensuite lancer la commande** : 
 - php artisan migrate:fresh (pour la première utilisation)
 
+**Déplacer les fichiers** :
+Pour des raisons de sécurité, le dossier "public" était ignoré lors de nos imports sur GitHub. 
+De ce fait, il est nécessaire de déplacer le dossier "object", se trouvant dans le dossier "resources" et de le copier dans le dossier "public".<br>
+Ensuite, il faut créer un dossier "js" dans ce même dossier "public" et y ajouter le fichier "_modelisation3D.js" se trouvant, lui-même, dans le dossier "resources", puis "js".
+
 **Lancer les commandes**: 
 - php artisan serve
 - npm run watch
