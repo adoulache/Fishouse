@@ -9,11 +9,14 @@ use View;
 
 class ModelisationController extends Controller
 {
+    const idProjetTest = null;
+
     //OUVERTURE D'UN PROJET EXISTANT (via bouton Modifier de la page des projets)
     public function openProject(Request $request)
     {
         //Id de l'utilisateur courant
         $idUser = Auth::id();
+
         $idProjet = $request->idProjet;
 
         //Données du projet existant
@@ -50,6 +53,7 @@ class ModelisationController extends Controller
                 ]);
         };
 
+        //RECUPERATION ELEMENTS 2D
         //Données de l'aquarium, relatif au projet existant
         if (DB::table('projet_decoration')->where('id_projet', $idProjet)->exists()) {
             $ProjetDecoration = DB::table('projet_decoration')
@@ -58,16 +62,18 @@ class ModelisationController extends Controller
                 ->get();
 
             //Copie des données du projet dans la table temporaire des projets
-            DB::table('projet_decoration_temp')
-                ->insert([
-                    'id_projet' => $ProjetDecoration[0]->id_projet,
-                    'id_unique' => $ProjetDecoration[0]->id_unique,
-                    'id_decoration' => $ProjetDecoration[0]->id_decoration,
-                    'coordx' => $ProjetDecoration[0]->coordx,
-                    'coordy' => $ProjetDecoration[0]->coordy,
-                    'coordz' => $ProjetDecoration[0]->coordz,
-                    'rotation' => $ProjetDecoration[0]->rotation
-                ]);
+            foreach ($ProjetDecoration as $value) {
+                DB::table('projet_decoration_temp')
+                    ->insert([
+                        'id_projet' => $value->id_projet,
+                        'id_unique' => $value->id_unique,
+                        'id_decoration' => $value->id_decoration,
+                        'coordx' => $value->coordx,
+                        'coordy' => $value->coordy,
+                        'coordz' => $value->coordz,
+                        'rotation' => $value->rotation
+                    ]);
+            }
         };
 
         //Données de l'aquarium, relatif au projet existant
@@ -78,16 +84,18 @@ class ModelisationController extends Controller
                 ->get();
 
             //Copie des données du projet dans la table temporaire des projets
-            DB::table('projet_plante_temp')
-                ->insert([
-                    'id_projet' => $ProjetPlante[0]->id_projet,
-                    'id_unique' => $ProjetPlante[0]->id_unique,
-                    'id_plante' => $ProjetPlante[0]->id_plante,
-                    'coordx' => $ProjetPlante[0]->coordx,
-                    'coordy' => $ProjetPlante[0]->coordy,
-                    'coordz' => $ProjetPlante[0]->coordz,
-                    'rotation' => $ProjetPlante[0]->rotation
-                ]);
+            foreach ($ProjetPlante as $value) {
+                DB::table('projet_plante_temp')
+                    ->insert([
+                        'id_projet' => $value->id_projet,
+                        'id_unique' => $value->id_unique,
+                        'id_plante' => $value->id_plante,
+                        'coordx' => $value->coordx,
+                        'coordy' => $value->coordy,
+                        'coordz' => $value->coordz,
+                        'rotation' => $value->rotation
+                    ]);
+            }
         };
 
         $listeDecorations = DB::table('decorations')
@@ -97,6 +105,53 @@ class ModelisationController extends Controller
         $listePlantes = DB::table('plantes')
             ->select(['id_plante', 'nom_latin', 'titre', 'titre_latin', 'description', 'nom_photo', 'tag', 'prix', 'taille'])
             ->get();
+
+        //RECUPERATION ELEMENTS 3D
+        //Données de l'aquarium, relatif au projet existant
+        if (DB::table('projet_decorations_3d')->where('id_projet', $idProjet)->exists()) {
+            $ProjetDecoration3D = DB::table('projet_decorations_3d')
+                ->select(['id_projet', 'id_decoration3d', 'coordx', 'coordy', 'coordz', 'rotationx', 'rotationy', 'rotationz'])
+                ->where('id_projet', $idProjet)
+                ->get();
+
+            //Copie des données du projet dans la table temporaire des projets
+            foreach ($ProjetDecoration3D as $value) {
+                DB::table('projet_decorations_3d_temp')
+                    ->insert([
+                        'id_projet' => $value->id_projet,
+                        'id_decoration3d' => $value->id_decoration3d,
+                        'coordx' => $value->coordx,
+                        'coordy' => $value->coordy,
+                        'coordz' => $value->coordz,
+                        'rotationx' => $value->rotationx,
+                        'rotationy' => $value->rotationy,
+                        'rotationz' => $value->rotationz
+                    ]);
+            }
+        };
+
+        //Données de l'aquarium, relatif au projet existant
+        if (DB::table('projet_plantes_3d')->where('id_projet', $idProjet)->exists()) {
+            $ProjetPlante3D = DB::table('projet_plantes_3d')
+                ->select(['id_projet', 'id_plante3d', 'coordx', 'coordy', 'coordz', 'rotationx', 'rotationy', 'rotationz'])
+                ->where('id_projet', $idProjet)
+                ->get();
+
+            //Copie des données du projet dans la table temporaire des projets
+            foreach ($ProjetPlante3D as $value) {
+                DB::table('projet_plantes_3d_temp')
+                ->insert([
+                    'id_projet' => $value->id_projet,
+                    'id_plante' => $value->id_plante,
+                    'coordx' => $value->coordx,
+                    'coordy' => $value->coordy,
+                    'coordz' => $value->coordz,
+                    'rotationx' => $value->rotationx,
+                    'rotationy' => $value->rotationy,
+                    'rotationz' => $value->rotationz
+                ]);
+            }
+        };
 
         $listeDecorations3D = DB::table('decorations_3d')
             ->select(['id_decoration3d', 'nom', 'titre', 'description', 'nom_objet', 'tag', 'prix', 'taille'])
@@ -350,67 +405,199 @@ class ModelisationController extends Controller
         }
     }
 
-    public function addOrUpdateElementToTmp()
+    // public function addOrUpdateElementToTmp()
+    // {
+
+    //     if (DB::table('plantes')->where('nom_photo', $_GET['imageName'])->exists()) {
+
+    //         // Get the element ID : id_plante
+    //         $idPlante = DB::table('plantes')
+    //             ->select('id_plante')
+    //             ->where('nom_photo', $_GET['imageName'])
+    //             ->get();
+
+    //         if (DB::table('projet_plante_temp')->where('id_unique', $_GET['idUnique'])->exists()) {
+
+    //             DB::table('projet_plante_temp')
+    //                 ->where('id_unique', $_GET['idUnique'])->update([
+    //                     'coordx' => $_GET['posX'],
+    //                     'coordz' => $_GET['posZ'],
+    //                 ]);
+
+    //         } else {
+    //             DB::table('projet_plante_temp')
+    //                 ->insert([
+    //                     'id_projet' => $_GET['idProjet'],
+    //                     'id_unique' => $_GET['idUnique'],
+    //                     'id_plante' => $idPlante[0]->id_plante,
+    //                     'coordx' => $_GET['posX'],
+    //                     'coordy' => 0,
+    //                     'coordz' => $_GET['posZ'],
+    //                     'rotation' => 0
+    //                 ]);
+    //         }
+
+    //     } elseif (DB::table('decorations')->where('nom_photo', $_GET['imageName'])->exists()) {
+
+    //         // Get the element ID : id_decoration
+    //         $idDecoration = DB::table('decorations')
+    //             ->select('id_decoration')
+    //             ->where('nom_photo', $_GET['imageName'])
+    //             ->get();
+
+    //         if (DB::table('projet_decoration_temp')->where('id_unique', $_GET['idUnique'])->exists()) {
+
+    //             DB::table('projet_decoration_temp')
+    //                 ->where('id_unique', $_GET['idUnique'])->update([
+    //                     'coordx' => $_GET['posX'],
+    //                     'coordz' => $_GET['posZ'],
+    //                 ]);
+
+    //         } else {
+    //             DB::table('projet_decoration_temp')
+    //                 ->insert([
+    //                     'id_projet' => $_GET['idProjet'],
+    //                     'id_unique' => $_GET['idUnique'],
+    //                     'id_decoration' => $idDecoration[0]->id_decoration,
+    //                     'coordx' => $_GET['posX'],
+    //                     'coordy' => 0,
+    //                     'coordz' => $_GET['posZ'],
+    //                     'rotation' => 0
+    //                 ]);
+    //         }
+
+    //     }
+
+    // }
+
+    public function postElementFace()
     {
+        if (DB::table('plantes')->where('nom_photo', $_POST['imageName'])->exists()) {
 
-        if (DB::table('plantes')->where('nom_photo', $_GET['imageName'])->exists()) {
-
-            // Get the element ID : id_plante
+            // Récupère l'élement ID : id_plante
             $idPlante = DB::table('plantes')
                 ->select('id_plante')
-                ->where('nom_photo', $_GET['imageName'])
+                ->where('nom_photo', $_POST['imageName'])
                 ->get();
+            
 
-            if (DB::table('projet_plante_temp')->where('id_unique', $_GET['idUnique'])->exists()) {
+            if (DB::table('projet_plante_temp')->where('id_unique', $_POST['idUnique'])->exists()) {
 
                 DB::table('projet_plante_temp')
-                    ->where('id_unique', $_GET['idUnique'])->update([
-                        'coordx' => $_GET['posX'],
-                        'coordz' => $_GET['posZ'],
+                    ->where('id_unique', $_POST['idUnique'])->update([
+                        'coordx' => $_POST['posX'],
+                        'coordz' => $_POST['posZ'],
                     ]);
 
             } else {
                 DB::table('projet_plante_temp')
                     ->insert([
-                        'id_projet' => $_GET['idProjet'],
-                        'id_unique' => $_GET['idUnique'],
+                        'id_projet' => $_POST['idProjet'],
+                        'id_unique' => $_POST['idUnique'],
                         'id_plante' => $idPlante[0]->id_plante,
-                        'coordx' => $_GET['posX'],
+                        'coordx' => $_POST['posX'],
                         'coordy' => 0,
-                        'coordz' => $_GET['posZ'],
+                        'coordz' => $_POST['posZ'],
                         'rotation' => 0
                     ]);
             }
+            
 
-        } elseif (DB::table('decorations')->where('nom_photo', $_GET['imageName'])->exists()) {
+        } elseif (DB::table('decorations')->where('nom_photo', $_POST['imageName'])->exists()) {
 
-            // Get the element ID : id_decoration
+            // Récupère l'élement ID : id_decoration
             $idDecoration = DB::table('decorations')
                 ->select('id_decoration')
-                ->where('nom_photo', $_GET['imageName'])
+                ->where('nom_photo', $_POST['imageName'])
                 ->get();
 
-            if (DB::table('projet_decoration_temp')->where('id_unique', $_GET['idUnique'])->exists()) {
+            if (DB::table('projet_decoration_temp')->where('id_unique', $_POST['idUnique'])->exists()) {
 
                 DB::table('projet_decoration_temp')
-                    ->where('id_unique', $_GET['idUnique'])->update([
-                        'coordx' => $_GET['posX'],
-                        'coordz' => $_GET['posZ'],
+                    ->where('id_unique', $_POST['idUnique'])->update([
+                        'coordx' => $_POST['posX'],
+                        'coordz' => $_POST['posZ'],
                     ]);
 
             } else {
                 DB::table('projet_decoration_temp')
                     ->insert([
-                        'id_projet' => $_GET['idProjet'],
-                        'id_unique' => $_GET['idUnique'],
+                        'id_projet' => $_POST['idProjet'],
+                        'id_unique' => $_POST['idUnique'],
                         'id_decoration' => $idDecoration[0]->id_decoration,
-                        'coordx' => $_GET['posX'],
+                        'coordx' => $_POST['posX'],
                         'coordy' => 0,
-                        'coordz' => $_GET['posZ'],
+                        'coordz' => $_POST['posZ'],
+                        'rotation' => 0
+                    ]);
+            }
+            
+        }
+
+    }
+
+    public function postElementCote()
+    {
+
+        if (DB::table('plantes')->where('nom_photo', $_POST['imageName'])->exists()) {
+
+            // Récupère l'élement ID : id_plante
+            $idPlante = DB::table('plantes')
+                ->select('id_plante')
+                ->where('nom_photo', $_POST['imageName'])
+                ->get();
+            
+
+            if (DB::table('projet_plante_temp')->where('id_unique', $_POST['idUnique'])->exists()) {
+
+                DB::table('projet_plante_temp')
+                    ->where('id_unique', $_POST['idUnique'])->update([
+                        'coordy' => $_POST['posY'],
+                        'coordz' => $_POST['posZ'],
+                    ]);
+
+            } else {
+                DB::table('projet_plante_temp')
+                    ->insert([
+                        'id_projet' => $_POST['idProjet'],
+                        'id_unique' => $_POST['idUnique'],
+                        'id_plante' => $idPlante[0]->id_plante,
+                        'coordx' => 0,
+                        'coordy' => $_POST['posY'],
+                        'coordz' => $_POST['posZ'],
                         'rotation' => 0
                     ]);
             }
 
+        } elseif (DB::table('decorations')->where('nom_photo', $_POST['imageName'])->exists()) {
+
+            // Récupère l'élement ID : id_decoration
+            $idDecoration = DB::table('decorations')
+                ->select('id_decoration')
+                ->where('nom_photo', $_POST['imageName'])
+                ->get();
+
+            if (DB::table('projet_decoration_temp')->where('id_unique', $_POST['idUnique'])->exists()) {
+
+                DB::table('projet_decoration_temp')
+                    ->where('id_unique', $_POST['idUnique'])->update([
+                        'coordy' => $_POST['posY'],
+                        'coordz' => $_POST['posZ'],
+                    ]);
+
+            } else {
+                DB::table('projet_decoration_temp')
+                    ->insert([
+                        'id_projet' => $_POST['idProjet'],
+                        'id_unique' => $_POST['idUnique'],
+                        'id_decoration' => $idDecoration[0]->id_decoration,
+                        'coordx' => 0,
+                        'coordy' => $_POST['posY'],
+                        'coordz' => $_POST['posZ'],
+                        'rotation' => 0
+                    ]);
+            }
+            
         }
 
     }
@@ -430,6 +617,8 @@ class ModelisationController extends Controller
 
         }
     }
+
+    /**MODELISATION 3D */
     /**
      * Permet de mettre dans la table temporaire l'objet ajouté
      */
@@ -493,7 +682,7 @@ class ModelisationController extends Controller
                 DB::table('projet_plantes_3d')
                     ->insert([
                         'id_projet' => $plante->id_projet,
-                        'id_plante' => $plante->id_plante,
+                        'id_plante3d' => $plante->id_plante3d,
                         'coordx' => $plante->coordx,
                         'coordy' => $plante->coordy,
                         'coordz' => $plante->coordz,
@@ -518,7 +707,7 @@ class ModelisationController extends Controller
                 DB::table('projet_decorations_3d')
                     ->insert([
                         'id_projet' => $deco->id_projet,
-                        'id_decoration' => $deco->id_decoration,
+                        'id_decoration3d' => $deco->id_decoration3d,
                         'coordx' => $deco->coordx,
                         'coordy' => $deco->coordy,
                         'coordz' => $deco->coordz,
@@ -530,7 +719,7 @@ class ModelisationController extends Controller
 
             //table temporaire des projet_deoration (suppression)
             DB::table('projet_decorations_3d_temp')->where('id_projet', $idProjet)->delete();
-        }
+        };
 
         if (DB::table('projet_aquarium_temp')->where('id_projet', $idProjet)->exists()) {
 
@@ -548,9 +737,9 @@ class ModelisationController extends Controller
             //table temporaire des projet_bac (suppression)
             DB::table('projet_aquarium_temp')->where('id_projet', $idProjet)->delete();
 
-        }
+        };
 
-        return redirect()->route('openProjet',array('id' => $idProjet,'name' => $nomProjet))->with('alert', 'Sauvegarde réussie !');
+        return redirect()->route('projet')->with('alert', 'Sauvegarde réussie !');
     }
 
     /**
@@ -568,7 +757,73 @@ class ModelisationController extends Controller
             DB::table('projet_decorations_3d_temp')->where('id_projet', $idProjet)->delete();
         };
 
-        return redirect()->route('openProjet',array('id' => $idProjet,'name' => 'projet_'.$idProjet))->with('alert', 'Réinitialisation réussie !');
+        return redirect()->route('projet')->with('alert', 'Réinitialisation réussie !');
+    }
+
+    /**
+     * Récupère les plantes d'un projet
+     *
+     * @return JSON plantes se trouvant dans le projet
+     */
+    public function getPlantes3D()
+    {
+        /* Modification : récupération des éléments dans les bases temporaires
+            (les bases fixes sont copiées dans les bases temporaires à l'ouverture du projet) */
+
+        if (DB::table('projet_plantes_3d_temp')->where('id_projet', $_GET['idProjet'])->exists()) {
+            $plantes3D = DB::table('projet_plantes_3d_temp')->where('id_projet', $_GET['idProjet'])->get();
+            return response()->json(['plantes3D' => $plantes3D]);
+        } else {
+            return response()->json(['plantes3D' => '']);
+        }
+    }
+
+    /**
+     * Récupère les décorations d'un projet
+     *
+     * @return JSON décorations se trouvant dans le projet
+     */
+    public function getDecos3D()
+    {
+        /* Modification : récupération des éléments dans les bases temporaires
+            (les bases fixes sont copiées dans les bases temporaires à l'ouverture du projet) */
+
+        if (DB::table('projet_decorations_3d_temp')->where('id_projet', $_GET['idProjet'])->exists()) {
+            $decos3D = DB::table('projet_decorations_3d_temp')->where('id_projet', $_GET['idProjet'])->get();
+            return response()->json(['decos3D' => $decos3D]);
+        } else {
+            return response()->json(['decos3D' => '']);
+        }
+    }
+
+    /**
+     * Récupère le nom du fichier de la plante
+     *
+     * @return JSON nom du fichier de la plante
+     */
+    public function getCheminPlante3D()
+    {
+        if (DB::table('plantes_3d')->where('id_plante3d', $_GET['idPlante'])->exists()) {
+            $chemin3D = DB::table('plantes_3d')->where('id_plante3d', $_GET['idPlante'])->value('nom_objet');
+            return response()->json(['chemin3D' => $chemin3D]);
+        } else {
+            return response()->json(['chemin3D' => '']);
+        }
+    }
+
+    /**
+     * Récupère le nom du fichier de la décoration
+     *
+     * @return JSON nom du fichier de la décoration
+     */
+    public function getCheminDeco3D()
+    {
+        if (DB::table('decorations_3d')->where('id_decoration3d', $_GET['idDeco'])->exists()) {
+            $chemin3D = DB::table('decorations_3d')->where('id_decoration3d', $_GET['idDeco'])->value('nom_objet');
+            return response()->json(['chemin3D' => $chemin3D]);
+        } else {
+            return response()->json(['chemin3D' => '']);
+        }
     }
 }
 

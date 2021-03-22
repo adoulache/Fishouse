@@ -3,6 +3,13 @@
 <!--Fonctionnalité principale : projet-->
 @section('content')
     @if (Auth::check())
+    @if (session('alert'))
+        <br>
+        <div class="alert alert-success">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{ session('alert') }}
+        </div>
+    @endif
     <div class="projectText">
         Mes projets de modélisation
         <hr class="projectHr mx-auto">
@@ -16,7 +23,7 @@
                 <h2 class="projectTitle"> {{ $listeProjet->nom_projet }} </h2>
                 <img src="{{ asset('../images/aquarium.jpg') }}" class="imageProjetExistant" id="projetExistant"/>
                 <div class="buttonProjetsExistants">
-                    <form method="post" action="{{ route('openProjet') }}">
+                    <form method="POST" action="{{ route('openProjet') }}">
                         {{ csrf_field() }}
                         <input id="idProjet" name="idProjet" type="hidden" value="{{ $listeProjet->id_projet }}">
                         <button type="submit" class="btn btn-dark openProjetExis" name="openProjet">Modifier</button>

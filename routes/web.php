@@ -41,9 +41,13 @@ Route::get('/modelisation8', [ModelisationController::class, 'getCheminDeco']);
 Route::post('/modelisation3D1', [ModelisationController::class, 'saveProject3D'])->name('nameProjet3D');
 Route::post('/modelisation3D2', [ModelisationController::class, 'resetProject3D'])->name('reinitProjet3D');
 Route::post('/modelisation3D3', [ModelisationController::class, 'insertObject3D'])->name('insertObject3D');
+Route::get('/modelisation3D4', [ModelisationController::class, 'getPlantes3D']);
+Route::get('/modelisation3D5', [ModelisationController::class, 'getDecos3D']);
+Route::get('/modelisation3D6', [ModelisationController::class, 'getCheminPlante3D']);
+Route::get('/modelisation3D7', [ModelisationController::class, 'getCheminDeco3D']);
 
 // Route vers la page modelisation: (Peut-être qu'il sert plus à rien, A VERIFIER)
-Route::post('/modelisationExistante', [ModelisationController::class, 'openProject'])->name('openProjet');
+Route::get('/modelisationExistante', [ModelisationController::class, 'openProject'])->name('openProjet');
 
 Route::get('/ma_modelisation', [ModelisationController::class, 'catalogues'])->name('catalogue');
 Route::post('/modelisation', [ModelisationController::class, 'addProject'])->name('ajoutProjet');
@@ -86,6 +90,8 @@ Route::get('/testDrag', function () {
 
 // Route Ajax ajout decoration :
 Route::get('/ajoutDeco', [ModelisationController::class, 'addOrUpdateElementToTmp'])->name('add-deco');
+Route::post('/ajoutDecoFace', [ModelisationController::class, 'postElementFace'])->name('postElementFace');
+Route::post('/ajoutDecoCote', [ModelisationController::class, 'postElementCote'])->name('postElementCote');
 
 // Route Ajax suppression decoration :
 Route::get('/deleteDeco', [ModelisationController::class, 'deleteElementFromTmp'])->name('delete-deco');

@@ -4,20 +4,13 @@
 @section('content')
     @if (Auth::check())
     <div class="container" style="width:100%">
-        <br>
-        @if (session('alert'))
-            <div class="alert alert-success">
-                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                {{ session('alert') }}
-            </div>
-        @endif
         <p class="h3">Type de modélisation :</p>
         <ul class="nav nav-tabs nav-justified">
             <li class="nav-item">
                 <a class="nav-link active" href="#model2D" data-toggle="tab"> Modélisation 2D </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#model3D" data-toggle="tab"> Modélisation 3D </a>
+                <a class="nav-link btnOnglet3D" href="#model3D" data-toggle="tab" id="{{ $idNewProjet }}"> Modélisation 3D </a>
             </li>
         </ul>
         <br>
@@ -77,6 +70,7 @@
 
                     <div class="col-md-9 col-sm-9 blocModelisation justify-content-center align-items-center">
                         <div id="idProjetCache" class="d-none">{{ $idNewProjet }}</div>
+                        <div id="nomFaceCache" class="d-none"></div>
                         <!-- BOUTONS DU PROJET -->
                         <div class="boutonsProjet row">
                             <!-- Bouton pour la réinitialisation du projet -->
@@ -208,11 +202,8 @@
                                         </div>
                                     @endforeach
                                     @foreach($listePlantes3D as $listePlante3D)
-                                        <div class="newObjectCard row justify-content-center align-items-center"
-                                             data-toggle="tooltip" data-placement="top"
-                                             title="{{$listePlante3D->description}}">
-                                            <img src="{{ asset('../images/'.$listePlante3D->nom_objet.'.png') }}"
-                                                 class="newObjectPicture">
+                                        <div class="newObjectCard row justify-content-center align-items-center" data-toggle="tooltip" data-placement="top" title="{{$listePlante3D->description}}">
+                                            <img src="{{ asset('../images/'.$listePlante3D->nom_objet.'.png') }}" class="newObjectPicture">
                                             <div class="newObjectDescription">
                                                 <p> {{ $listePlante3D->titre }} </p>
                                             </div>
@@ -239,7 +230,8 @@
                         <button type="button" class="btn btn-dark" id="boutonSauve3D" data-toggle="modal" data-target="#nameProject3D">Sauvegarder</button>
                         @else
                         <br>
-                        <form method="post" action="{{ route('nameProjet3D') }}">
+                        <form method="POST" action="{{ route('nameProjet3D') }}">
+                        {{ csrf_field() }}
                             <input id="nomProjet3D" name="nomProjet3D" type="hidden" value="{{ $nomProjet }}">
                             <input id="idProjet3D" name="idProjet3D" type="hidden" value="{{ $idNewProjet }}">
                             <button type="submit" class="btn btn-dark boutonName3D" name="nameProjet3D">Sauvegarder</button>
@@ -253,7 +245,7 @@
                             <div class="modal-content">
                                 <!-- Header pop-up -->
                                 <div class="modal-header">
-                                    <p class="modal-title newprojectText"> Aide - touches raccourcis <span id="supprId"></span> </p>
+                                    <p class="modal-title newprojectText"> Aide - touches <span id="supprId"></span> </p>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -263,7 +255,7 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Raccourci</th>
+                                                <th>Touche</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -288,6 +280,30 @@
                                                 <td>Touche "-"</td>
                                                 <td>Diminue la taille des axes</td>
                                             </tr>
+                                            <tr>
+                                                <td>Touche "d"</td>
+                                                <td>Supprime un objet</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Touche "c"</td>
+                                                <td>Change de caméra</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Touche "x"</td>
+                                                <td>Cache l'axe X</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Touche "y"</td>
+                                                <td>Cache l'axe Y</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Touche "z"</td>
+                                                <td>Cache l'axe Z</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Touche " "</td>
+                                                <td>Active ou désactive le contrôle</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -304,7 +320,7 @@
                     <!-- DEBUT POP-UP, demande du nom du projet 3D -->
                     <div class="modal fade" id="nameProject3D" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
-                            <form method="post" action="{{ route('nameProjet3D') }}">
+                            <form method="POST" action="{{ route('nameProjet3D') }}">
                                 {{ csrf_field() }}
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -345,7 +361,7 @@
                                     <div>Attention, après sauvegarde, tous les éléments de ton aquarium seront définitivement supprimés.</div>
                                 </div>
                                 <div class="modal-footer">
-                                    <form method="post" action="{{ route('suppProjet') }}">
+                                    <form method="POST" action="{{ route('reinitProjet3D') }}">
                                         {{ csrf_field() }}
                                         <input id="reinitIdHidden" name="idReinit" type="hidden" value="{{ $idNewProjet }}">
                                         <button type="submit" class="btn btn-dark boutonReinit" name="reinitProjet3D">Valider et confirmer</button>

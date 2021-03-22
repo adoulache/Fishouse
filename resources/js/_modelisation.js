@@ -1,5 +1,7 @@
 $(function () {
     const idProjet = $('#idProjetCache').text();
+    $('#nomFaceCache').text("face");
+
     console.log('id_projet _modelisation.js ' + idProjet);
 
     $(function () {
@@ -487,7 +489,7 @@ function formSuccess(){
                     image.setAttribute('value', o[4]);
                     //console.log(image.src);
                 } else {
-                    image.src = 'http://127.0.0.1:8000/../images/' + o[3];
+                    image.src = 'http://127.0.0.1:8000/../images/miroir_' + o[3];
                     image.setAttribute('value', o[4]);
                     //console.log(image.src);
                 }
@@ -505,42 +507,54 @@ function formSuccess(){
                     let x;
                     let y;
                     if (vue == "face") {
-                        x = o[0] + marge; //coordx + marge
-                        y = hautCanvas - marge - o[2] - hauteur;
+                        x = o[0] ;//+ marge; //coordx + marge
+                        y = hautCanvas - o[2] - hauteur;//- marge - o[2] - hauteur;
                     } else if (vue == "fond") {
-                        x = larCanvas - marge - o[0] - largeur;
-                        y = hautCanvas - marge - o[2] - hauteur;
+                        x = larCanvas - o[0] - largeur;//marge - o[0] - largeur;
+                        y = hautCanvas - o[2] - hauteur;//marge - o[2] - hauteur;
                     } else if (vue == "droite") {
-                        x = o[1] + marge;
-                        y = hautCanvas - marge - o[2] - hauteur;
+                        x = o[1] //+ marge;
+                        y = hautCanvas - o[2] - hauteur;//marge - o[2] - hauteur;
                     } else if (vue == "gauche") {
-                        x = larCanvas - marge - (longPetit - profPetit) - o[1] - largeur;
-                        y = hautCanvas - marge - o[2] - hauteur;
+                        x = larCanvas - (longPetit - profPetit) - o[1] - largeur;//- marge - (longPetit - profPetit) - o[1] - largeur;
+                        y = hautCanvas - o[2] - hauteur;//- marge - o[2] - hauteur;
                     }
                     // Si jamais l'image sort de l'aquarium, on la remet dedans
                     //if (x + largeurImage > largeurCanvas - margeDroiteLong){
+                    //ADE
                     if (vue == "droite" || vue == "gauche") {
-                        if (x + largeur > marge + profPetit) {
-                            x = marge + profPetit - largeur;
-                        } else if (x < marge) {
-                            x = marge;
+                        //if (x + largeur > marge + profPetit) {
+                        if (x + largeur > profPetit) {
+                            //x = marge + profPetit - largeur;
+                            x = profPetit - largeur;
+                        /*} else if (x < marge) {
+                            x = marge;*/
+                        } else if (x < 0) {
+                            x = 0;
                         }
                         ;
                     } else {
-                        if (x + largeur > marge + longPetit) {
-                            x = marge + longPetit - largeur;
-                        } else if (x < marge) {
-                            x = marge;
+                        if (x + largeur > longPetit) {//> marge + longPetit) {
+                           // x = marge + longPetit - largeur;
+                           x =  longPetit - largeur;
+                        /*} else if (x < marge) {
+                            x = marge;*/
+                        } else if (x < 0) {
+                            x = 0;
                         }
                         ;
                     }
                     ;
-                    if (y + hauteur > marge + hautPetit) {
+                    /*if (y + hauteur > marge + hautPetit) {
                         y = marge + hautPetit - hauteur
                     } else if (y < marge) {
                         y = marge;
-                    }
-                    ;
+                    };*/
+                    if (y + hauteur > hautPetit) {
+                        y = hautPetit - hauteur
+                    } else if (y < 0) {
+                        y = 0;
+                    };
 
                     //ctx2.globalCompositeOperation="destination-over";
                     //ctx2.drawImage(this, x, y, largeur, hauteur);//,largeurImage, hauteurImage);
@@ -574,24 +588,28 @@ function formSuccess(){
         };
 
         $('#aqFace').on('click', function () {
+            $('#nomFaceCache').text("face");
             //traceContour(ctx2, can, longPetit, hautPetit);
             let objetsAquarium = recupObjets2();
             //afficheContenu(objetsAquarium, 'face', ctx2);
             afficheContenu(objetsAquarium, 'face');
         });
         $('#aqFond').on('click', function () {
+            $('#nomFaceCache').text("fond");
             //traceContour(ctx2, can, longPetit, hautPetit);
             let objetsAquarium = recupObjets2();
             //afficheContenu(objetsAquarium, 'fond', ctx2);
             afficheContenu(objetsAquarium, 'fond');
         });
         $('#aqGauche').on('click', function () {
+            $('#nomFaceCache').text("gauche");
             //traceContour(ctx2, can, profPetit, hautPetit);
             let objetsAquarium = recupObjets2();
             //afficheContenu(objetsAquarium, 'gauche', ctx2);
             afficheContenu(objetsAquarium, 'gauche');
         });
         $('#aqDroite').on('click', function () {
+            $('#nomFaceCache').text("droite");
             //traceContour(ctx2, can, profPetit, hautPetit);
             let objetsAquarium = recupObjets2();
             //afficheContenu(objetsAquarium, 'droite', ctx2);
