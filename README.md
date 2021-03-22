@@ -1,21 +1,21 @@
 ## Pré-requis pour lancer le projet 
 
-Lancer les commandes : 
+<u>Lancer les commandes</u> : 
 - composer install 
 - npm install 
 
-Créer la base de données :<br>
+<u>Créer la base de données</u> :<br>
 Il est nécessaire de commencer par lancer XAMPP (ou Wamp / Mamp).
 Ensuite, sur le site [PHPMyAdmin](http://localhost/phpmyadmin/), il faut créer une nouvelle base de données.
-La nouvelle base de données se nomme "fishouse" et est encodée en "utf8mb4_general_ci".<br>
-Il faut ensuite lancer la commande : 
+La nouvelle base de données se nomme "fishouse" et est encodée en "utf8mb4_general_ci".<br><br>
+<u>Il faut ensuite lancer la commande</u> : 
 - php artisan migrate:fresh (pour la première utilisation)
 
-Lancer les commandes : 
+<u>Lancer les commandes</u> : 
 - php artisan serve
 - npm run watch
 
-Accéder à l'adresse :
+<u>Accéder à l'adresse</u> :
 - [FisHouse](http://127.0.0.1:8000/)
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
