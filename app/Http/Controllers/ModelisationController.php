@@ -812,11 +812,9 @@ class ModelisationController extends Controller
     {
         if (DB::table('plantes_3d')->where('id_plante3d', $_GET['idPlante'])->exists()) {
             $chemin3D = DB::table('plantes_3d')->where('id_plante3d', $_GET['idPlante'])->value('nom_objet');
-            //return response()->json(['chemin3D' => $chemin3D]);
-            return ($chemin3D);
+            return response()->json(['chemin3D' => $chemin3D]);
         } else {
-            //return response()->json(['chemin3D' => '']);
-            return('');
+            return response()->json(['chemin3D' => '']);
         }
     }
 
@@ -829,11 +827,10 @@ class ModelisationController extends Controller
     {
         if (DB::table('decorations_3d')->where('id_decoration3d', $_GET['idDeco'])->exists()) {
             $chemin3D = DB::table('decorations_3d')->where('id_decoration3d', $_GET['idDeco'])->value('nom_objet');
-            //return response()->json(['chemin3D' => $chemin3D]);
-            return($chemin3D);
+            return response()->json(['chemin3D' => $chemin3D]);
+            //return($chemin3D);
         } else {
-            //return response()->json(['chemin3D' => '']);
-            return('');
+            return response()->json(['chemin3D' => '']);
         }
     }
 }
