@@ -4,10 +4,10 @@ Lancer les commandes :
 - composer install 
 - npm install 
 
-Créer la base de données :
+Créer la base de données :<br>
 Il est nécessaire de commencer par lancer XAMPP (ou Wamp / Mamp).
 Ensuite, sur le site [PHPMyAdmin](http://localhost/phpmyadmin/), il faut créer une nouvelle base de données.
-La nouvelle base de données se nomme "fishouse" et est encodée en "utf8mb4_general_ci".
+La nouvelle base de données se nomme "fishouse" et est encodée en "utf8mb4_general_ci".<br>
 Il faut ensuite lancer la commande : 
 - php artisan migrate:fresh (pour la première utilisation)
 

@@ -653,8 +653,7 @@ class ModelisationController extends Controller
             //table projets (insertion)
             DB::table('projets_temp')
                 ->where('id_projet', $idProjet)
-                ->update(['nom_projet' => $nomProjet,
-                        'partage' => true]);
+                ->update(['nom_projet' => $nomProjet]);
             $val = DB::table('projets_temp')->where('id_projet', $idProjet)->first();
 
             DB::table('projets')

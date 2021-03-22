@@ -5,14 +5,12 @@
     <div class="container-fluid">
         <div class='row'>
             <div class='col-2' id='historique'>
-                <div class="container-fluid pt-4">
-                    Historique
-                </div>
+                <p class="titreBlocHistorique">Historique</p>
             </div>
             <div class='col-10'>
                 <div class="container-fluid p-3">
                     <h2 id="titleFiche" style="font-family: 'Palatino Linotype';">Fiches techniques</h2>
-                    <hr id="hrFiche">
+                    <hr id="hrFiche" style="margin-top:10px;margin-right:auto;margin-left:auto;margin-bottom:auto">
                 </div>
                 <div class="container-fluid">
                     <!-- Onglets -->
@@ -31,10 +29,16 @@
                             <!-- Barre de recherche -->
                             <div class="mt-3">
                                 <form class="form-inline">
-                                    <select class="form-control mr-sm-2">
-                                        <option selected="selected" value="0">Catégorie</option>
-                                        <option value="1">Cat 1</option>
-                                    </select>
+                                    <div class="dropdown form_control" style="margin-right:7px">
+                                        <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown">
+                                            Catégorie
+                                            <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Catégorie 1</a></li>
+                                            <li><a href="#">Catégorie 2</a></li>
+                                            <li><a href="#">Catégorie 3</a></li>
+                                        </ul>
+                                    </div>
                                     <input class="form-control mr-sm-2" type="search" placeholder="Poisson rouge, tetra, guppy, ..." id="barre-recherche-poisson">
                                     <button class="btn btn-dark" type="submit"><i class="fa fa-search"></i></button>
                                 </form>
@@ -111,7 +115,7 @@
                             <!-- Pagination -->
                             <div class="mt-3">
                                 <nav aria-label="Exemple de pagination">
-                                    <ul class="pagination justify-content-end">
+                                    <ul class="pagination justify-content-end colorPage">
                                         <li class="page-item"><a class="page-link" href="#">Précédent</a></li>
                                         <li class="page-item"><a class="page-link" href="#">1</a></li>
                                         <li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -120,6 +124,7 @@
                                     </ul>
                                 </nav>
                             </div>
+                            <br>
                         </div>
 
                         <!-- Onglet n°2 : plantes -->
@@ -127,10 +132,16 @@
                             <!-- Barre de recherche -->
                             <div class="mt-3">
                                 <form class="form-inline">
-                                    <select class="form-control mr-sm-2">
-                                        <option selected="selected" value="0">Catégorie</option>
-                                        <option value="1">Cat 1</option>
-                                    </select>
+                                    <div class="dropdown form_control" style="margin-right:7px">
+                                        <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown">
+                                            Catégorie
+                                            <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Catégorie 1</a></li>
+                                            <li><a href="#">Catégorie 2</a></li>
+                                            <li><a href="#">Catégorie 3</a></li>
+                                        </ul>
+                                    </div>
                                     <input class="form-control mr-sm-2" type="search" placeholder="Anémone, échinodorus, ..." id="barre-recherche-plante">
                                     <button class="btn btn-dark" type="submit"><i class="fa fa-search"></i></button>
                                 </form>
@@ -142,8 +153,8 @@
                                     <img src="https://media.cdnws.com/_i/1792/2847/1/50/anubias-barteri-var-nana.jpeg" class="card-img-top" alt="Anubias">
                                     <div class="card-footer container-fluid">Anubias</div>
                                 </button>
-                                <button class="card" data-toggle="modal" data-target="#modalPlante" data-image="https://www.nausicaa.fr/content/uploads/2018/04/1280x677-Corail-Tubastrea-faulkneri-Justin-Casp-copie-compressor.jpg" data-titre="Tubastrea">
-                                    <img src="https://www.nausicaa.fr/content/uploads/2018/04/1280x677-Corail-Tubastrea-faulkneri-Justin-Casp-copie-compressor.jpg"
+                                <button class="card" data-toggle="modal" data-target="#modalPlante" data-image="http://users.skynet.be/fa514047/images/166litres/Tubastrea.JPG" data-titre="Tubastrea">
+                                    <img src="http://users.skynet.be/fa514047/images/166litres/Tubastrea.JPG"
                                          class="card-img-top" alt="Corail tubastrée orange">
                                     <div class="card-footer container-fluid">Tubastrea</div>
                                 </button>
@@ -152,8 +163,8 @@
                                          class="card-img-top" alt="Ludwigia">
                                     <div class="card-footer container-fluid">Ludwigia</div>
                                     </buton>
-                                    <button class="card" data-toggle="modal" data-target="#modalPlante" data-image="https://lh3.googleusercontent.com/proxy/wABG7TQgpUxLhwCHMwJXJXz_J20lxWEmwjp8dsX65HcN09stO1TqbSyeLU0JrDvdoh7anhTGoF9p5XX3M_K1BW6ldPcW2btPumLlC4WOIGrNxHpP5jpbcPDXmsg1PVA" data-titre="Euphyllia">
-                                        <img src="https://lh3.googleusercontent.com/proxy/wABG7TQgpUxLhwCHMwJXJXz_J20lxWEmwjp8dsX65HcN09stO1TqbSyeLU0JrDvdoh7anhTGoF9p5XX3M_K1BW6ldPcW2btPumLlC4WOIGrNxHpP5jpbcPDXmsg1PVA"
+                                    <button class="card" data-toggle="modal" data-target="#modalPlante" data-image="https://www.beke.co.nz/media/euphyllia-ancora.1808/full" data-titre="Euphyllia">
+                                        <img src="https://www.beke.co.nz/media/euphyllia-ancora.1808/full"
                                              class="card-img-top" alt="Euphyllia">
                                         <div class="card-footer container-fluid">Euphyllia</div>
                                     </button>
@@ -271,7 +282,7 @@
                             <!-- Pagination -->
                             <div class="mt-3">
                                 <nav aria-label="Exemple de pagination">
-                                    <ul class="pagination justify-content-end">
+                                    <ul class="pagination justify-content-end colorPage">
                                         <li class="page-item"><a class="page-link" href="#">Précédent</a></li>
                                         <li class="page-item"><a class="page-link" href="#">1</a></li>
                                         <li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -280,6 +291,7 @@
                                     </ul>
                                 </nav>
                             </div>
+                            <br>
                         </div>
                         <!-- Script pour passer d'un onglet à l'autre -->
                         <script>

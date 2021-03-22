@@ -8,7 +8,7 @@
     <div class="row h-100 align-items-center py-5">
       <div class="col-lg-7">
         <h1 class="display-4">A propos de FisHouse</h1>
-        <p class="lead text-muted mb-0">Nous sommes une jeune entreprise, dont les membres sont tous droits sortis de l'IDMC de Nancy ! Nous sommes actuellement en Master Sciences Cognitives et nous faisons ce projet dans le cadre de plusieurs cours comme "Ergonomie des applications", "Introduction à l'IHM" et "Technologies du web avancées".</p>
+        <p class="lead text-muted mb-0">Nous sommes une jeune entreprise, dont les membres sont tout droit sortis de l'IDMC de Nancy ! Nous sommes actuellement en Master Sciences Cognitives et nous faisons ce projet dans le cadre de plusieurs cours comme "Ergonomie des applications", "Introduction à l'IHM" et "Technologies du web avancées".</p>
       </div>
       <div class="col-lg-5 d-none d-lg-block"><img src="{{ asset('../images/professional.png') }}" style="width:75%;margin:auto" alt="" class="img-fluid"></div>
     </div>

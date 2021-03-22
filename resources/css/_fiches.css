@@ -12,6 +12,14 @@
     width: 50%;
 }
 
+.titreBlocHistorique{
+    color:black;
+    font-size: large;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
 /* Titre et trait sous le titre */
 
 #titleFiche{
@@ -40,6 +48,16 @@
     color: rgb(0, 0, 0);
     /*color:white;
     background-color: #000;*/
+}
+
+.colorPage > li > a {
+    color:#148F77;
+}
+
+.colorPage > li > a:hover,
+.colorPage > li > a:focus {
+    background-color: #148F77;
+    color:white;
 }
 
 .card{

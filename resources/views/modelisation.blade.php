@@ -4,6 +4,7 @@
 @section('content')
     @if (Auth::check())
     <div class="container" style="width:100%">
+        <br>
         <p class="h3">Type de modélisation :</p>
         <ul class="nav nav-tabs nav-justified">
             <li class="nav-item">
@@ -72,7 +73,7 @@
                         <div id="idProjetCache" class="d-none">{{ $idNewProjet }}</div>
                         <div id="nomFaceCache" class="d-none"></div>
                         <!-- BOUTONS DU PROJET -->
-                        <div class="boutonsProjet row">
+                        <div class="boutonsProjet">
                             <!-- Bouton pour la réinitialisation du projet -->
                             <button type="button" class="btn btn-dark" id="boutonReinit">Reinitialiser</button>
 
@@ -95,6 +96,7 @@
                                 <img src="{{ asset('../images/droite.png') }}" style="width:50px;">
                             </button>
                         </div>
+                        <br>
                         <div id="avantMod2D">
                             <div id="mod2D-test" class="dropzone cadreMod2D" style="width:1000px;height:500px;"></div>
 
@@ -241,7 +243,7 @@
 
                     <!-- DEBUT POP-UP, aide -->
                     <div id="help" class="modal fade">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog" >
                             <div class="modal-content">
                                 <!-- Header pop-up -->
                                 <div class="modal-header">
@@ -251,7 +253,7 @@
                                     </button>
                                 </div>
                                 <!-- Body pop-up -->
-                                <div class="modal-body container">
+                                <div class="modal-body container" style="overflow:auto; height:300px">
                                     <table class="table">
                                         <thead>
                                             <tr>
